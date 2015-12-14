@@ -7,30 +7,32 @@
 
 
 listMines <- function(){
-      mines <- c('http://www.flymine.org/release-40.0',
-              'http://intermine.modencode.org/release-33',
+      mines <- c('http://www.flymine.org/flymine',              
               'http://www.mousemine.org/mousemine',
-                  'http://ratmine.mcw.edu/ratmine',
+              'http://ratmine.mcw.edu/ratmine',
               'http://www.wormbase.org/tools/wormmine',
               'http://yeastmine.yeastgenome.org/yeastmine',
-              'http://zmine.zfin.org',
-              'http://targetmine.nibio.go.jp/targetmine',
-              'http://www.flytf.org/flytfmine',
+              'http://zebrafishmine.org',
+              'http://targetmine.mizuguchilab.org/targetmine',
               'http://mitominer.mrc-mbu.cam.ac.uk/release-3.1',
-              'http://www.metabolicmine.org/beta',
+              'http://www.humanmine.org/humanmine',
+              'http://www.cbrc.kaust.edu.sa/indigo',
+              'https://apps.araport.org/thalemine',
+              'http://medicmine.jcvi.org/medicmine',
               'http://phytozome.jgi.doe.gov/phytomine') 
         
       names(mines) <- c('FlyMine',
-        'ModMine',
         'MouseMine',
         'RatMine',
         'WormMine',
         'YeastMine',
         'ZebraFishMine',
         'TargetMine',
-        'FlyTF',
         'MitoMiner',
-        'MetabolicMine',
+        'HumanMine',
+        'indigoMine',
+        'thalemine',
+        'medicmine',
         'PhytoMine')
       mines
 }
