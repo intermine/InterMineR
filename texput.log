@@ -1,0 +1,20 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/MacPorts 2014_1) (preloaded format=pdflatex 2014.10.6)  6 OCT 2014 16:37
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\usepackage{zi4}\usepackage{zi4}
+! Emergency stop.
+<*> \usepackage{zi4}\usepackage{zi4}
+                                    
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 2 strings out of 494213
+ 111 string characters out of 6157463
+ 48530 words of memory out of 5000000
+ 3399 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 430 hyphenation exceptions out of 8191
+ 4i,0n,5p,36b,14s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!

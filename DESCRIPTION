@@ -1,0 +1,12 @@
+Package: RInterMine
+Type: Package
+Title: R Interface with InterMine-powered databases
+Version: 1.0
+Date: 2012-08-30
+Author: InterMine Team
+Maintainer: InterMine Team <info@intermine.org>
+Description: InterMine-powered databases such as FlyMine, modENCODE, RatMine, YeastMine, MetabolicMine and TargetMine are integrated databases of genomic, expression and protein data for various organisms.  Integrating data makes it possible to run sophisticated data mining queries that span domains of biological knowledge.  This R package provides interface with these databases through webservices.  It makes most from the correspondence of the data frame object in R and the table object in databases while hiding the details of data exchange through XML or JSON.   
+License: LGPL
+Imports: Biostrings, RCurl, XML, RJSONIO, sqldf, igraph
+Suggests: Gviz
+Packaged: 2014-10-06 16:25:20 UTC; bingwang

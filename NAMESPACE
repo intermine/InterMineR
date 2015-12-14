@@ -1,0 +1,2 @@
+export(listMines, initInterMine, getVersion, getRelease, getModel, getTemplates, getTemplateQuery, runQuery, newQuery, getLists, newList, renameList, deleteList, getRegionFeature, getRegionSequence, doEnrichment)
+import(Biostrings, RCurl, XML, RJSONIO, sqldf, igraph)
