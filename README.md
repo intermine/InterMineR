@@ -1,3 +1,5 @@
+Master: [![Build Status: master][travis-badge-master]][ci]
+
 # R-InterMine
 
 R package for accessing InterMine instances
@@ -28,3 +30,7 @@ All credit goes to Bing Wang.
 ## License
 
 LGPL. See LICENSE for details.
+
+[travis-badge-master]: https://travis-ci.org/intermine/rintermine.svg?branch=master
+
+
