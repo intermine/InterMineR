@@ -1,6 +1,6 @@
 Package: RInterMine
 Title: R Interface with InterMine-Powered Databases
-Version: .99
+Version: 0.99
 Date: 2015-12-17
 Author: InterMine Team
 Maintainer: InterMine Team <info@intermine.org>
