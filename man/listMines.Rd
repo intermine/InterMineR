@@ -7,7 +7,7 @@ List the available InterMine-powered databases
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-InterMine-powered databases such as FlyMine, modENCODE, RatMine, YeastMine, MetabolicMine and TargetMine are integrated databases of genomic, expression and protein data for various organisms.  The function listMines() lists the current available databases.
+InterMine-powered databases such as FlyMine, modENCODE, RatMine, YeastMine, HumanMine and TargetMine are integrated databases of genomic, expression and protein data for various organisms.  The function listMines() lists the current available databases.
 }
 \usage{
 listMines()

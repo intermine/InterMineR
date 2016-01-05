@@ -40,7 +40,7 @@ FlyMine & \parbox{3cm}{Drosophila\\A. gambiae} & Genes, homology, proteins, inte
 modMine & \parbox{3cm}{C.elegans,\\D.melanogaster} & mRNA, histone modification, non-TF chromatin binding factor, transcriptional factor, small RNA, chromatin structure \\ \hline
 RatMine & \parbox{3cm}{R.norvegicus,\\H.sapiens,\\M.musculus} & Disease, gene ontology, genomics, interactions, phenotype, pathway, proteins, publication,, QTL, SNP \\ \hline
 YeastMine & S.cerevisiae & Genomics, proteins, gene ontology, comparative genomics, phenotypes, interactions, literature, pathways, gene expression \\ \hline
-MetabolicMine & \parbox{3cm}{H.sapiens,\\M.musculus} & Genomics, SNPs, GWAS, proteins, gene ontoloyg, pathways, gene expression, interactions, publications, disease, orthologues, alleles \\ \hline
+HumanMine & \parbox{3cm}{H.sapiens,\\M.musculus} & Genomics, SNPs, GWAS, proteins, gene ontoloyg, pathways, gene expression, interactions, publications, disease, orthologues, alleles \\ \hline
 TargetMine & \parbox{3cm}{H. sapiens,\\M. musculus,\\R. norvegicus,\\Drosophila} & Genomics, proteins, gene ontology, pathways, interactions, disease, compounds, enzymes \\ \hline
 \end{tabular}
 \end{center}
@@ -62,10 +62,10 @@ library(RInterMine)
 listMines()
 @
 \end{scriptsize}
-Since we would like to query human genes, MetabolicMine is the choice.
+Since we would like to query human genes, HumanMine is the choice.
 \begin{scriptsize}
 <<>>=
-im <- initInterMine(mine=listMines()["MetabolicMine"])
+im <- initInterMine(mine=listMines()["HumanMine"])
 im
 @
 \end{scriptsize}

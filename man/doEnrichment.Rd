@@ -77,7 +77,7 @@ InterMine Team
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 %}
 \examples{
-im <- initInterMine("metabolicmine.org/beta", "TOKEN") #replace TOKEN with your token
+im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
 \dontrun{doEnrichment(im, c("ABO", "ALB"), 'go_enrichment_for_gene', 'cellular_component',
       correction="NONE")}

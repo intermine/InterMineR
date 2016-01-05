@@ -22,7 +22,7 @@ listMines()
 ###################################################
 ### code chunk number 4: RInterMine.Rnw:67-69
 ###################################################
-im <- initInterMine(mine=listMines()["MetabolicMine"])
+im <- initInterMine(mine=listMines()["HumanMine"])
 im
 
 

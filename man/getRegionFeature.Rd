@@ -74,7 +74,7 @@ InterMine Team
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 %}
 \examples{
-im <- initInterMine("metabolicmine.org/beta") #replace TOKEN with your token
+im <- initInterMine("humanmine.org/humanmine") #replace TOKEN with your token
 
 gf <- getRegionFeature(im, c("X:99000000..99895088"), c("Exon"))
 }

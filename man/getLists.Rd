@@ -51,7 +51,7 @@ InterMine Team
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 %}
 \examples{
-im <- initInterMine("metabolicmine.org/beta", "TOKEN") #replace TOKEN with your token
+im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
 gl <- getLists(im)
 }

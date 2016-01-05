@@ -56,7 +56,7 @@ InterMine Team
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 %}
 \examples{
-im <- initInterMine("metabolicmine.org/beta")
+im <- initInterMine("humanmine.org/humanmine")
 
 template <- getTemplates(im)
 }
