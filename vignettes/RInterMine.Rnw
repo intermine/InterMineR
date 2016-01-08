@@ -133,8 +133,8 @@ resGeneLoc
 We would first modify the constraints of the query to find the location of the gene ABO.
 \begin{scriptsize}
 <<>>=
-queryGeneLoc$constraints[1, "value"]="ABO"
-queryGeneLoc$constraints
+queryGeneLoc$where[1, "value"]="ABO"
+queryGeneLoc$where
 resGeneLoc <- runQuery(im, queryGeneLoc)
 resGeneLoc
 @
@@ -159,8 +159,8 @@ Now we would like to restrict to only output the human gene.  We need to change 
 \begin{scriptsize}
 <<>>=
 newConstraint <- c("Gene.organism.name", "=", "Homo sapiens", "B", "")
-queryGeneLoc$constraints <- rbind(queryGeneLoc$constraints, newConstraint)
-queryGeneLoc$constraints
+queryGeneLoc$where <- rbind(queryGeneLoc$where, newConstraint)
+queryGeneLoc$where
 resGeneLoc <- runQuery(im, queryGeneLoc)
 resGeneLoc
 @
@@ -182,9 +182,9 @@ resGeneLoc
 \begin{scriptsize}
 <<>>=
 queryGeneSeq <- getTemplateQuery(im, "Gene_Location")
-queryGeneSeq$constraints[1, "value"]="ABO"
+queryGeneSeq$where[1, "value"]="ABO"
 newConstraint <- c("Gene.organism.name", "=", "Homo sapiens", "B", "")
-queryGeneSeq$constraints <- rbind(queryGeneSeq$constraints, newConstraint)
+queryGeneSeq$where <- rbind(queryGeneSeq$where, newConstraint)
 @
 \end{scriptsize}
 \item Change the view to contain only one element
@@ -207,9 +207,9 @@ resGeneSeq
 \begin{scriptsize}
 <<>>=
 queryGeneLoc <- getTemplateQuery(im, "Gene_Location")
-queryGeneLoc$constraints[1, "value"]="ABO"
+queryGeneLoc$where[1, "value"]="ABO"
 newConstraint <- c("Gene.organism.name", "=", "Homo sapiens", "B", "")
-queryGeneLoc$constraints <- rbind(queryGeneLoc$constraints, newConstraint)
+queryGeneLoc$where <- rbind(queryGeneLoc$where, newConstraint)
 resGeneLoc <- runQuery(im, queryGeneLoc)
 @
 \end{scriptsize}
@@ -237,9 +237,9 @@ newConstraint2 <- c("Gene.locations.start", ">=",
 newConstraint3 <- c("Gene.locations.end", "<=", 
                     as.numeric(resGeneLoc[1, "Gene.locations.end"])+50000, "C", "")
 newConstraint4 <- c("Gene.organism.name", "=", "Homo sapiens", "D", "")
-queryNeighborGene$constraints <- rbind(queryNeighborGene$constraints, 
+queryNeighborGene$where <- rbind(queryNeighborGene$where, 
                                        newConstraint1, newConstraint2, newConstraint3, newConstraint4)
-queryNeighborGene$constraints
+queryNeighborGene$where
 @
 \end{scriptsize}
 \item Define the sort order
@@ -263,19 +263,22 @@ resNeighborGene$Gene.locations.strand[which(resNeighborGene$Gene.locations.stran
 resNeighborGene$Gene.locations.strand[which(resNeighborGene$Gene.locations.strand==-1)]="-"
 gene.idx <- which(nchar(resNeighborGene$Gene.symbol)==0)
 resNeighborGene$Gene.symbol[gene.idx]=resNeighborGene$Gene.primaryIdentifier[gene.idx]
+chromosomeIdentifier <- paste("chr",resNeighborGene$Gene.chromosome.primaryIdentifier[1])
 #resNeighborGene
 require(Gviz)
 annTrack <- AnnotationTrack(start=resNeighborGene$Gene.locations.start, 
                             end=resNeighborGene$Gene.locations.end, 
                             strand=resNeighborGene$Gene.locations.strand, 
-                            chromosome=resNeighborGene$Gene.chromosome.primaryIdentifier[1],
+                            chromosome=chromosomeIdentifier,
                             genome="hg19", name="around ABO",id=resNeighborGene$Gene.symbol)
 #annTrack
 @
 \end{scriptsize}
 \begin{center}
 <<fig=TRUE>>=
-plotTracks(annTrack, shape="box", showFeatureId=T, fontcolor="black")
+
+plotTracks(annTrack, shape="box", showFeatureId=T, fontcolor="black", from=0, to=0)
+
 @
 \end{center}
 \end{itemize}
@@ -298,8 +301,8 @@ queryGeneGO$view
 \item Modify the constraints to look for gene ABO.
 \begin{scriptsize}
 <<>>=
-queryGeneGO$constraints[1, "value"]="ABO"
-queryGeneGO$constraints
+queryGeneGO$where[1, "value"]="ABO"
+queryGeneGO$where
 @
 \end{scriptsize}
 \item Run the query
@@ -330,8 +333,8 @@ queryGOGene$view
 \item Modify the constraints to look for GO term "metal ion binding".
 \begin{scriptsize}
 <<>>=
-queryGOGene$constraints[1, "value"]="metal ion binding"
-queryGOGene$constraints
+queryGOGene$where[1, "value"]="metal ion binding"
+queryGOGene$where
 @
 \end{scriptsize}
 \item Run the query

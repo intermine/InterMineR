@@ -226,16 +226,16 @@ listModelSummary <- function(model){
 #<servlet-name>ws-template</servlet-name>
 #<url-pattern>/service/templates/*</url-pattern>
 getTemplates <- function(im, format="data.frame", timeout=3){
-      if(format=="data.frame"){
-            template.string <- getURL(paste(im$mine, "/service/templates/xml", sep=""), .opts = list(timeout = timeout))
+      if (format=="data.frame"){
+            template.string <- getURL(paste(im$mine, "/service/templates?format=xml", sep=""), .opts = list(timeout = timeout))
             if(length(grep("^\\[ERROR\\]", template.string))>0){
                   print(template.string)
                   return(NULL)
             }
             template <- xmlParse(template.string)
             res <- listTemplateSummary(template)
-      }else if(format == "list"){
-            template.string <- getURL(paste(im$mine, "/service/templates/json", sep=""), .opts = list(timeout = timeout))
+      } else if(format == "list"){
+            template.string <- getURL(paste(im$mine, "/service/templates?format=json", sep=""), .opts = list(timeout = timeout))
             if(length(grep("^\\[ERROR\\]", template.string))>0){
                   print(template.string)
                   return(NULL)
@@ -256,14 +256,11 @@ listTemplateSummary <- function(template){
 
 getTemplateQuery <- function(im, name, timeout=3){
       template <- getTemplates(im, "list")
-      
       ql <- template[[name]]
-      ql$constraints <- do.call(rbind, ql$constraints)
-      if(!("extraValue" %in% colnames(ql$constraints))){
-            
-            ql$constraints <- cbind(ql$constraints, extraValue=rep("", nrow(ql$constraints)))
+      ql$where <- do.call(rbind, ql$where)
+      if(!("extraValue" %in% colnames(ql$where))){
+            ql$where <- cbind(ql$where, extraValue=rep("", nrow(ql$where)))
       }
-
       ql
 }
 
@@ -370,14 +367,13 @@ queryXML2List <- function(qx){
       ql$sortOrder <- qxl$.attrs["sortOrder"][1]
       names(ql$sortOrder) <- NULL
      
-      ql$constraints <- do.call(rbind, qxl[which(names(qxl)=="constraint")])
-      rownames(ql$constraints) <- NULL
+      ql$constraint <- do.call(rbind, qxl[which(names(qxl)=="constraint")])
+      rownames(ql$constraint) <- NULL
       ql$constraintLogic <- qxl$.attrs["constraintLogic"]
       names(ql$constraintLogic) <- NULL
             
       ql
 }
-
 
 queryList2XML <- function(ql){
       nq <- newXMLNode("query")
@@ -390,20 +386,19 @@ queryList2XML <- function(ql){
       if(!is.null(ql$sortOrder)){
             xmlAttrs(nq)[["sortOrder"]] <- ql$sortOrder
       }
-      
-      
-      for(i in 1:nrow(ql$constraints)){
+      if(!is.null(ql$where)){
+       for(i in 1:nrow(ql$where)){
             cnc <- newXMLNode("constraint")
-            xmlAttrs(cnc)[["path"]] <- ql$constraints[i, "path"]
-           
-            xmlAttrs(cnc)[["op"]] <- ql$constraints[i, "op"]
-            xmlAttrs(cnc)[["value"]] <- ql$constraints[i, "value"]
-            xmlAttrs(cnc)[["code"]] <- ql$constraints[i, "code"]
-            if("extraValue" %in% colnames(ql$constraints)){
-                  xmlAttrs(cnc)[["extraValue"]] <- ql$constraints[i, "extraValue"]
+            xmlAttrs(cnc)[["path"]] <- ql$where[i, "path"]
+            xmlAttrs(cnc)[["op"]] <- ql$where[i, "op"]
+            xmlAttrs(cnc)[["value"]] <- ql$where[i, "value"]
+            xmlAttrs(cnc)[["code"]] <- ql$where[i, "code"]
+            if("extraValue" %in% colnames(ql$where)){
+                  xmlAttrs(cnc)[["extraValue"]] <- ql$where[i, "extraValue"]
             }
             
             addChildren(nq, kids=list(cnc), at=xmlSize(nq))
+        }
       }
       
       if(!is.null(ql$constraintLogic)){
@@ -421,7 +416,7 @@ newQuery <- function(name="", view=character(), sortOrder="", longDescription=""
       nq$view <- paste(view,collapse=" ")
       nq$description <- longDescription
       nq$sortOrder <- sortOrder
-      nq$constraints <- constraints
+      nq$where <- constraints
       nq$constraintLogic <- constraintLogic
       
       nq
@@ -522,7 +517,7 @@ getRegionFeature <- function(im, regions, featureType, organism="H. sapiens", ex
             qry <- newQuery('gr', 
                      c('Exon.primaryIdentifier','Exon.transcripts.primaryIdentifier',
                     'Exon.gene.primaryIdentifier','Exon.gene.symbol'))
-            qry$constraints <- rbind(qry$constraints, c('Exon', 'LOOKUP', paste(rec$exon,collapse=','), "A", ""))
+            qry$constraint <- rbind(qry$constraint, c('Exon', 'LOOKUP', paste(rec$exon,collapse=','), "A", ""))
             qry.res <- runQuery(im, qry)
     
             join.res <- NULL
