@@ -76,7 +76,7 @@ InterMine Team
 \examples{
 im <- initInterMine("humanmine.org/humanmine") #replace TOKEN with your token
 
-gf <- getRegionFeature(im, c("X:99000000..99895088"), c("Exon"))
+gf <- getRegionFeature(im, c("3:12287368-12434356"), c("Gene"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

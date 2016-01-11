@@ -72,7 +72,9 @@ InterMine Team
 \examples{
 im <- initInterMine("humanmine.org/humanmine")
 
-gf <- getRegionSequence(im, c("X:99000000..99895088"))
+#gf <- getRegionSequence(im, c("X:99000000..99895088"))
+gf <- getRegionSequence(im, c("11:17200000..17500000"))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
