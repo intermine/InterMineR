@@ -1,6 +1,6 @@
 Package: RInterMine
 Title: R Interface with InterMine-Powered Databases
-Version: 0.99.0
+Version: 0.99.2
 Date: 2016-01-05
 Author: InterMine Team
 Maintainer: InterMine Team <info@intermine.org>
@@ -9,4 +9,5 @@ License: LGPL
 Imports: Biostrings, RCurl, XML, RJSONIO, sqldf, igraph
 Suggests: Gviz
 BugReports: https://github.com/intermine/rintermine/issues
-
+biocViews: GeneExpression, SNP, GeneSetEnrichment, DifferentialExpression, GeneRegulation, GenomeAnnotation, GenomeWideAssociation, FunctionalPrediction, Alternative splicing, dataImport, Comparative genomics, FunctionalGenomics, Proteomics, Systems biology, Microarray, MultipleComparison, Pathways, 
+Visualisation

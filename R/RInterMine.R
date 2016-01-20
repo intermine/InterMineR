@@ -361,7 +361,7 @@ queryXML2List <- function(qx){
       
       ql$name <- qxl$.attrs["name"]
       names(ql$name) <- NULL
-      ql$view <- strsplit(qxl$.attrs["view"], "\\s+", perl=T)[[1]]
+      ql$view <- strsplit(qxl$.attrs["view"], "\\s+", perl=TRUE)[[1]]
       ql$description <- qxl$.attrs["longDescription"]
       names(ql$description) <- NULL
       ql$sortOrder <- qxl$.attrs["sortOrder"][1]
@@ -609,5 +609,5 @@ doEnrichment <- function(im, genelist, ontology, subcategory='', maxp=0.05,
       
       
       deleteList(im, name)
-      data.frame(do.call(rbind, result), stringsAsFactors=F)
+      data.frame(do.call(rbind, result), stringsAsFactors=FALSE)
 }
