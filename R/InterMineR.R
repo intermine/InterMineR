@@ -107,12 +107,15 @@ listModelSummary <- function(model){
      
       igr <- graph.data.frame(data.frame(
           parent=class.parent[which(!is.na(class.parent))], 
-          name=class.name[which(!is.na(class.parent))]), vertices=data.frame(unique(c(class.name, class.parent[which(!is.na(class.parent))]))))
+          name=class.name[which(!is.na(class.parent))]), 
+          vertices=data.frame(unique(c(class.name, 
+            class.parent[which(!is.na(class.parent))]))))
                               
       igr.sp <- shortest.paths(igr, mode="in")
     
     
-      att <- lapply(class.name, function(x) data.frame(do.call(rbind, model[[x]][["attributes"]]), stringsAsFactors=F))
+      att <- lapply(class.name, function(x) data.frame(do.call(rbind, 
+              model[[x]][["attributes"]]), stringsAsFactors=F))
       names(att) <- class.name
       
       att.ext <- rep(list(NULL), length(class.name))
@@ -138,7 +141,8 @@ listModelSummary <- function(model){
       ref <- lapply(class.name, function(x){
             y <- model[[x]][["references"]]
             if(length(y)==0){
-                  z <- data.frame(matrix(character(0), 0, 2,dimnames=list(NULL, c("name", "referencedType"))))
+                  z <- data.frame(matrix(character(0), 0, 2,dimnames=list(NULL, 
+                        c("name", "referencedType"))))
             }else{
                   z1 <- names(y)
                   z2 <- sapply(y, function(ye) ye[["referencedType"]])
@@ -168,7 +172,8 @@ listModelSummary <- function(model){
       col <- lapply(class.name, function(x){
             y <- model[[x]][["collections"]]
             if(length(y)==0){
-                  z <- data.frame(matrix(character(0), 0, 2,dimnames=list(NULL, c("name", "referencedType"))))
+                  z <- data.frame(matrix(character(0), 0, 2,dimnames=list(NULL, 
+                      c("name", "referencedType"))))
             }else{
                   z1 <- names(y)
                   z2 <- sapply(y, function(ye) ye[["referencedType"]])
@@ -218,12 +223,14 @@ listModelSummary <- function(model){
 #<url-pattern>/service/templates/*</url-pattern>
 getTemplates <- function(im, format="data.frame", timeout=3){
       if (format=="data.frame"){
-            template.string <- GET(paste(im$mine, "/service/templates?format=xml", sep=""))
+            template.string <- GET(paste(im$mine, 
+                                "/service/templates?format=xml", sep=""))
             stop_for_status(template.string)
             template <- xmlParse(template.string)
             res <- listTemplateSummary(template)
       } else if(format == "list"){
-            template.string <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
+            template.string <- GET(paste(im$mine, 
+                                "/service/templates?format=json", sep=""))
             stop_for_status(template.string)
             res <- fromJSON(template.string)$templates
         
@@ -286,7 +293,8 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             }else{
                   if(length(getNodeSet(res.xml, "//Result"))>0){  
                         answer= xmlToDataFrame(res, stringsAsFactors=F)
-                        colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],"\\s+", perl=TRUE)[[1]]
+                        colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],
+                                              "\\s+", perl=TRUE)[[1]]
                   }
                   else{
                         answer=NULL
@@ -297,8 +305,9 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             query.str <- utilities.URLencode(toString.XMLNode(query))
             query.str <- gsub("&", '%26', query.str)
             query.str <- gsub(";", '%3B', query.str)
-            res <- GET(utilities.URLencode(paste(im$mine, "/service/query/results/fasta?query=", 
-                                          toString.XMLNode(query),sep=""))
+            res <- GET(utilities.URLencode(paste(im$mine, 
+                    "/service/query/results/fasta?query=", 
+                      toString.XMLNode(query),sep=""))
             stop_for_status(r)
             lines <- strsplit(res,'\\n')
             
@@ -309,7 +318,8 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
                   seq <- character(length(idx))
                   idx <- c(idx, length(lines[[1]])+1)
                   for(i in 1:(length(idx)-1)){
-                        seq[i] <- paste(lines[[1]][(idx[i]+1):(idx[i+1]-1)], collapse="")
+                        seq[i] <- paste(lines[[1]][(idx[i]+1):(idx[i+1]-1)], 
+                                    collapse="")
                   }
                   dset <- BStringSet(seq)
                   names(dset) <- gsub("^>", "", lines[[1]][idx[-length(idx)]])
@@ -384,7 +394,8 @@ queryList2XML <- function(ql){
 }
 
 newQuery <- function(name="", view=character(), sortOrder="", longDescription="", 
-                     constraints=matrix(character(0), 0, 5,dimnames=list(NULL, c('path', 'op', 'value', 'code', 'extraValue'))),
+                     constraints=matrix(character(0), 0, 5,dimnames=list(NULL, 
+                        c('path', 'op', 'value', 'code', 'extraValue'))),
                      constraintLogic=NULL){
       nq <- list()
       nq$name <- name
@@ -406,20 +417,23 @@ getLists <- function(im, timeout=3){
       stop_for_status(res)
       res.list <- lapply(fromJSON(res)$lists, 
                        function(x) sapply(x, 
-                                          function(y) ifelse(is.list(y), paste(unlist(y), collapse="|"), y)))
+                                          function(y) ifelse(is.list(y), 
+                                            paste(unlist(y), collapse="|"), y)))
 
       res.df <- data.frame(do.call(rbind, res.list), stringsAsFactors=F)
      
       res.df
 }
 
-newList <- function(im, name, gene,  organism="H.+sapiens",  description="", timeout=30){
-      url <- paste(im$mine, "/service/lists/json?name=", name, "&description=",description,"&type=Gene",
+newList <- function(im, name, gene,  organism="H.+sapiens",  description="", 
+            timeout=30){
+      url <- paste(im$mine, "/service/lists/json?name=", name, "&description=",
+              description,"&type=Gene",
                  "&extraValue=", organism,  "&token=", im$token, sep="")
 
       if(is.vector(gene)){
-            fh <- fileUpload(filename="",contents=paste(gene, collapse=" "), contentType="text/plain")
-        
+            fh <- fileUpload(filename="",contents=paste(gene, collapse=" "), 
+                    contentType="text/plain")        
             res <- postForm(url, identifiers=fh, .opts = list(timeout = timeout))
       }else if(is.character(gene) & length(gene)>0){
             fh <- fileUpload(gene, contentType="text/plain")
@@ -434,8 +448,9 @@ newList <- function(im, name, gene,  organism="H.+sapiens",  description="", tim
 #<servlet-name>ws-rename-list</servlet-name>
 #<url-pattern>/service/lists/rename/*</url-pattern>
 renameList <- function(im, old.name, new.name, timeout=3){
-      res <- GET(utilities.URLencode(paste(im$mine, "/service/lists/rename/json?oldname=", old.name, 
-                        "&newname=",new.name,"&token=",im$token,sep=""))
+      res <- GET(utilities.URLencode(paste(im$mine, 
+                "/service/lists/rename/json?oldname=", old.name, 
+                "&newname=",new.name,"&token=",im$token,sep=""))
       stop_for_status(res)
       res.list <- fromJSON(res)
     
@@ -558,8 +573,7 @@ doEnrichment <- function(im, genelist, ontology, subcategory='', maxp=0.05,
       }
       
       res <- GET(utilities.URLencode(paste(im$mine, "/service/list/enrichment?widget=", ontology, "&list=", name, 
-                  "&filter=", subcategory, "&maxp=", maxp, "&correction=", correction, "&token=",im$token, sep='')),
-                    .opts = list(timeout = timeout))
+                  "&filter=", subcategory, "&maxp=", maxp, "&correction=", correction, "&token=",im$token, sep='')))
       stop_for_status(res)
       status <- fromJSON(res)
 
