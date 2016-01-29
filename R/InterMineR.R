@@ -306,7 +306,7 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             }else{
                   if(length(getNodeSet(res.xml, "//Result"))>0){  
                         answer= xmlToDataFrame(res, stringsAsFactors=F)
-                        colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],"\\s+", perl=T)[[1]]
+                        colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],"\\s+", perl=TRUE)[[1]]
                   }
                   else{
                         answer=NULL
