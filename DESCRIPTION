@@ -9,4 +9,4 @@ License: LGPL
 Imports: Biostrings, RCurl, XML, RJSONIO, sqldf, igraph
 Suggests: Gviz
 BugReports: https://github.com/intermine/rintermine/issues
-biocViews: GeneExpression, SNP, GeneSetEnrichment, DifferentialExpression, GeneRegulation, GenomeAnnotation, GenomeWideAssociation, FunctionalPrediction, AlternativeSplicing, ComparativeGenomics, FunctionalGenomics, Proteomics, SystemsBiology, Microarray, MultipleComparison, Pathways, GO, KEGG, Reactome, Visualisation
+biocViews: GeneExpression, SNP, GeneSetEnrichment, DifferentialExpression, GeneRegulation, GenomeAnnotation, GenomeWideAssociation, FunctionalPrediction, AlternativeSplicing, ComparativeGenomics, FunctionalGenomics, Proteomics, SystemsBiology, Microarray, MultipleComparison, Pathways, GO, KEGG, Reactome, Visualization
