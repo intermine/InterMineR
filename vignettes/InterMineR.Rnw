@@ -80,7 +80,7 @@ head(template)
 We would like to find templates involving genes.
 \begin{scriptsize}
 <<>>=
-template[grep("gene", template$name, ignore.case=T),]
+template[grep("gene", template$name, ignore.case=TRUE),]
 @
 \end{scriptsize}
 The template Gene\_Location seems to be what we are looking for.  We look further into the details of this template. 
