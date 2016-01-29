@@ -8,6 +8,7 @@
 
 listMines <- function(){
       mines <- c('http://www.flymine.org/flymine',              
+              'http://monkeymine',
               'http://www.mousemine.org/mousemine',
               'http://ratmine.mcw.edu/ratmine',
               'http://www.wormbase.org/tools/wormmine',
@@ -22,6 +23,7 @@ listMines <- function(){
               'http://phytozome.jgi.doe.gov/phytomine') 
         
       names(mines) <- c('FlyMine',
+        'MonkeyMine',
         'MouseMine',
         'RatMine',
         'WormMine',
@@ -51,15 +53,14 @@ initInterMine <- function(mine = listMines()["HumanMine"], token=""){
 #<servlet-name>ws-version</servlet-name>
 #<url-pattern>/service/version/*</url-pattern>
 getVersion <- function(im, timeout=3){
-      v <- GET(paste(im$mine, "/service/version", sep=""), .opts = list(timeout = timeout))
-     
-      stop_for_status(r)
+      v <- GET(paste(im$mine, "/service/version", sep = ""))
+      stop_for_status(v)
       as.integer(gsub("\n","",v))
 }
 
 getRelease <- function(im, timeout=3){
-      v <- GET(paste(im$mine, "/service/version/release", sep=""), .opts = list(timeout = timeout))
-      stop_for_status(r)
+      v <- GET(paste(im$mine, "/service/version/release", sep = ""))
+      stop_for_status(v)
       gsub("\n","",v)
 }
 
@@ -69,8 +70,8 @@ getRelease <- function(im, timeout=3){
 #<servlet-name>ws-model</servlet-name>
 #<url-pattern>/service/model/*</url-pattern>
 getModel <- function(im, timeout=3){
-      model.string <- GET(paste(im$mine, "/service/model/json", sep=""), .opts = list(timeout = timeout))
-      stop_for_status(r)
+      model.string <- GET(paste(im$mine, "/service/model", sep=""))
+      stop_for_status(model.string )
       model <- fromJSON(model.string)$model$classes
       
       res <- listModelSummary(model)
@@ -217,13 +218,13 @@ listModelSummary <- function(model){
 #<url-pattern>/service/templates/*</url-pattern>
 getTemplates <- function(im, format="data.frame", timeout=3){
       if (format=="data.frame"){
-            template.string <- GET(paste(im$mine, "/service/templates?format=xml", sep=""), .opts = list(timeout = timeout))
-            stop_for_status(r)
+            template.string <- GET(paste(im$mine, "/service/templates?format=xml", sep=""))
+            stop_for_status(template.string)
             template <- xmlParse(template.string)
             res <- listTemplateSummary(template)
       } else if(format == "list"){
-            template.string <- GET(paste(im$mine, "/service/templates?format=json", sep=""), .opts = list(timeout = timeout))
-            stop_for_status(r)
+            template.string <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
+            stop_for_status(template.string)
             res <- fromJSON(template.string)$templates
         
       }
@@ -276,10 +277,8 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             query.str <- gsub(";", '%3B', query.str)
             
             res <- GET(paste(im$mine, "/service/query/results?query=", 
-                        query.str,"&format=xml",sep=""),
-                        ssl.verifypeer = FALSE, useragent = "R", timeout=timeout
-                  )
-            stop_for_status(r)
+                        query.str,"&format=xml",sep="")
+            stop_for_status(res)
             res.xml <- xmlRoot(xmlParse(res))
       
             if(names(res.xml[1])=="error"){
@@ -299,9 +298,7 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             query.str <- gsub("&", '%26', query.str)
             query.str <- gsub(";", '%3B', query.str)
             res <- GET(utilities.URLencode(paste(im$mine, "/service/query/results/fasta?query=", 
-                                          toString.XMLNode(query),sep="")),
-                          ssl.verifypeer = FALSE, useragent = "R", timeout=timeout
-                          )
+                                          toString.XMLNode(query),sep=""))
             stop_for_status(r)
             lines <- strsplit(res,'\\n')
             
@@ -405,7 +402,7 @@ newQuery <- function(name="", view=character(), sortOrder="", longDescription=""
 #<servlet-name>ws-available-lists</servlet-name>
 #<url-pattern>/service/lists/*</url-pattern>
 getLists <- function(im, timeout=3){
-      res <- GET(paste(im$mine, "/service/lists?token=",im$token, sep=""), .opts = list(timeout = timeout))
+      res <- GET(paste(im$mine, "/service/lists?token=",im$token, sep=""))
       stop_for_status(res)
       res.list <- lapply(fromJSON(res)$lists, 
                        function(x) sapply(x, 
@@ -438,16 +435,16 @@ newList <- function(im, name, gene,  organism="H.+sapiens",  description="", tim
 #<url-pattern>/service/lists/rename/*</url-pattern>
 renameList <- function(im, old.name, new.name, timeout=3){
       res <- GET(utilities.URLencode(paste(im$mine, "/service/lists/rename/json?oldname=", old.name, 
-                        "&newname=",new.name,"&token=",im$token,sep="")),.opts = list(timeout = timeout))
-      stop_for_status(r)
+                        "&newname=",new.name,"&token=",im$token,sep=""))
+      stop_for_status(res)
       res.list <- fromJSON(res)
     
       res.list
 }
 
 deleteList <- function(im, name, timeout=3){
-      res <- httpDELETE(paste(im$mine, "/service/lists/json?name=", name, 
-                                  "&format=tab&token=",im$token,sep=""), .opts=list(timeout = timeout))
+      res <- DELETE(paste(im$mine, "/service/lists/json?name=", name, 
+          "&format=tab&token=",im$token,sep=""), .opts=list(timeout = timeout))
     
       fromJSON(res)
 }
@@ -467,13 +464,14 @@ getRegionFeature <- function(im, regions, featureType, organism="H. sapiens", ex
 
       termData <- paste('{',termDataTmp,'}',sep="",collapse="")
     
-      res <- GET(utilities.URLencode(paste(im$mine, "/service/regions/bed?query=", termData, "&token=",im$token, sep='')),
-                  .opts = list(timeout = timeout))
-      
-      stop_for_status(r)
+      res <- GET(utilities.URLencode(paste(im$mine, "/service/regions/bed?query=", termData, "&token=",im$token, sep='')))
+      stop_for_status(res)
+
       lines <- strsplit(res,'\\n')
       if(length(lines[[1]])<5){
-            return(NULL)
+        msg <- "Wrong number of lines found in output, something went wrong. 
+                Try your query again. "
+        message(msg)
       }
       rows <- lines[[1]][5:length(lines[[1]])]
       rec <- data.frame(do.call(rbind, strsplit(rows, '\\t')),stringsAsFactors=F)
@@ -505,30 +503,31 @@ getRegionFeature <- function(im, regions, featureType, organism="H. sapiens", ex
       rec
 }
 
-
+# this shouldn't be hardcoded for humans. 
 getRegionSequence <- function(im, regions, organism="H. sapiens", extension=100, isInterbase=F, timeout=60){
+  regions <- paste(sapply(regions, function(x) paste('"', x, '"', sep="")), collapse=',')
       
-      regions <- paste(sapply(regions, function(x) paste('"', x, '"', sep="")), collapse=',')
-      
-      termDataTmp <- paste('"extension":', extension, ',',
+  termDataTmp <- paste('"extension":', extension, ',',
                            '"regions":[', paste(regions, collapse=','), '],',
                                                 '"isInterbase":', ifelse(isInterbase, 'true', 'false'), ',',
                                                 '"organism":"', organism, '"',
                                                 sep='')
       
-      termData <- paste('{',termDataTmp,'}',sep="",collapse="")
+  termData <- paste('{',termDataTmp,'}',sep="",collapse="")
       
-      res <- GET(utilities.URLencode(paste(im$mine, "/service/regions/sequence?query=", termData, "&token=",im$token, sep='')),
-                    .opts = list(timeout = timeout))
+  res <- GET(utilities.URLencode(paste(im$mine, 
+              "/service/regions/sequence?query=", 
+              termData, 
+              "&token=",im$token, 
+              sep=''))
+  stop_for_status(res)
       
-      stop_for_status(r)
+  lines <- strsplit(res,'\\n')
       
-      lines <- strsplit(res,'\\n')
+  idx <- grep('>', lines[[1]])
       
-      idx <- grep('>', lines[[1]])
-      
-      dsest <- NULL
-      if(length(idx) > 0){
+  dsest <- NULL
+  if(length(idx) > 0){
             seq <- character(length(idx))
             idx <- c(idx, length(lines[[1]])+1)
             for(i in 1:(length(idx)-1)){
@@ -536,9 +535,8 @@ getRegionSequence <- function(im, regions, organism="H. sapiens", extension=100,
             }
             dset <- BStringSet(seq)
             names(dset) <- gsub("^>", "", lines[[1]][idx[-length(idx)]])
-      }
-
-      dset
+  }
+  dset
 }
 
 
@@ -562,7 +560,7 @@ doEnrichment <- function(im, genelist, ontology, subcategory='', maxp=0.05,
       res <- GET(utilities.URLencode(paste(im$mine, "/service/list/enrichment?widget=", ontology, "&list=", name, 
                   "&filter=", subcategory, "&maxp=", maxp, "&correction=", correction, "&token=",im$token, sep='')),
                     .opts = list(timeout = timeout))
-      stop_for_status(r)
+      stop_for_status(res)
       status <- fromJSON(res)
 
       result <- list()
