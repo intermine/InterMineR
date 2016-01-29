@@ -1,6 +1,6 @@
 Master: [![Build Status: master][travis-badge-master]][ci]
 
-# R-InterMine
+# InterMine-R
 
 R package for accessing InterMine instances
 
@@ -31,6 +31,6 @@ All credit goes to Bing Wang.
 
 LGPL. See LICENSE for details.
 
-[travis-badge-master]: https://travis-ci.org/intermine/rintermine.svg?branch=master
+[travis-badge-master]: https://travis-ci.org/intermine/intermineR.svg?branch=master
 [ci]: https://travis-ci.org/intermine/intermine
 
