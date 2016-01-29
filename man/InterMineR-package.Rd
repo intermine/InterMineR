@@ -1,6 +1,6 @@
-\name{RInterMine-package}
-\alias{RInterMine-package}
-\alias{RInterMine}
+\name{InterMineR-package}
+\alias{InterMineR-package}
+\alias{InterMineR}
 \docType{package}
 \title{
 R Interface with InterMine-powered databases
@@ -10,7 +10,7 @@ InterMine-powered databases such as FlyMine, modENCODE, RatMine, YeastMine, Huma
 }
 \details{
 \tabular{ll}{
-Package: \tab RInterMine\cr
+Package: \tab InterMineR\cr
 Type: \tab Package\cr
 Version: \tab 0.99.0\cr
 Date: \tab 2016-01-05\cr

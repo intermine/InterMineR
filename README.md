@@ -12,8 +12,8 @@ Working on adding to CRAN and bioconductor. For now, install manually.
 
 See PDFs for detailed API and tutorial:
 
- RInterMine-manual.pdf
- RInterMine.pdf
+ InterMineR-manual.pdf
+ InterMineR.pdf
 
 ## Contributing
 

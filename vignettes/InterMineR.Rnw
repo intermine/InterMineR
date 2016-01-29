@@ -11,7 +11,7 @@
 \SweaveOpts{concordance=FALSE}
 
 
-\title{RInterMine Tutorial}
+\title{InterMineR Tutorial}
 \author{InterMine Team}
 
 \date{\today}
@@ -52,13 +52,13 @@ InterMine includes an attractive, user-friendly web interface that works 'out of
 <<echo=FALSE>>=
 options(width=108)
 @
-\section{Jumpstart: How to build queries using RInterMine}
+\section{Jumpstart: How to build queries using InterMineR}
 Let us start from a basic task - find the location of gene ABO.
 \subsection{Select a database}
 At the beginning, we look at what databases are available.
 \begin{scriptsize}
 <<>>=
-library(RInterMine)
+library(InterMineR)
 listMines()
 @
 \end{scriptsize}
