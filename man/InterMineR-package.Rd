@@ -18,7 +18,6 @@ License: \tab LGPL\cr
 Depends: \tab Biostrings, RCurl, XML, RJSONIO, sqldf, igraph\cr
 Suggests: \tab Gviz\cr
 }
-%~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
 InterMine Team
@@ -29,18 +28,6 @@ Maintainer: InterMine Team <info@intermine.org>
 http://intermine.readthedocs.org/en/latest/web-services/
 }
 
-%\keyword{ package }
-%\seealso{
-%~~ Optional links to other man pages, e.g. ~~
-%~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-%}
-%\examples{
-%#~~ simple examples of the most important functions ~~
-%im <- initInterMine(mine="humanmine.org/humanmine",token="E1B3R749M918KdK4R2827b05r1L")
 
-%getVersion(im)
 
-%#getRelease(im)
 
-%getModel(im=im)
-%}
