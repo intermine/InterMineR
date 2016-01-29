@@ -287,7 +287,7 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
 #             answer <- res.xml
 #       }
       if(format=="data.frame"){
-            query.str <- URLencode(toString.XMLNode(query))
+            query.str <- utils.URLencode(toString.XMLNode(query))
             query.str <- gsub("&", '%26', query.str)
             query.str <- gsub(";", '%3B', query.str)
             
@@ -314,10 +314,10 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             }
       }
       else if(format=="sequence"){
-            query.str <- URLencode(toString.XMLNode(query))
+            query.str <- utils.URLencode(toString.XMLNode(query))
             query.str <- gsub("&", '%26', query.str)
             query.str <- gsub(";", '%3B', query.str)
-            res <- getURL(URLencode(paste(im$mine, "/service/query/results/fasta?query=", 
+            res <- getURL(utils.URLencode(paste(im$mine, "/service/query/results/fasta?query=", 
                                           toString.XMLNode(query),sep="")),
                           ssl.verifypeer = FALSE, useragent = "R", timeout=timeout
                           )
@@ -462,7 +462,7 @@ newList <- function(im, name, gene,  organism="H.+sapiens",  description="", tim
 #<servlet-name>ws-rename-list</servlet-name>
 #<url-pattern>/service/lists/rename/*</url-pattern>
 renameList <- function(im, old.name, new.name, timeout=3){
-      res <- getURL(URLencode(paste(im$mine, "/service/lists/rename/json?oldname=", old.name, 
+      res <- getURL(utils.URLencode(paste(im$mine, "/service/lists/rename/json?oldname=", old.name, 
                         "&newname=",new.name,"&token=",im$token,sep="")),.opts = list(timeout = timeout))
       if(length(grep("^\\[ERROR\\]", res))>0){
             print(res)
@@ -495,7 +495,7 @@ getRegionFeature <- function(im, regions, featureType, organism="H. sapiens", ex
 
       termData <- paste('{',termDataTmp,'}',sep="",collapse="")
     
-      res <- getURL(URLencode(paste(im$mine, "/service/regions/bed?query=", termData, "&token=",im$token, sep='')),
+      res <- getURL(utils.URLencode(paste(im$mine, "/service/regions/bed?query=", termData, "&token=",im$token, sep='')),
                   .opts = list(timeout = timeout))
       
       if(length(grep("^\\[ERROR\\]", res))>0){
@@ -549,7 +549,7 @@ getRegionSequence <- function(im, regions, organism="H. sapiens", extension=100,
       
       termData <- paste('{',termDataTmp,'}',sep="",collapse="")
       
-      res <- getURL(URLencode(paste(im$mine, "/service/regions/sequence?query=", termData, "&token=",im$token, sep='')),
+      res <- getURL(utils.URLencode(paste(im$mine, "/service/regions/sequence?query=", termData, "&token=",im$token, sep='')),
                     .opts = list(timeout = timeout))
       
       if(length(grep("^\\[ERROR\\]", res))>0){
@@ -593,7 +593,7 @@ doEnrichment <- function(im, genelist, ontology, subcategory='', maxp=0.05,
             correction=correction[1]
       }
       
-      res <- getURL(URLencode(paste(im$mine, "/service/list/enrichment?widget=", ontology, "&list=", name, 
+      res <- getURL(utils.URLencode(paste(im$mine, "/service/list/enrichment?widget=", ontology, "&list=", name, 
                   "&filter=", subcategory, "&maxp=", maxp, "&correction=", correction, "&token=",im$token, sep='')),
                     .opts = list(timeout = timeout))
       if(length(grep("^\\[ERROR\\]", res))>0){
