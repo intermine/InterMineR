@@ -126,8 +126,8 @@ queryList2XML <- function(ql){
     if (!is.null(ql$description)) {
         xmlAttrs(nq)[["longDescription"]] <- ql$description
     }
-    if (!is.null(ql$sortOrder)) {
-        xmlAttrs(nq)[["sortOrder"]] <- ql$sortOrder
+    if (!is.null(ql$orderBy)) {
+        xmlAttrs(nq)[["sortOrder"]] <- ql$orderBy
     }
     if (!is.null(ql$where)) {
         for(i in 1:nrow(ql$where)) {
