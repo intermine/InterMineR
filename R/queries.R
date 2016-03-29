@@ -39,12 +39,13 @@ getTemplateQuery <- function(im, name, timeout=3){
 #<servlet-name>ws-query-results</servlet-name>
 #<url-pattern>/service/query/results</url-pattern>
 runQuery <- function(im, qry, format="data.frame", timeout=60){
+
     if (is.list(qry)) {
         query <- queryList2XML(qry)
     } else if(isXMLString(qry)) {
         query <- xmlParseString(qry)
     }
-
+    print(query)
     answer <- NULL
 
     if (format=="data.frame") {
@@ -116,10 +117,12 @@ queryXML2List <- function(qx) {
 }
 
 queryList2XML <- function(ql){
+  
     nq <- newXMLNode("query")
     xmlAttrs(nq)[["name"]] <- ql$name
     xmlAttrs(nq)[["model"]] <- "genomic"
-    xmlAttrs(nq)[["view"]] <- paste(ql$view,collapse=" ")
+    xmlAttrs(nq)[["view"]] <- paste(ql$select,collapse=" ")
+    
     if (!is.null(ql$description)) {
         xmlAttrs(nq)[["longDescription"]] <- ql$description
     }
