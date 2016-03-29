@@ -1,32 +1,22 @@
 ##3 - Template
 #<servlet-name>ws-template</servlet-name>
 #<url-pattern>/service/templates/*</url-pattern>
-getTemplates <- function(im, format="data.frame", timeout=3){
+getTemplates <- function(im, format="data.frame", timeout=3) {
     if (format=="data.frame") {
         r <- GET(paste(im$mine, "/service/templates?format=xml", sep=""))
         stop_for_status(r)
         template <- content(r)
         res <- listTemplateSummary(template)
-    } else if(format == "list") {
+    } else if (format == "list") {
         r <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
         stop_for_status(r)
-        template.string <- str(content(r))
+        template.string <- content(r, "text")
         res <- fromJSON(template.string)$templates
     }
     res
 }
 
 listTemplateSummary <- function(template) {
-    #xmlfile <- xmlParse(template, asText = TRUE)
-    #out <- getNodeSet(xmlfile, "//*[name()='template']", fun=xmlToList)
-    #df <- data.frame(do.call(rbind, out))
-    #df[,c(1,2)]
-
-    #ldply(xmlToList(xmlfile), data.frame)
-
-    #templateList <- xpathSApply(xmlfile, c('//template-queries'), xmlValue)
-    #templateList
-
     doc <- xmlTreeParse(template)
     r <- xmlRoot(doc)
     template.attr <- xmlApply(r, xmlAttrs)
@@ -58,7 +48,7 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
     answer <- NULL
 
     if (format=="data.frame") {
-        query.str <- utilities.URLencode(toString.XMLNode(query))
+        query.str <- URLencode(toString.XMLNode(query))
         query.str <- gsub("&", '%26', query.str)
         query.str <- gsub(";", '%3B', query.str)
 
@@ -79,10 +69,10 @@ runQuery <- function(im, qry, format="data.frame", timeout=60){
             }
         }
     } else if (format=="sequence") {
-        query.str <- utilities.URLencode(toString.XMLNode(query))
+        query.str <- URLencode(toString.XMLNode(query))
         query.str <- gsub("&", '%26', query.str)
         query.str <- gsub(";", '%3B', query.str)
-        r <- GET(utilities.URLencode(paste(im$mine,
+        r <- GET(URLencode(paste(im$mine,
             "/service/query/results/fasta?query=",
             toString.XMLNode(query),sep="")))
         stop_for_status(r)
