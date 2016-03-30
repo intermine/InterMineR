@@ -33,6 +33,7 @@ getTemplateQuery <- function(im, name, timeout=3){
         ql$where <- cbind(ql$where, extraValue=rep("", nrow(ql$where)))
     }
     ql
+    print(ql)
 }
 
 ##4 - Query
@@ -128,24 +129,18 @@ queryList2XML <- function(ql){
     }
     if (!is.null(ql$orderBy)) {
         #xmlAttrs(nq)[["sortOrder"]] <- c(ql$orderBy)
-      xmlAttrs(nq) <- c(sortOrder = ql$orderBy);
+      xmlAttrs(nq) <- c(sortOrder = paste(ql$orderBy,collapse=" "))
     }
     if (!is.null(ql$where)) {
         for(i in 1:nrow(ql$where)) {
             cnc <- newXMLNode("constraint")
-            #xmlAttrs(cnc)[["path"]] <- ql$where[i, "path"]
-            #xmlAttrs(cnc)[["op"]] <- ql$where[i, "op"]
-            #xmlAttrs(cnc)[["value"]] <- ql$where[i, "value"]
-            #xmlAttrs(cnc)[["code"]] <- ql$where[i, "code"]
+            xmlAttrs(cnc)[["path"]] <- paste(ql$where[i, "path"],collapse=" ")
+            xmlAttrs(cnc)[["op"]] <- paste(ql$where[i, "op"],collapse=" ")
+            xmlAttrs(cnc)[["value"]] <- paste(ql$where[i, "value"],collapse=" ")
+            xmlAttrs(cnc)[["code"]] <- paste(ql$where[i, "code"],collapse=" ")
 
-            xmlAttrs(cnc) <- c(path = ql$where[i, "path"])
-            xmlAttrs(cnc) <- c(op = ql$where[i, "op"])
-            xmlAttrs(cnc) <- c(value = ql$where[i, "value"])
-            xmlAttrs(cnc) <- c(code = ql$where[i, "code"])
-            
-            
             if ("extraValue" %in% colnames(ql$where)) {
-              xmlAttrs(cnc) <- c(extraValue = ql$where[i, "extraValue"])
+              xmlAttrs(cnc)[["extraValue"]] <- paste(ql$where[i, "extraValue"],collapse=" ")
             }
             
             addChildren(nq, kids=list(cnc), at=xmlSize(nq))
@@ -158,7 +153,7 @@ queryList2XML <- function(ql){
 }
 
 newQuery <- function(name="", view=character(), sortOrder="",
-    longDescription="", constraints=matrix(character(0), 0, 5,dimnames =
+    longDescription="", where=matrix(character(0), 0, 5,dimnames =
     list(NULL, c('path', 'op', 'value', 'code', 'extraValue'))),
     constraintLogic = NULL) {
         nq <- list()
@@ -166,7 +161,7 @@ newQuery <- function(name="", view=character(), sortOrder="",
         nq$view <- paste(view,collapse=" ")
         nq$description <- longDescription
         nq$sortOrder <- sortOrder
-        nq$where <- constraints
+        nq$where <- where
         nq$constraintLogic <- constraintLogic
 
         nq
