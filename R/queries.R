@@ -127,18 +127,27 @@ queryList2XML <- function(ql){
         xmlAttrs(nq)[["longDescription"]] <- ql$description
     }
     if (!is.null(ql$orderBy)) {
-        xmlAttrs(nq)[["sortOrder"]] <- ql$orderBy
+        #xmlAttrs(nq)[["sortOrder"]] <- c(ql$orderBy)
+      xmlAttrs(nq) <- c(sortOrder = ql$orderBy);
     }
     if (!is.null(ql$where)) {
         for(i in 1:nrow(ql$where)) {
             cnc <- newXMLNode("constraint")
-            xmlAttrs(cnc)[["path"]] <- ql$where[i, "path"]
-            xmlAttrs(cnc)[["op"]] <- ql$where[i, "op"]
-            xmlAttrs(cnc)[["value"]] <- ql$where[i, "value"]
-            xmlAttrs(cnc)[["code"]] <- ql$where[i, "code"]
-            if("extraValue" %in% colnames(ql$where)){
-                xmlAttrs(cnc)[["extraValue"]] <- ql$where[i, "extraValue"]
+            #xmlAttrs(cnc)[["path"]] <- ql$where[i, "path"]
+            #xmlAttrs(cnc)[["op"]] <- ql$where[i, "op"]
+            #xmlAttrs(cnc)[["value"]] <- ql$where[i, "value"]
+            #xmlAttrs(cnc)[["code"]] <- ql$where[i, "code"]
+
+            xmlAttrs(cnc) <- c(path = ql$where[i, "path"])
+            xmlAttrs(cnc) <- c(op = ql$where[i, "op"])
+            xmlAttrs(cnc) <- c(value = ql$where[i, "value"])
+            xmlAttrs(cnc) <- c(code = ql$where[i, "code"])
+            
+            
+            if ("extraValue" %in% colnames(ql$where)) {
+              xmlAttrs(cnc) <- c(extraValue = ql$where[i, "extraValue"])
             }
+            
             addChildren(nq, kids=list(cnc), at=xmlSize(nq))
         }
     }
