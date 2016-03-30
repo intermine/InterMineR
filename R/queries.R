@@ -11,6 +11,7 @@ getTemplates <- function(im, format="data.frame", timeout=3) {
         r <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
         stop_for_status(r)
         template.string <- content(r, "text")
+        print(template.string)
         res <- fromJSON(template.string)$templates
     }
     res
@@ -33,7 +34,6 @@ getTemplateQuery <- function(im, name, timeout=3){
         ql$where <- cbind(ql$where, extraValue=rep("", nrow(ql$where)))
     }
     ql
-    print(ql)
 }
 
 ##4 - Query
