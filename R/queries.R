@@ -2,19 +2,21 @@
 #<servlet-name>ws-template</servlet-name>
 #<url-pattern>/service/templates/*</url-pattern>
 getTemplates <- function(im, format="data.frame", timeout=3) {
-    if (format=="data.frame") {
+    # JSON
+    if (format == "list") {
+        r <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
+        stop_for_status(r)
+        template.string <- content(r, "text")
+        res <- fromJSON(template.string)$templates
+        res
+    # XML
+    } else {
         r <- GET(paste(im$mine, "/service/templates?format=xml", sep=""))
         stop_for_status(r)
         template <- content(r)
         res <- listTemplateSummary(template)
-    } else if (format == "list") {
-        r <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
-        stop_for_status(r)
-        template.string <- content(r, "text")
-        print(template.string)
-        res <- fromJSON(template.string)$templates
+        res
     }
-    res
 }
 
 listTemplateSummary <- function(template) {
@@ -27,17 +29,27 @@ listTemplateSummary <- function(template) {
 }
 
 getTemplateQuery <- function(im, name, timeout=3){
-    r <- GET(paste(im$mine, "/service/templates/", name, "?format=xml", sep=""))
+    r <- GET(paste(im$mine, "/service/templates/", name, "?format=json", sep=""))
     stop_for_status(r)
-    template <- content(r)
-    xmlTemplate <- xmlRoot(xmlParse(template))
-    xmlTemplate.query <- xmlTemplate[[1]];
+    ql <- content(r, "text")
+    jsonTemplate <- fromJSON(ql)$template
+    jsonTemplate
 }
 
 ##4 - Query
 #<servlet-name>ws-query-results</servlet-name>
 #<url-pattern>/service/query/results</url-pattern>
-runQuery <- function(im, query, timeout=60){
+runQuery <- function(im, qry, timeout=60){
+
+    if (is.list(qry)) {
+      # convert to XML to run in intermine
+        query <- queryList2XML(qry)
+    } else if(isXMLString(qry)) {
+        query <- xmlParseString(qry)
+    }
+
+    print(query)
+  
     answer <- NULL
 
     query.str <- URLencode(toString.XMLNode(query))
@@ -49,7 +61,7 @@ runQuery <- function(im, query, timeout=60){
     stop_for_status(r)
     res <- content(r)
     res.xml <- xmlRoot(xmlParse(res))
-  
+
     if (length(getNodeSet(res.xml, "//Result")) > 0) {
         answer = xmlToDataFrame(res.xml, stringsAsFactors=FALSE)
         colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],
@@ -59,4 +71,84 @@ runQuery <- function(im, query, timeout=60){
         answer=NULL
     }
     answer
+}
+
+queryXML2List <- function(qx){
+      qxl <- xmlToList(xmlParseString(qx))
+      ql <- newQuery()
+
+#       ql$name <- xmlAttrs(qx)["name"][1]
+#       ql$view <- strsplit(xmlAttrs(qx)["view"], "\\s+", perl=T)[[1]]
+#       ql$description <- xmlAttrs(qx)["longDescription"][1]
+#
+#       ql$sortOrder <- xmlAttrs(qx)["sortOrder"][1]
+#       ql$constraints <- do.call(rbind, lapply(getNodeSet(qx, "//constraint"), xmlAttrs))
+#       ql$constraintLogic <- xmlAttrs(qx)["constraintLogic"][1]
+
+      ql$name <- qxl$.attrs["name"]
+      names(ql$name) <- NULL
+      ql$view <- strsplit(qxl$.attrs["view"], "\\s+", perl=TRUE)[[1]]
+      ql$description <- qxl$.attrs["longDescription"]
+      names(ql$description) <- NULL
+      ql$sortOrder <- qxl$.attrs["sortOrder"][1]
+      names(ql$sortOrder) <- NULL
+
+      ql$constraint <- do.call(rbind, qxl[which(names(qxl)=="constraint")])
+      rownames(ql$constraint) <- NULL
+      ql$constraintLogic <- qxl$.attrs["constraintLogic"]
+      names(ql$constraintLogic) <- NULL
+
+      ql
+}
+
+queryList2XML <- function(ql){
+      nq <- newXMLNode("query")
+      xmlAttrs(nq)[["name"]] <- ql$name
+      xmlAttrs(nq)[["model"]] <- "genomic"
+      xmlAttrs(nq)[["view"]] <- paste(ql$select,collapse=" ")
+      if(!is.null(ql$description)){
+            xmlAttrs(nq)[["longDescription"]] <- ql$description
+      }
+      print(ql)
+      if(!is.null(ql$orderBy)){
+        xmlAttrs(nq) <- c(sortOrder = paste(ql$orderBy,collapse=" "))
+      }
+
+      if(!is.null(ql$where)){
+       for(i in 1:length(ql[["where"]])){
+            cnc <- newXMLNode("constraint")
+            xmlAttrs(cnc)[["path"]] <- ql[["where"]][[i]][["path"]]
+            if (!is.null(ql[["where"]][[i]][["type"]])) {
+              xmlAttrs(cnc)[["type"]] <- ql[["where"]][[i]][["type"]]
+            }
+            
+            xmlAttrs(cnc)[["value"]] <- ql[["where"]][[i]][["value"]]
+            xmlAttrs(cnc)[["code"]] <- paste(ql[["where"]][[i]][["code"]],collapse=" ")
+            xmlAttrs(cnc)[["op"]] <- paste(ql[["where"]][[i]][["op"]],collapse=" ")
+            
+            if("extraValue" %in% colnames(ql$where)){
+                  xmlAttrs(cnc)[["extraValue"]] <- paste(ql[["where"]][[i]][["extraValue"]],collapse=" ")
+            }
+            addChildren(nq, kids=list(cnc), at=xmlSize(nq))
+        }
+      }
+
+      if(!is.null(ql$constraintLogic)){
+            xmlAttrs(nq)[["constraintLogic"]] <- ql$constraintLogic
+      }
+
+      nq
+}
+
+newQuery <- function(name="", view=character(), sortOrder="", longDescription="", 
+                     constraintLogic=NULL) {
+      nq <- list()
+      nq$name <- name
+      nq$view <- paste(view,collapse=" ")
+      nq$description <- longDescription
+      nq$sortOrder <- sortOrder
+      nq$where <- NULL
+      nq$constraintLogic <- constraintLogic
+
+      nq
 }
