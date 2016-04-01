@@ -142,9 +142,9 @@ newQuery <- function(name="", view=character(), sortOrder="", longDescription=""
                      constraintLogic=NULL) {
       nq <- list()
       nq$name <- name
-      nq$view <- paste(view,collapse=" ")
+      nq$select <- paste(view,collapse=" ")
       nq$description <- longDescription
-      nq$sortOrder <- sortOrder
+      nq$orderBy <- sortOrder
       nq$where <- NULL
       nq$constraintLogic <- constraintLogic
 
