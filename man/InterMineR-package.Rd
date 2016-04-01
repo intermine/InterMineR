@@ -12,7 +12,7 @@ InterMine-powered databases such as FlyMine, modENCODE, RatMine, YeastMine, Huma
 \tabular{ll}{
 Package: \tab InterMineR\cr
 Type: \tab Package\cr
-Version: \tab 0.99.0\cr
+Version: \tab 0.99.4\cr
 Date: \tab 2016-01-05\cr
 License: \tab LGPL\cr
 Depends: \tab Biostrings, RCurl, XML, RJSONIO, sqldf, igraph\cr

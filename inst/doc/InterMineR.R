@@ -130,11 +130,6 @@ queryGeneSeq$constraints <- rbind(queryGeneSeq$constraints, newConstraint)
 queryGeneSeq$view <- c("Gene.symbol")
 
 
-###################################################
-### code chunk number 19: InterMineR.Rnw:198-200
-###################################################
-resGeneSeq <- runQuery(im, queryGeneSeq, format="sequence")
-resGeneSeq
 
 
 ###################################################
