@@ -71,34 +71,6 @@ runQuery <- function(im, qry, timeout=60){
     answer
 }
 
-queryXML2List <- function(qx){
-      qxl <- xmlToList(xmlParseString(qx))
-      ql <- newQuery()
-
-#       ql$name <- xmlAttrs(qx)["name"][1]
-#       ql$view <- strsplit(xmlAttrs(qx)["view"], "\\s+", perl=T)[[1]]
-#       ql$description <- xmlAttrs(qx)["longDescription"][1]
-#
-#       ql$sortOrder <- xmlAttrs(qx)["sortOrder"][1]
-#       ql$constraints <- do.call(rbind, lapply(getNodeSet(qx, "//constraint"), xmlAttrs))
-#       ql$constraintLogic <- xmlAttrs(qx)["constraintLogic"][1]
-
-      ql$name <- qxl$.attrs["name"]
-      names(ql$name) <- NULL
-      ql$view <- strsplit(qxl$.attrs["view"], "\\s+", perl=TRUE)[[1]]
-      ql$description <- qxl$.attrs["longDescription"]
-      names(ql$description) <- NULL
-      ql$sortOrder <- qxl$.attrs["sortOrder"][1]
-      names(ql$sortOrder) <- NULL
-
-      ql$constraint <- do.call(rbind, qxl[which(names(qxl)=="constraint")])
-      rownames(ql$constraint) <- NULL
-      ql$constraintLogic <- qxl$.attrs["constraintLogic"]
-      names(ql$constraintLogic) <- NULL
-
-      ql
-}
-
 queryList2XML <- function(ql){
       nq <- newXMLNode("query")
       xmlAttrs(nq)[["name"]] <- ql$name
@@ -138,7 +110,7 @@ queryList2XML <- function(ql){
       nq
 }
 
-newQuery <- function(name="", view=character(), sortOrder="", longDescription="", 
+newQuery <- function(name="", view=character(), sortOrder="", longDescription="",
                      constraintLogic=NULL) {
       nq <- list()
       nq$name <- name
