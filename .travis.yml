@@ -1,5 +1,7 @@
 language: R
+sudo: true
 cache: packages
+warnings_are_errors: false
 
 # we need to install BiocInstaller for testing Bioconductor packages
 bioc_required: true
