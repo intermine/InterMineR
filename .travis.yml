@@ -1,2 +1,5 @@
 language: R
 cache: packages
+
+# we need to install BiocInstaller for testing Bioconductor packages
+bioc_required: true
