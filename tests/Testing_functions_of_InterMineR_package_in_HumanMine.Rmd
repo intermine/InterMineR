@@ -3,9 +3,8 @@ title: "Testing functions of InterMineR package in HumanMine"
 author: "Konstantinos Kyritsis"
 date: "14 May 2017"
 output: 
-  html_document:
+  pdf_document:
     toc: true
-    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
