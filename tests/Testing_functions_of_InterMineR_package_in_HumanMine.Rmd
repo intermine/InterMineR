@@ -393,11 +393,11 @@ annTrack = AnnotationTrack(
   name="around ABCA6",
   id=resNeighborGene$Gene.symbol)
 
-plotTracks(annTrack, shape="box", showFeatureId=T, fontcolor="black")
+#plotTracks(annTrack, shape="box", showFeatureId=T, fontcolor="black")
 
-#gtr <- GenomeAxisTrack()
-#itr <- IdeogramTrack(genome="hg38", chromosome="chr17")
-#plotTracks(list(gtr, annTrack), shape="box", showFeatureId=T, fontcolor="black")
+gtr <- GenomeAxisTrack()
+itr <- IdeogramTrack(genome="hg38", chromosome="chr17")
+plotTracks(list(gtr, annTrack), shape="box", showFeatureId=T, fontcolor="black")
 
 ```
 
