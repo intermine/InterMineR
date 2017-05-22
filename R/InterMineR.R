@@ -9,7 +9,7 @@ listMines <- function(){
     mines <- c('http://www.flymine.org/flymine',
     'http://www.mousemine.org/mousemine',
     'http://ratmine.mcw.edu/ratmine',
-    'http://www.wormbase.org/tools/wormmine',
+    'http://intermine.wormbase.org/tools/wormmine',
     'http://yeastmine.yeastgenome.org/yeastmine',
     'http://zebrafishmine.org',
     'http://targetmine.mizuguchilab.org/targetmine',
