@@ -6,6 +6,10 @@ output:
   html_document:
     toc: true
     highlight: pygments
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{InterMineR Tutorial}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -29,11 +33,11 @@ ZebrafishMine | | |
 
 *Please see the InterMine home page for a full list of available InterMines.*
 
-InterMine includes an attractive, user-friendly web interface that works ’out of the box’ and a powerful, scriptable web-service API to allow programmatic access to your data. This R package provides an interface with the InterMine-powered databases through Web services.
+InterMine includes an attractive, user-friendly web interface that works â€™out of the boxâ€™ and a powerful, scriptable web-service API to allow programmatic access to your data. This R package provides an interface with the InterMine-powered databases through Web services.
 
 ## 2. Jumpstart: How to build queries using InterMineR
 
-Let’s start with a simple task - find the homologues of gene ABO.
+Letâ€™s start with a simple task - find the homologues of gene ABO.
 
 ### 2.1 Select a database
 
@@ -77,7 +81,7 @@ template[grep("gene", template$name, ignore.case=TRUE),]
 
 ```
 
-The template Gene_Orth seems to be what we want. Let’s look at this template in more detail.
+The template Gene_Orth seems to be what we want. Letâ€™s look at this template in more detail.
 
 ```{r gene_orthologs}
 # Query for gene orthologs
@@ -93,8 +97,8 @@ There are three essential members in a query - SELECT, WHERE and constraintLogic
 
 1. SELECT
     a. The SELECT (or view) represents the output columns in the query output.
-    b. Columns of a view are usually of the form “A.B”, where B is the child of A. For example in the column Gene.symbol, symbol is the child of Gene.
-    Columns could also be in cascade form “A.B.C”. For example, in the column Gene.locations.start, locations is the child of Gene and start is the child of locations.
+    b. Columns of a view are usually of the form â€œA.Bâ€, where B is the child of A. For example in the column Gene.symbol, symbol is the child of Gene.
+    Columns could also be in cascade form â€œA.B.Câ€. For example, in the column Gene.locations.start, locations is the child of Gene and start is the child of locations.
 2. WHERE
     a. The WHERE statement is a collection of constraints.
     b. Query constraints include a list of the following columns:
@@ -102,7 +106,7 @@ There are three essential members in a query - SELECT, WHERE and constraintLogic
             1. in the same format as view columns
         ii. **op**
             1. the constraint operator
-            2. Valid values: ’=’, ’ !=’, ’LOOKUP’, ’ONE OF’, ’NONE OF’, ’>’, ’<’, ’>=’, ’<=’, ’LIKE’
+            2. Valid values: â€™=â€™, â€™ !=â€™, â€™LOOKUPâ€™, â€™ONE OFâ€™, â€™NONE OFâ€™, â€™>â€™, â€™<â€™, â€™>=â€™, â€™<=â€™, â€™LIKEâ€™
         iii. **value**
             1. the constraint value
         iv. code
@@ -125,13 +129,13 @@ There are three essential members in a query - SELECT, WHERE and constraintLogic
                 2. Used to determine if user has enabled this constraint. 
                 Only for the UI.
 3. constraintLogic
-    a. Constraint Logic, if not explicitly given, is ”AND” operation, e.g., ”A and B”, where A and B are the codes in the constraints.
+    a. Constraint Logic, if not explicitly given, is â€ANDâ€ operation, e.g., â€A and Bâ€, where A and B are the codes in the constraints.
     
 #### 2.2.1 Look at the data model
 
-What does “Gene.symbol” mean? What is “Gene.homologues.homologue.symbol”?
+What does â€œGene.symbolâ€ mean? What is â€œGene.homologues.homologue.symbolâ€?
 
-Let’s take a look at the data model.
+Letâ€™s take a look at the data model.
 
 ```{r getModel}
 
@@ -140,7 +144,7 @@ head(model)
 
 ```
 
-Let’s look at the children of the Gene data type.
+Letâ€™s look at the children of the Gene data type.
 
 ```{r gene_type_data}
 
@@ -148,7 +152,7 @@ model[which(model$type=="Gene"),]
 
 ```
 
-Gene has a field called “symbol” (hence the column Gene.symbol). Gene also has a child called homologues, which is of the Homologue data type.
+Gene has a field called â€œsymbolâ€ (hence the column Gene.symbol). Gene also has a child called homologues, which is of the Homologue data type.
 
 ```{r homologue_type}
 
@@ -156,10 +160,10 @@ model[which(model$type=="Homologue"),]
 
 ```
 
-Homologue has a child called “gene” which is of the type “Gene”, which we saw above has a field called “symbol” (hence the column Gene.homologues.homologue.symbol).
+Homologue has a child called â€œgeneâ€ which is of the type â€œGeneâ€, which we saw above has a field called â€œsymbolâ€ (hence the column Gene.homologues.homologue.symbol).
 
 ### 2.3 Run a Query
-Let’s now run our template.
+Letâ€™s now run our template.
 
 ```{r run_geneorth}
 
@@ -171,7 +175,7 @@ head(resGeneOrth)
 ## 2.4 Modify a Query
 #### 2.4.1 Edit a constraint
 
-Let’s modify the query to find the orthologues of the gene ABO. We want to change the “value” attribute from PPARG to ABO.
+Letâ€™s modify the query to find the orthologues of the gene ABO. We want to change the â€œvalueâ€ attribute from PPARG to ABO.
 
 ```{r modify_query}
 
@@ -180,7 +184,7 @@ queryGeneOrth$where
 
 ```
 
-Note the value is now equal to “ABO”. Let’s rerun our query with the new constraint.
+Note the value is now equal to â€œABOâ€. Letâ€™s rerun our query with the new constraint.
 
 ```{r modify_query2}
 
@@ -189,11 +193,11 @@ head(resGeneOrth)
 
 ```
 
-Now we are seeing orthologues for the ABO gene. Let’s add the organism to the view to make sure we are looking at the desired gene.
+Now we are seeing orthologues for the ABO gene. Letâ€™s add the organism to the view to make sure we are looking at the desired gene.
 
 #### 2.4.2 Add a new constraint
 
-You can also add additional filters. Let’s exclude all homologues where organism is *H.
+You can also add additional filters. Letâ€™s exclude all homologues where organism is *H.
 sapiens*.
 
 There are four parts of a constraint to add:
@@ -201,11 +205,11 @@ There are four parts of a constraint to add:
 1. path
     a. I got the path from the output columns but I could have figured out it from the data model.
 2. op
-    a. Valid values: ’=’, ’ !=’, ’LOOKUP’, ’ONE OF’, ’NONE OF’, ’>’, ’<’, ’>=’, ’<=’, ’LIKE’
+    a. Valid values: â€™=â€™, â€™ !=â€™, â€™LOOKUPâ€™, â€™ONE OFâ€™, â€™NONE OFâ€™, â€™>â€™, â€™<â€™, â€™>=â€™, â€™<=â€™, â€™LIKEâ€™
 3. value
     a. What value I am filtering on.
 4. code
-    a. Must be a letter not in use by the query already. Looking at the query output above we can see we only have one constraint, labelled “A”. Let’s use “B” for our code.
+    a. Must be a letter not in use by the query already. Looking at the query output above we can see we only have one constraint, labelled â€œAâ€. Letâ€™s use â€œBâ€ for our code.
 
 ```{r new_constraint}
 newConstraint <- list(
@@ -229,21 +233,21 @@ resGeneOrth
 
 #### 2.4.3 Add a column
 
-You can also add additional columns to the output. For instance, where do these homologues come from? Let’s add this information.
+You can also add additional columns to the output. For instance, where do these homologues come from? Letâ€™s add this information.
 
-Let’s see what we know about homologues.
+Letâ€™s see what we know about homologues.
 
 ```{r add_column}
 model[which(model$type=="Homologue"),]
 ```
 
-The Homologue data type has an “dataSets” reference of type “DataSet”.
+The Homologue data type has an â€œdataSetsâ€ reference of type â€œDataSetâ€.
 
 ```{r add_column2}
 model[which(model$type==" DataSet "),]
 ```
 
-DataSet has a child called name. Add Gene.homologues.dataSets.name to the view. We’ll add it as the last column, we can see from above there are 5 other columns already so we’ll put it as #6:
+DataSet has a child called name. Add Gene.homologues.dataSets.name to the view. Weâ€™ll add it as the last column, we can see from above there are 5 other columns already so weâ€™ll put it as #6:
 
 ```{r add_column3}
 
@@ -259,7 +263,7 @@ NB: adding columns can result in changing the row count.
 
 #### 2.4.4 Change constraint logic
 
-The constraintLogic, if not given, is “A and B”. We would now try to explicitly specify the constraintLogic. A and B corresponds to the “code” for each constraint.
+The constraintLogic, if not given, is â€œA and Bâ€. We would now try to explicitly specify the constraintLogic. A and B corresponds to the â€œcodeâ€ for each constraint.
 
 ```{r constrant_logic}
 
@@ -277,7 +281,7 @@ resGeneOrth
 
 ```
 
-Change to be “A or B” and see how the results change.
+Change to be â€œA or Bâ€ and see how the results change.
 
 ## 3. Recipes
 
@@ -315,7 +319,7 @@ resGeneGO <- runQuery(im, queryGeneGO )
 head(resGeneGO)
 ```
 
-### 3.2 Obtain the genes associated with gene ontology (GO) term ”metal ion binding”
+### 3.2 Obtain the genes associated with gene ontology (GO) term â€metal ion bindingâ€
 
 >- Start with the template Gene GO
 
@@ -331,7 +335,7 @@ queryGOGene$select <- queryGOGene$select[2:5]
 queryGOGene$select
 ```
 
->- Modify the constraints to look for GO term ”metal ion binding”
+>- Modify the constraints to look for GO term â€metal ion bindingâ€
 
 ```{r metal_ion_binding3}
 
@@ -363,7 +367,7 @@ resGeneLoc
 
 ```
 
-We’re going to use the output (gene location) as input for the next query.
+Weâ€™re going to use the output (gene location) as input for the next query.
 
 >- Define a new query
 
