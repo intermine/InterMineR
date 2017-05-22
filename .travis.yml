@@ -3,6 +3,7 @@ r: bioc-devel
 sudo: true
 cache: packages
 warnings_are_errors: false
-
 bioc_required: true
 bioc_use_devel: true
+install:
+  - Rscript -e 'source("https://bioconductor.org/biocLite.R"); biocLite("Gviz",suppressUpdates=TRUE)'
