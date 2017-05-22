@@ -6,3 +6,6 @@ warnings_are_errors: false
 
 bioc_required: true
 bioc_use_devel: true
+
+bioc_packages:
+   - Gviz
