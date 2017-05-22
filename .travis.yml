@@ -6,7 +6,3 @@ warnings_are_errors: false
 
 bioc_required: true
 bioc_use_devel: true
-
-install:
-    - ./travis-tool.sh bioc_install Gviz
-    - ./travis-tool.sh install_deps
