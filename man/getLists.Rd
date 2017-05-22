@@ -26,7 +26,7 @@ InterMine Team
 
 
 \examples{
-im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
+#im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
-gl <- getLists(im)
+#gl <- getLists(im)
 }
