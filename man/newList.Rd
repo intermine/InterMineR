@@ -43,5 +43,7 @@ InterMine Team
 \examples{
 im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
-\dontrun{gl <- newList(im, "a", c("ABO", "ALB"))}
+\dontrun{
+ # gl <- newList(im, "a", c("ABO", "ALB"))
+}
 }
