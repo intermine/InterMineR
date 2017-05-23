@@ -45,8 +45,9 @@ a matrix, representing the enrichment result.
 InterMine Team
 }
 \examples{
-im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
+# im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
-\dontrun{doEnrichment(im, c("ABO", "ALB"), 'go_enrichment_for_gene', 'cellular_component',
-      correction="NONE")}
+\dontrun{
+  # doEnrichment(im, c("ABO", "ALB"), 'go_enrichment_for_gene', 'cellular_component', correction="NONE")
+}
 }

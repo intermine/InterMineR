@@ -7,9 +7,7 @@ Initialize a new query
 A query needs to have at least view, constraints and constraintLogic.  The view is a vector containing the columns of the query output.  The constraint is a matrix containing the following columns: path (the path of the constraint), op (the constraint operator, one of '=', '!=', 'LOOKUP', 'ONE OF', 'NONE OF', '>', '<', '>=', '<=', 'LIKE'), value (the constraint value),  code (the name of the constraint), extraValue (optional, required for LOOKUP constraints).  The constraintLogic by default is "AND" operation, e.g., "A and B", where A and B are the codes in the constraints.
 }
 \usage{
-newQuery(name="", view=character(), sortOrder="", longDescription="", 
-      constraints=matrix(character(0), 0, 5,
-      dimnames=list(NULL, c('path', 'op', 'value', 'code', 'extraValue'))),
+newQuery(name="", view=character(), sortOrder="", longDescription="",
       constraintLogic=NULL)
 }
 \arguments{
@@ -24,9 +22,6 @@ a string, representing the field according to which the query result is sorted a
 }
   \item{longDescription}{
 a string, representing the description of the query.
-}
-  \item{constraints}{
-a matrix of 5 columns (path, op, value, code, extraValue), with each row representing a constraint of the query.  
 }
   \item{constraintLogic}{
 a string, representing the logical relationship between the constraints, e.g., "A or B" where "A" and "B" are the codes in the constraints. 

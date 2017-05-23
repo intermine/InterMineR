@@ -1,0 +1,514 @@
+---
+title: "InterMineR Tutorial"
+author: "InterMine Team"
+date: "22 May 2017"
+output: 
+  html_document:
+    toc: true
+    highlight: pygments
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{InterMineR Tutorial}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Introduction
+
+InterMine is a powerful open source data warehouse system integrating diverse biological data sets (e.g., genomic, expression and protein data) for various organisms. Integrating data makes it possible to run sophisticated data mining queries that span domains of biological knowledge. A selected list of databases powered by InterMine is shown in
+Table 1:
+
+Database | Organism | Data |
+---------|----------|------|
+FlyMine | *Drosophila* | Genes, homology, proteins, interactions, gene ontology, expression, regulation, phenotypes, pathways, diseases, resources, publications
+HumanMine | *H. sapiens* | Genomics, SNPs, GWAS, proteins, gene ontology, pathways, gene expression, interactions, publications, disease, orthologues, alleles
+MouseMine | *M. musculus* | 
+RatMine | *R. norvegicus* | Disease, gene ontology, genomics, interactions, phenotype, pathway, proteins, publication QTL, SNP
+WormMine | | 
+YeastMine | *S. cerevisiae* | Genomics, proteins, gene ontology, comparative genomics, phenotypes, interactions, literature, pathways, gene expression
+ZebrafishMine | | |
+
+*Please see the InterMine home page for a full list of available InterMines.*
+
+InterMine includes an attractive, user-friendly web interface that works ’out of the box’ and a powerful, scriptable web-service API to allow programmatic access to your data. This R package provides an interface with the InterMine-powered databases through Web services.
+
+## 2. Jumpstart: How to build queries using InterMineR
+
+Let’s start with a simple task - find the homologues of gene ABO.
+
+### 2.1 Select a database
+
+First, we look at what databases are available.
+
+```{r load}
+library(InterMineR)
+listMines()
+```
+
+Since we would like to query human genes, we select HumanMine.
+
+```{r humanmine}
+
+# load HumaMine
+im <- initInterMine(mine=listMines()["HumanMine"])
+im
+
+```
+
+### 2.2 Obtain a prebuilt query
+
+In InterMine you are able to build custom queries, but using R you are only allowed to
+run pre-built queries -- called templates. Templates are queries that have already been
+created with a fixed set of output columns and one or more constraints.
+
+```{r get_queries}
+
+# Get template (collection of pre-defined queries)
+template = getTemplates(im)
+head(template)
+
+```
+
+We would like to find templates involving genes.
+
+```{r gene_templates}
+
+# Get gene-related templates
+template[grep("gene", template$name, ignore.case=TRUE),]
+
+```
+
+The template Gene_Orth seems to be what we want. Let’s look at this template in more detail.
+
+```{r gene_orthologs}
+# Query for gene orthologs
+queryGeneOrth = getTemplateQuery(
+  im = im, 
+  name = "Gene_Orth"
+)
+queryGeneOrth
+
+```
+
+There are three essential members in a query - SELECT, WHERE and constraintLogic.
+
+1. SELECT
+    a. The SELECT (or view) represents the output columns in the query output.
+    b. Columns of a view are usually of the form “A.B”, where B is the child of A. For example in the column Gene.symbol, symbol is the child of Gene.
+    Columns could also be in cascade form “A.B.C”. For example, in the column Gene.locations.start, locations is the child of Gene and start is the child of locations.
+2. WHERE
+    a. The WHERE statement is a collection of constraints.
+    b. Query constraints include a list of the following columns:
+        i. **path**
+            1. in the same format as view columns
+        ii. **op**
+            1. the constraint operator
+            2. Valid values: ’=’, ’ !=’, ’LOOKUP’, ’ONE OF’, ’NONE OF’, ’>’, ’<’, ’>=’, ’<=’, ’LIKE’
+        iii. **value**
+            1. the constraint value
+        iv. code
+            1. Ignore
+            2. The logic code for the constraint (e.g. A, B or C).
+            3. Only used in the constrainLogic (discussed below
+        v. extraValue
+            1. optional, required for LOOKUP constraints
+            2. Short name of organism, e.g. *H. sapiens*
+            vi. Editable
+                1. Ignore
+                2. Used to determine if user is allowed to edit this constraint.
+                Only for the UI.
+        vii. Switchable
+                1. Ignore
+                2. Used to determine if user is allowed to disable this constraint.   
+                Only for the UI.
+        viii. Switched
+                1. Ignore
+                2. Used to determine if user has enabled this constraint. 
+                Only for the UI.
+3. constraintLogic
+    a. Constraint Logic, if not explicitly given, is ”AND” operation, e.g., ”A and B”, where A and B are the codes in the constraints.
+    
+#### 2.2.1 Look at the data model
+
+What does “Gene.symbol” mean? What is “Gene.homologues.homologue.symbol”?
+
+Let’s take a look at the data model.
+
+```{r getModel}
+
+model <- getModel(im)
+head(model)
+
+```
+
+Let’s look at the children of the Gene data type.
+
+```{r gene_type_data}
+
+model[which(model$type=="Gene"),]
+
+```
+
+Gene has a field called “symbol” (hence the column Gene.symbol). Gene also has a child called homologues, which is of the Homologue data type.
+
+```{r homologue_type}
+
+model[which(model$type=="Homologue"),]
+
+```
+
+Homologue has a child called “gene” which is of the type “Gene”, which we saw above has a field called “symbol” (hence the column Gene.homologues.homologue.symbol).
+
+### 2.3 Run a Query
+Let’s now run our template.
+
+```{r run_geneorth}
+
+resGeneOrth <- runQuery(im, queryGeneOrth)
+head(resGeneOrth)
+
+```
+
+## 2.4 Modify a Query
+#### 2.4.1 Edit a constraint
+
+Let’s modify the query to find the orthologues of the gene ABO. We want to change the “value” attribute from PPARG to ABO.
+
+```{r modify_query}
+
+queryGeneOrth$where[[1]][["value"]] <- "ABO"
+queryGeneOrth$where
+
+```
+
+Note the value is now equal to “ABO”. Let’s rerun our query with the new constraint.
+
+```{r modify_query2}
+
+resGeneOrth <- runQuery(im, queryGeneOrth)
+head(resGeneOrth)
+
+```
+
+Now we are seeing orthologues for the ABO gene. Let’s add the organism to the view to make sure we are looking at the desired gene.
+
+#### 2.4.2 Add a new constraint
+
+You can also add additional filters. Let’s exclude all homologues where organism is *H.
+sapiens*.
+
+There are four parts of a constraint to add:
+
+1. path
+    a. I got the path from the output columns but I could have figured out it from the data model.
+2. op
+    a. Valid values: ’=’, ’ !=’, ’LOOKUP’, ’ONE OF’, ’NONE OF’, ’>’, ’<’, ’>=’, ’<=’, ’LIKE’
+3. value
+    a. What value I am filtering on.
+4. code
+    a. Must be a letter not in use by the query already. Looking at the query output above we can see we only have one constraint, labelled “A”. Let’s use “B” for our code.
+
+```{r new_constraint}
+newConstraint <- list(
+  path=c("Gene.homologues.homologue.organism.shortName"),
+  op=c("!="), 
+  value=c("H. sapiens"), 
+  code=c("B")
+)
+
+queryGeneOrth$where[[2]] <- newConstraint
+queryGeneOrth$where
+
+```
+
+Our new filter has been added successfully. Rerun the query and you see you only have non-Homo sapiens orthologues.
+
+```{r new_constraint2}
+resGeneOrth <- runQuery(im, queryGeneOrth)
+resGeneOrth
+```
+
+#### 2.4.3 Add a column
+
+You can also add additional columns to the output. For instance, where do these homologues come from? Let’s add this information.
+
+Let’s see what we know about homologues.
+
+```{r add_column}
+model[which(model$type=="Homologue"),]
+```
+
+The Homologue data type has an “dataSets” reference of type “DataSet”.
+
+```{r add_column2}
+model[which(model$type==" DataSet "),]
+```
+
+DataSet has a child called name. Add Gene.homologues.dataSets.name to the view. We’ll add it as the last column, we can see from above there are 5 other columns already so we’ll put it as #6:
+
+```{r add_column3}
+
+queryGeneOrth$select[[6]] <- "Gene.homologues.dataSets.name"
+queryGeneOrth$select
+
+resGeneOrth <- runQuery(im, queryGeneOrth)
+resGeneOrth
+
+```
+
+NB: adding columns can result in changing the row count.
+
+#### 2.4.4 Change constraint logic
+
+The constraintLogic, if not given, is “A and B”. We would now try to explicitly specify the constraintLogic. A and B corresponds to the “code” for each constraint.
+
+```{r constrant_logic}
+
+queryGeneOrth$constraintLogic <- "A and B"
+queryGeneOrth$constraintLogic
+
+```
+
+Run the query again and see no change:
+
+```{r constrant_logic2}
+
+resGeneOrth <- runQuery(im, queryGeneOrth)
+resGeneOrth
+
+```
+
+Change to be “A or B” and see how the results change.
+
+## 3. Recipes
+
+### 3.1 Obtain the gene ontology (GO) terms associated with gene ABO
+
+>- Start with the template Gene GO
+
+```{r gene_go}
+
+queryGeneGO <- getTemplateQuery(im, "Gene_GO")
+queryGeneGO
+
+```
+
+>- Modify the view to display a compact view
+
+```{r gene_go2}
+
+queryGeneGO$select <- queryGeneGO$select[2:5]
+queryGeneGO$select
+
+```
+
+>- Modify the constraints to look for gene ABO.
+
+```{r gene_go3}
+queryGeneGO$where[[1]][["value"]] <- "ABO"
+queryGeneGO$where
+```
+
+>- Run the query
+
+```{r gene_go4}
+resGeneGO <- runQuery(im, queryGeneGO )
+head(resGeneGO)
+```
+
+### 3.2 Obtain the genes associated with gene ontology (GO) term ”metal ion binding”
+
+>- Start with the template Gene GO
+
+```{r metal_ion_binding}
+queryGOGene <- getTemplateQuery(im, "GOterm_Gene")
+queryGOGene
+```
+
+>- Modify the view to display a compact view
+
+```{r metal_ion_binding2}
+queryGOGene$select <- queryGOGene$select[2:5]
+queryGOGene$select
+```
+
+>- Modify the constraints to look for GO term ”metal ion binding”
+
+```{r metal_ion_binding3}
+
+queryGOGene$where[[1]]$value = "metal ion binding"
+queryGOGene$where
+
+```
+
+>- Run the query
+
+```{r metal_ion_binding4}
+
+resGOGene <- runQuery(im, queryGOGene )
+head(resGOGene)
+
+```
+
+### 3.3 Find and plot the genes within 50000 base pairs of gene ABCA6
+
+>- Start with the Gene_Location template, update to search for ABCA6 gene.
+
+```{r neighbor_genes}
+
+queryGeneLoc = getTemplateQuery(im, "Gene_Location")
+queryGeneLoc$where[[2]][["value"]] = "ABCA6"
+resGeneLoc= runQuery(im, queryGeneLoc)
+
+resGeneLoc
+
+```
+
+We’re going to use the output (gene location) as input for the next query.
+
+>- Define a new query
+
+```{r neighbor_genes2}
+
+queryNeighborGene <- newQuery()
+
+```
+
+>- Set the columns for output
+
+```{r neighbor_genes3}
+queryNeighborGene$select = c("Gene.primaryIdentifier", 
+                             "Gene.symbol",
+                             "Gene.chromosome.primaryIdentifier",
+                             "Gene.locations.start", 
+                             "Gene.locations.end", 
+                             "Gene.locations.strand")
+queryNeighborGene$select
+
+```
+
+>- Define the constraints
+
+```{r neighbor_genes4}
+
+newConstraint1 =list(
+  path=c("Gene.chromosome.primaryIdentifier"), 
+  op=c("="),
+  value=c(resGeneLoc[1, "Gene.chromosome.primaryIdentifier"]), 
+  code=c("A")
+)
+newConstraint2 =list(
+  path=c("Gene.locations.start"), op=c(">="),
+  value=c(as.numeric(resGeneLoc[1, "Gene.locations.start"])-50000),
+  code=c("B"))
+newConstraint3 =list(
+  path=c("Gene.locations.end"), op=c("<="),
+  value=c(as.numeric(resGeneLoc[1, "Gene.locations.end"])+50000), code=c("C"))
+newConstraint4 =list(
+  path=c("Gene.organism.name"), op=c("="), value=c("Homo sapiens"), code=c("D")
+)
+
+queryNeighborGene$where =list(
+  newConstraint1, 
+  newConstraint2, 
+  newConstraint3,
+  newConstraint4
+)
+
+queryNeighborGene$where
+
+```
+
+>- Define the sort order
+
+```{r neighbor_genes5}
+
+queryNeighborGene$orderBy = "Gene.locations.start asc"
+queryNeighborGene$orderBy
+
+```
+
+>- Run the query
+
+```{r neighbor_genes6}
+
+resNeighborGene <- runQuery(im, queryNeighborGene)
+resNeighborGene
+
+```
+
+>- Plot the genes
+
+```{r neighbor_genes7}
+
+resNeighborGene$Gene.locations.strand[which(resNeighborGene$Gene.locations.strand==1)]="+"
+
+resNeighborGene$Gene.locations.strand[which(resNeighborGene$Gene.locations.strand==-1)]="-"
+
+gene.idx = which(nchar(resNeighborGene$Gene.symbol)==0)
+
+resNeighborGene$Gene.symbol[gene.idx]=resNeighborGene$Gene.primaryIdentifier[gene.idx]
+```
+
+```{r load_gviz, warning=FALSE, message=FALSE}
+require(Gviz)
+```
+
+```{r plottracks}
+annTrack = AnnotationTrack(
+  start=resNeighborGene$Gene.locations.start,
+  end=resNeighborGene$Gene.locations.end,
+  strand=resNeighborGene$Gene.locations.strand,
+  chromosome=resNeighborGene$Gene.chromosome.primaryIdentifier[1],
+  genome="GRCh38", 
+  name="around ABCA6",
+  id=resNeighborGene$Gene.symbol)
+
+gtr <- GenomeAxisTrack()
+itr <- IdeogramTrack(genome="hg38", chromosome="chr17")
+
+plotTracks(list(gtr, itr, annTrack), shape="box", showFeatureId=T, fontcolor="black")
+
+```
+
+## 4. System info
+
+```{r sessioInfo}
+
+sessionInfo()
+
+```
+
+## 5. Appendix
+
+### 5.1 Visual way to derive the column name of a query view or the path name in a query constraint from the database webpage
+
+<br />
+The InterMine model could be accessed from the mine homepage by clicking the tab "QueryBuilder" and selecting the appropriate data type under "Select a Data Type to Begin a Query":
+<br />
+
+![ ](querybuilder.jpg)
+
+<br />
+Here we select Gene as the data type: 
+<br />
+
+![ ](model.jpg)
+
+<br />
+We could select Symbol and Chromosome->Primary Identifier by clicking Show on the right of them. Then click "Export XML" at the bottom right corner of the webpage:
+<br />
+
+![ ](export_xml.jpg)
+
+<br />
+The column names Gene.symbol and Gene.chromosome.primaryIdentifier are contained in the XML output:
+<br />
+
+![ ](view_column.jpg)
+
+<br />
+<br />
