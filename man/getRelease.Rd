@@ -26,7 +26,7 @@ InterMine Team
 
 
 \examples{
-im <- initInterMine("humanmine.org/humanmine")
+# im <- initInterMine("humanmine.org/humanmine")
 
-getRelease(im)
+# getRelease(im)
 }
