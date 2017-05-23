@@ -31,6 +31,8 @@ InterMine Team
 \examples{
 #im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
-\dontrun{status <- deleteList(im, "a")} # "a" is the name of a list
+\dontrun{
+  # status <- deleteList(im, "a")
+} # "a" is the name of a list
 }
 
