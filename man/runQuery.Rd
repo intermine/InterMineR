@@ -4,7 +4,7 @@
 Run a query
 }
 \description{
-Returns results from a query against data held inside the mine. These queries are similar to SQL queries, in that they request certain defined output columns of output, filtering the results through a series of "constraints". 
+Returns results from a query against data held inside the mine. These queries are similar to SQL queries, in that they request certain defined output columns of output, filtering the results through a series of "constraints".
 }
 \usage{
 runQuery(im, qry, timeout = 60)
@@ -15,7 +15,7 @@ a list, containing the base URL and API token.
 }
 
   \item{qry}{
-a list or XML string, representing the query to the database. 
+a list or XML string, representing the query to the database.
 }
 
   \item{timeout}{

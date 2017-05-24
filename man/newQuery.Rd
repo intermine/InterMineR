@@ -1,3 +1,4 @@
+
 \name{newQuery}
 \alias{newQuery}
 \title{
@@ -38,3 +39,4 @@ InterMine Team
 \examples{
 nq <-  newQuery()
 }
+

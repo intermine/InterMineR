@@ -32,5 +32,5 @@ All credit goes to Bing Wang.
 LGPL. See LICENSE for details.
 
 [travis-badge-master]: https://travis-ci.org/intermine/intermineR.svg?branch=master
-[ci]: https://travis-ci.org/intermine/intermine
+[ci]: https://travis-ci.org/intermine/intermineR
 

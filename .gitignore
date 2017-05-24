@@ -12,3 +12,6 @@ executeLog*
 *.class
 productionLog
 *~
+.RData
+.Rhistory
+.Rproj.user

@@ -1,3 +1,4 @@
+
 language: r
 r: bioc-devel
 sudo: true
@@ -10,3 +11,4 @@ before_install:
     - Rscript -e 'source(file = "http://bioconductor.org/biocLite.R"); tryCatch(useDevel(devel = TRUE), error = function(err){message(err)})'
     - Rscript -e 'if(!requireNamespace("Gviz", quietly = TRUE)){BiocInstaller::biocLite("Gviz", siteRepos = "https://bioconductor.org/packages/3.5/bioc"); library("Gviz")}'
 # install Gviz from BioC Release 3.5 if BioC Development 3.6 does not work
+
