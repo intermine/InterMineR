@@ -119,8 +119,8 @@ listModelSummary <- function(model){
     # The fourth column of the att.ext variable is redundant and will prevent the
     # rbind(att.ext, ref.ext, col.ext) below!!!
   
-     # columns 2 and 4 contain identical information
-    all(tolower(att.ext[,2]) %in% gsub(" ", "", tolower(att.ext[,4])))
+    # columns 2 and 4 contain identical information for HumanMine!
+    # all(tolower(att.ext[,2]) %in% gsub(" ", "", tolower(att.ext[,4])))
   
     # Therefore, we keep only the first 3 columns from the att.ext variable:
     att.ext = att.ext[,1:3]
