@@ -13,7 +13,7 @@ listMines <- function(){
     'http://yeastmine.yeastgenome.org/yeastmine',
     'http://zebrafishmine.org',
     'http://targetmine.mizuguchilab.org/targetmine',
-    'http://mitominer.mrc-mbu.cam.ac.uk/release-3.1',
+    'http://mitominer.mrc-mbu.cam.ac.uk/release-4.0',
     'http://www.humanmine.org/humanmine',
     'http://www.cbrc.kaust.edu.sa/indigo',
     'https://apps.araport.org/thalemine',
