@@ -52,7 +52,7 @@ Since we would like to query human genes, we select HumanMine.
 
 ```{r humanmine}
 
-# load HumaMine
+# load HumanMine
 im <- initInterMine(mine=listMines()["HumanMine"])
 im
 
