@@ -244,7 +244,7 @@ model[which(model$type=="Homologue"),]
 The Homologue data type has an “dataSets” reference of type “DataSet”.
 
 ```{r add_column2}
-model[which(model$type==" DataSet "),]
+model[which(model$type=="DataSet"),]
 ```
 
 DataSet has a child called name. Add Gene.homologues.dataSets.name to the view. We’ll add it as the last column, we can see from above there are 5 other columns already so we’ll put it as #6:
