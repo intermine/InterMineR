@@ -457,7 +457,7 @@ resNeighborGene$Gene.symbol[gene.idx]=resNeighborGene$Gene.primaryIdentifier[gen
 require(Gviz)
 ```
 
-```{r plottracks}
+```{r plottracks, warning=FALSE, message=FALSE}
 annTrack = AnnotationTrack(
   start=resNeighborGene$Gene.locations.start,
   end=resNeighborGene$Gene.locations.end,
