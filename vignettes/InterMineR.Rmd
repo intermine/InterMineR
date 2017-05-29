@@ -25,11 +25,17 @@ Database | Organism | Data |
 ---------|----------|------|
 FlyMine | *Drosophila* | Genes, homology, proteins, interactions, gene ontology, expression, regulation, phenotypes, pathways, diseases, resources, publications
 HumanMine | *H. sapiens* | Genomics, SNPs, GWAS, proteins, gene ontology, pathways, gene expression, interactions, publications, disease, orthologues, alleles
-MouseMine | *M. musculus* | 
+MouseMine | *M. musculus* | Genomics, proteins, gene ontology, expression, interactions, pathways, phenotypes, diseases, homology, publications
 RatMine | *R. norvegicus* | Disease, gene ontology, genomics, interactions, phenotype, pathway, proteins, publication QTL, SNP
-WormMine | | 
+WormMine | *C. elegans* | Genes, alleles, homology, go annotation, phenotypes, strains
 YeastMine | *S. cerevisiae* | Genomics, proteins, gene ontology, comparative genomics, phenotypes, interactions, literature, pathways, gene expression
-ZebrafishMine | | |
+ZebrafishMine | *D. rerio* | Genes, constructs, disease, gene ontology, genotypes, homology, morpholinos, phenotypes
+TargetMine | *H. sapiens, M. musculus* | Genes, protein structures, chemical compounds, protein domains, gene function, pathways, interactions, disease, drug targets
+MitoMiner | *H. sapiens, M. musculus, R. norvegicus, D. rerio, S. cerevisiae, S. pombe* | Genes, homology, localisation evidence, Mitochondrial reference gene lists, phenotypes, diseases, expression, interactions, pathways, exome
+IndigoMine | *Archae* | Genomics
+ThaleMine | *A. thaliana* | Genomics, proteins, domains, homology, gene ontology, interactions, expression, publications, pathways, GeneRIF, stocks, phenotypes, alleles, insertions, TAIR
+MedicMine | *Medicago truncatula* | Genomics, pathways, gene ontology, publications, proteins, homology
+PhytoMine | *over 50 plant genomes* | Genes, proteins, expression, transcripts, homology
 
 *Please see the InterMine home page for a full list of available InterMines.*
 
