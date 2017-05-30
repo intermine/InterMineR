@@ -16,7 +16,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 1. Introduction
+# Introduction
 
 InterMine is a powerful open source data warehouse system integrating diverse biological data sets (e.g., genomic, expression and protein data) for various organisms. Integrating data makes it possible to run sophisticated data mining queries that span domains of biological knowledge. A selected list of databases powered by InterMine is shown in
 Table 1:
@@ -41,11 +41,11 @@ PhytoMine | *over 50 plant genomes* | Genes, proteins, expression, transcripts, 
 
 InterMine includes an attractive, user-friendly web interface that works ’out of the box’ and a powerful, scriptable web-service API to allow programmatic access to your data. This R package provides an interface with the InterMine-powered databases through Web services.
 
-## 2. Jumpstart: How to build queries using InterMineR
+# Jumpstart: How to build queries using InterMineR
 
 Let’s start with a simple task - find the homologues of gene ABO.
 
-### 2.1 Select a database
+## Select a database
 
 First, we look at what databases are available.
 
@@ -64,7 +64,7 @@ im
 
 ```
 
-### 2.2 Obtain a prebuilt query
+## Obtain a prebuilt query
 
 In InterMine you are able to build custom queries, but using R you are only allowed to
 run pre-built queries -- called templates. Templates are queries that have already been
@@ -137,7 +137,7 @@ There are three essential members in a query - SELECT, WHERE and constraintLogic
 3. constraintLogic
     a. Constraint Logic, if not explicitly given, is ”AND” operation, e.g., ”A and B”, where A and B are the codes in the constraints.
     
-#### 2.2.1 Look at the data model
+### Look at the data model
 
 What does “Gene.symbol” mean? What is “Gene.homologues.homologue.symbol”?
 
@@ -168,7 +168,7 @@ model[which(model$type=="Homologue"),]
 
 Homologue has a child called “gene” which is of the type “Gene”, which we saw above has a field called “symbol” (hence the column Gene.homologues.homologue.symbol).
 
-### 2.3 Run a Query
+## Run a Query
 Let’s now run our template.
 
 ```{r run_geneorth}
@@ -178,8 +178,8 @@ head(resGeneOrth)
 
 ```
 
-## 2.4 Modify a Query
-#### 2.4.1 Edit a constraint
+# Modify a Query
+## Edit a constraint
 
 Let’s modify the query to find the orthologues of the gene ABO. We want to change the “value” attribute from PPARG to ABO.
 
@@ -201,7 +201,7 @@ head(resGeneOrth)
 
 Now we are seeing orthologues for the ABO gene. Let’s add the organism to the view to make sure we are looking at the desired gene.
 
-#### 2.4.2 Add a new constraint
+## Add a new constraint
 
 You can also add additional filters. Let’s exclude all homologues where organism is *H.
 sapiens*.
@@ -237,7 +237,7 @@ resGeneOrth <- runQuery(im, queryGeneOrth)
 resGeneOrth
 ```
 
-#### 2.4.3 Add a column
+## Add a column
 
 You can also add additional columns to the output. For instance, where do these homologues come from? Let’s add this information.
 
@@ -267,7 +267,7 @@ resGeneOrth
 
 NB: adding columns can result in changing the row count.
 
-#### 2.4.4 Change constraint logic
+## Change constraint logic
 
 The constraintLogic, if not given, is “A and B”. We would now try to explicitly specify the constraintLogic. A and B corresponds to the “code” for each constraint.
 
@@ -289,9 +289,9 @@ resGeneOrth
 
 Change to be “A or B” and see how the results change.
 
-## 3. Recipes
+# Recipes
 
-### 3.1 Obtain the gene ontology (GO) terms associated with gene ABO
+## Obtain the gene ontology (GO) terms associated with gene ABO
 
 >- Start with the template Gene GO
 
@@ -325,7 +325,7 @@ resGeneGO <- runQuery(im, queryGeneGO )
 head(resGeneGO)
 ```
 
-### 3.2 Obtain the genes associated with gene ontology (GO) term ”metal ion binding”
+## Obtain the genes associated with gene ontology (GO) term ”metal ion binding”
 
 >- Start with the template Gene GO
 
@@ -359,7 +359,7 @@ head(resGOGene)
 
 ```
 
-### 3.3 Find and plot the genes within 50000 base pairs of gene ABCA6
+## Find and plot the genes within 50000 base pairs of gene ABCA6
 
 >- Start with the Gene_Location template, update to search for ABCA6 gene.
 
@@ -480,7 +480,7 @@ plotTracks(list(gtr, itr, annTrack), shape="box", showFeatureId=T, fontcolor="bl
 
 ```
 
-## 4. System info
+# System info
 
 ```{r sessioInfo}
 
@@ -488,9 +488,9 @@ sessionInfo()
 
 ```
 
-## 5. Appendix
+# Appendix
 
-### 5.1 Visual way to derive the column name of a query view or the path name in a query constraint from the database webpage
+## Visual way to derive the column name of a query view or the path name in a query constraint from the database webpage
 
 <br />
 The InterMine model could be accessed from the mine homepage by clicking the tab "QueryBuilder" and selecting the appropriate data type under "Select a Data Type to Begin a Query":
