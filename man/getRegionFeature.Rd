@@ -44,7 +44,7 @@ InterMine Team
 
 
 \examples{
-im <- initInterMine("humanmine.org/humanmine") #replace TOKEN with your token
+# im <- initInterMine("humanmine.org/humanmine") #replace TOKEN with your token
 
-gf <- getRegionFeature(im, c("3:12287368-12434356"), c("Gene"))
+# gf <- getRegionFeature(im, c("3:12287368-12434356"), c("Gene"))
 }
