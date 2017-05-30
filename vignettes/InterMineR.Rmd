@@ -1,14 +1,14 @@
 ---
 title: "InterMineR Tutorial"
 author: "InterMine Team"
-date: "22 May 2017"
+date: "`r doc_date()`"
 output: 
-  html_document:
+  BiocStyle::html_document:
     toc: true
     highlight: pygments
 vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{InterMineR Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
