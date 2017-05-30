@@ -8,6 +8,6 @@ Description: Databases based on the InterMine platform such as FlyMine, modMine 
 License: LGPL
 VignetteBuilder: knitr
 Imports: Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, igraph, httr
-Suggests: Gviz, knitr
+Suggests: BiocStyle, Gviz, knitr, rmarkdown
 BugReports: https://github.com/intermine/intermineR/issues
 biocViews: GeneExpression, SNP, GeneSetEnrichment, DifferentialExpression, GeneRegulation, GenomeAnnotation, GenomeWideAssociation, FunctionalPrediction, AlternativeSplicing, ComparativeGenomics, FunctionalGenomics, Proteomics, SystemsBiology, Microarray, MultipleComparison, Pathways, GO, KEGG, Reactome, Visualization
