@@ -1,4 +1,5 @@
-Master: [![Build Status: master][travis-badge-master]][ci]
+Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status: dev][travis-badge-dev]][ci]
+
 
 # InterMine-R
 
@@ -33,4 +34,4 @@ LGPL. See LICENSE for details.
 
 [travis-badge-master]: https://travis-ci.org/intermine/intermineR.svg?branch=master
 [ci]: https://travis-ci.org/intermine/intermineR
-
+[travis-badge-dev]: https://travis-ci.org/intermine/intermineR.svg?branch=dev
