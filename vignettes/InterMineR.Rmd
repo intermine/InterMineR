@@ -10,9 +10,6 @@ vignette: >
   %\VignetteIndexEntry{InterMineR Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\VignetteKeywords{InterMineR}
-  %\VignetteDepends{InterMineR}
-  %\VignettePackage{InterMineR}
 ---
 
 ```{r setup, include=FALSE}
