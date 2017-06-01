@@ -12,10 +12,9 @@ devtools::install_github('intermine/intermineR')
 
 ## Usage
 
-See PDFs for detailed API and tutorial:
+See HTML for detailed API and tutorial:
 
- InterMineR-manual.pdf
- InterMineR.pdf
+ InterMineR.html
 
 ## Contributing
 
