@@ -6,7 +6,9 @@ R package for accessing InterMine instances
 
 ## Installation
 
-Working on adding to CRAN and bioconductor. For now, install manually.
+Working on adding to Bioconductor. For now, install with devtools: 
+
+devtools::install_github('intermine/intermineR')
 
 ## Usage
 
