@@ -1,7 +1,7 @@
 ---
 title: "InterMineR Tutorial"
 author: "InterMine Team"
-date: "`r doc_date()`"
+date: "`r Sys.setlocale('LC_TIME', 'C');doc_date()`"
 output: 
   BiocStyle::html_document:
     toc: true
