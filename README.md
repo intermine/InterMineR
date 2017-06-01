@@ -1,4 +1,4 @@
-Master: [![Build Status: master][travis-badge-master]][ci]
+Master: [![Build Status](https://travis-ci.org/intermine/intermineR.svg?branch=master.png)](https://travis-ci.org/intermine/intermineR)
 
 # InterMine-R
 
@@ -31,7 +31,3 @@ All credit goes to Bing Wang.
 ## License
 
 LGPL. See LICENSE for details.
-
-[travis-badge-master]: https://travis-ci.org/intermine/intermineR.svg?branch=master
-[ci]: https://travis-ci.org/intermine/intermineR
-
