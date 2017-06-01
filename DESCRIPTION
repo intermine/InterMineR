@@ -2,7 +2,14 @@ Package: InterMineR
 Title: R Interface with InterMine-Powered Databases
 Version: 0.99.0
 Date: 2016-01-05
-Author: Bing Wang, Julie Sullivan, Rachel Lyne, Konstantinos Kyritsis
+Authors@R: c(person("Bing Wang", "Developer", role = c("aut", "cre"),
+              person("Julie Sullivan", "Developer", role = "aut"),
+              person("Rachel Lyne", "Developer", role = "aut"),
+			  person("Konstantinos Kyritsis", "Developer", role = "aut"))
+Author: Bing Wang Developer [aut, cre],
+  Julie Sullivan Developer [aut],
+  Rachel Lyne Developer [aut],
+  Konstantinos Kyritsis Developer [aut]
 Maintainer: InterMine Team <j.sullivan@gen.cam.ac.uk>
 Description: Databases based on the InterMine platform such as FlyMine, modMine (modENCODE), RatMine, YeastMine, HumanMine and TargetMine are integrated databases of genomic, expression and protein data for various organisms. Integrating data makes it possible to run sophisticated data mining queries that span domains of biological knowledge. This R package provides interfaces with these databases through webservices. It makes most from the correspondence of the data frame object in R and the table object in databases, while hiding the details of data exchange through XML or JSON.
 License: LGPL
