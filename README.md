@@ -1,4 +1,4 @@
-Master: [![Build Status: master][travis-badge-master]][ci]
+Master: [![Build Status](https://travis-ci.org/intermine/intermineR.svg?branch=master.png)](https://travis-ci.org/intermine/intermineR)
 
 # InterMine-R
 
@@ -6,14 +6,15 @@ R package for accessing InterMine instances
 
 ## Installation
 
-Working on adding to CRAN and bioconductor. For now, install manually.
+Working on adding to Bioconductor. For now, install with devtools: 
+
+devtools::install_github('intermine/intermineR')
 
 ## Usage
 
-See PDFs for detailed API and tutorial:
+See HTML vignette for detailed API and tutorial:
 
- InterMineR-manual.pdf
- InterMineR.pdf
+ vignettes/InterMineR.Rmd
 
 ## Contributing
 
@@ -30,7 +31,3 @@ All credit goes to Bing Wang.
 ## License
 
 LGPL. See LICENSE for details.
-
-[travis-badge-master]: https://travis-ci.org/intermine/intermineR.svg?branch=master
-[ci]: https://travis-ci.org/intermine/intermineR
-
