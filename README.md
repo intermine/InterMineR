@@ -26,7 +26,9 @@ See HTML vignette for detailed API and tutorial:
 
 ## Credits
 
-All credit goes to Bing Wang.
+Package created by Bing Wang. 
+
+Enrichment analysis functions and visualizations added by Konstantinos Kyritsis.
 
 ## License
 
