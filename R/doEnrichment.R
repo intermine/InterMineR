@@ -7,7 +7,7 @@ doEnrichment = function(
   maxp = 0.05, # The maximum p-value of results to display. The range is 0.0 - 1.0
   correction = "None", # The error correction algorithm to use. Alternatively use "Benjamini Hochberg", "Bonferroni" or "None"
   filter = NULL, # An optional filter that some widgets accept. Use getWidgets for available filters of the respective enrichment widget.
-  format = "xml" # output format which will be be processed to data.frame. Alternatively use "json".
+  output = "xml" # output format which will be be processed to data.frame. Alternatively use "json".
 ) {
   
   # Assign the parameters of the enrichment query in a list
@@ -19,7 +19,7 @@ doEnrichment = function(
     maxp = maxp,
     correction = correction,
     filter = filter,
-    format = format
+    output = output
   ) 
   
   # Create enrichment query character string
@@ -53,8 +53,8 @@ doEnrichment = function(
     enq = paste(enq, paste0("filter=",queryEnrich[["filter"]]), sep = "&")
   }
   
-  # add format
-  enq = paste(enq, paste0("format=",queryEnrich[["format"]]), sep = "&")
+  # add output
+  enq = paste(enq, paste0("format=",queryEnrich[["output"]]), sep = "&")
   
   # percent-encode query string 
   enq.string = URLencode(enq)
@@ -62,7 +62,7 @@ doEnrichment = function(
   # keep the first part of mine url (e.g. http://www.flymine.org/)
   mine.url = substr(im$mine, start = 1, stop = gregexpr("/",im$mine)[[1]][length(gregexpr("/",im$mine)[[1]])])
   
-  if(format == "xml") {
+  if(output == "xml") {
     # perform GET request
     r = GET(paste0(mine.url,"query/service/list/enrichment?",enq.string))
     
@@ -78,7 +78,7 @@ doEnrichment = function(
       answer = NULL
     }
   
-  } else if (format == "json"){
+  } else if (output == "json"){
     # perform request and convert json results in data.frame with
     # jsonlite::fromJSON function
     r = jsonlite::fromJSON(txt = paste0(mine.url,"query/service/list/enrichment?",enq.string))
