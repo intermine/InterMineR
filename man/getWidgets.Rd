@@ -32,5 +32,5 @@ The names of the widgets of the enrichment type can be passed as arguments to do
   
 FlyMine.widgets <- getWidgets(im = initInterMine(mine = listMines()["FlyMine"]))
   
-MouseMine.widgets = getWidgets(im = initInterMine(mine = listMines()["MouseMine"]))
+MouseMine.widgets <- getWidgets(im = initInterMine(mine = listMines()["MouseMine"]))
 }
