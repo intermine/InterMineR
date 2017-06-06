@@ -96,7 +96,7 @@ functions_results = data.frame(Mines = listMines(),
                                Returned_Random_Gene_Template_Query = ind.template.query,
                                Ran_Successfully_Random_Gene_Template_Query = ind.run.random.query)
 
-functions_results
+try(functions_results)
 ```
 
 Warning and Error messages have been supressed so that the text can be legible but failing to run a function for a specific Mine can be seen in the final data.frame.
