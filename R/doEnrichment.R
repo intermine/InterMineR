@@ -1,13 +1,13 @@
 doEnrichment = function(
-  im, # Mine to use
-  genelist = NULL, # The name of the list to investigate, optional unless identifiers is NULL.
-  ids = NULL, # Comma-separated list of InterMine object IDs, optional unless list name is NULL.
-  widget = NULL, # The name of the enrichment widget to display. Use getWidgets for available enrichment type widgets for the respective Mine.
-  population = NULL, # The name of the list to use as the background population
-  maxp = 0.05, # The maximum p-value of results to display. The range is 0.0 - 1.0
-  correction = "None", # The error correction algorithm to use. Alternatively use "Benjamini Hochberg", "Bonferroni" or "None"
-  filter = NULL, # An optional filter that some widgets accept. Use getWidgets for available filters of the respective enrichment widget.
-  output = "xml" # output format which will be be processed to data.frame. Alternatively use "json".
+  im,
+  genelist = NULL,
+  ids = NULL,
+  widget = NULL,
+  population = NULL,
+  maxp = 0.05,
+  correction = "None",
+  filter = NULL,
+  output = "xml"
 ) {
   
   # Assign the parameters of the enrichment query in a list
