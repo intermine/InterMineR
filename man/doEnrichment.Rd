@@ -47,7 +47,7 @@ The error correction algorithm to use. Alternatively use "Benjamini Hochberg", "
 An optional filter that some widgets accept. Use getWidgets() function to retrieve available filters of the respective enrichment widget.
 }
   \item{output}{
-output format which will be be processed to data.frame. Alternatively use "json".
+output format which will be be processed to data.frame (Use "json" option only after installing InterMineR and jsonlite independently!).
 }
 }
 \details{
