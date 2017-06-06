@@ -53,6 +53,8 @@ output format which will be be processed to data.frame (Use "json" option only a
 \details{
 The public gene lists for each Mine are available at the websites obtained by the following command:
 paste0(listMines()$URL, "/bag.do?subtab=view")
+  
+Each type of enrichment widget can be applied to a gene list with specific annotation. To apply the enrichment analysis to the appropriate list of genes, use the targets column of the respective enrichment widgets as they are retrieved by getWidgets() function.
 }
 \value{
 
