@@ -64,12 +64,12 @@ for(i in seq(length(listMines()))){
 }
 
 # Get results for all four functions
-functions_results = data.frame(Mines = listMines(), 
+functions_results = try(data.frame(Mines = listMines(), 
                                Returned_Model = ind.getmodel,
                                Returned_Templates = ind.template,
                                Random_Template_Query = ind.random.template.query.name,
                                Returned_Random_Gene_Template_Query = ind.template.query,
-                               Ran_Successfully_Random_Gene_Template_Query = ind.run.random.query)
+                               Ran_Successfully_Random_Gene_Template_Query = ind.run.random.query))
 
 try(functions_results)
 
