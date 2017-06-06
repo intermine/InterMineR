@@ -59,12 +59,12 @@ doEnrichment = function(
   # percent-encode query string 
   enq.string = URLencode(enq)
   
-  # keep the first part of mine url (e.g. http://www.flymine.org/)
-  mine.url = substr(im$mine, start = 1, stop = gregexpr("/",im$mine)[[1]][length(gregexpr("/",im$mine)[[1]])])
+  mine.url = im$mine
   
   if(output == "xml") {
     # perform GET request
-    r = GET(paste0(mine.url,"query/service/list/enrichment?",enq.string))
+    r = GET(paste0(mine.url,"/service/list/enrichment?",enq.string))
+    stop_for_status(r)
     
     # extract content from request
     res = content(r)
@@ -77,12 +77,12 @@ doEnrichment = function(
       # no results
       answer = NULL
     }
-  
+    
   } else if (output == "json"){
     # perform request and convert json results in data.frame with
     # jsonlite::fromJSON function
     # Set xml as default because jsonlite interferes with RJSONIO!
-    r = jsonlite::fromJSON(txt = paste0(mine.url,"query/service/list/enrichment?",enq.string))
+    r = jsonlite::fromJSON(txt = paste0(mine.url,"/service/list/enrichment?",enq.string))
     
     if(length(r$results) > 0){
       # edit to be the same data.frame output as xml
