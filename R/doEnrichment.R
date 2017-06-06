@@ -5,7 +5,7 @@ doEnrichment = function(
   widget = NULL,
   population = NULL,
   maxp = 0.05,
-  correction = "None",
+  correction = "Holm-Bonferroni",
   filter = NULL,
   output = "xml"
 ) {
