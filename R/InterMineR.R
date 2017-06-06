@@ -1,6 +1,5 @@
 # require(RCurl)
 # require(XML)
-# require(jsonlite)
 # require(RJSONIO)
 # require(sqldf)
 # require(igraph)
