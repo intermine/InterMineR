@@ -73,7 +73,7 @@ getModel <- function(im, timeout=3){
     r <- GET(paste(im$mine, "/service/model", sep=""))
     stop_for_status(r)
     model.string <- content(r, "text")
-    model <- RJSONIO::fromJSON(model.string)$model$classes
+    model <- fromJSON(model.string)$model$classes
     res <- listModelSummary(model)
     res
 }
