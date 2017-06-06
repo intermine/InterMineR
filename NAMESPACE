@@ -1,4 +1,4 @@
 export(listMines, initInterMine, getVersion, getRelease, getModel, getTemplates, runQuery, getTemplateQuery, newQuery, getWidgets, doEnrichment)
-import(Biostrings, jsonlite, RCurl, XML, xml2, RJSONIO, sqldf, httr)
+import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr)
 importFrom(igraph,graph.data.frame,shortest.paths)
 importFrom("utils", "URLencode")
