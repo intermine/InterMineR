@@ -67,9 +67,15 @@ InterMine Team
 }
 
 \examples{
-enrichResults = doEnrichment(
+enrichResults.FlyMine <- doEnrichment(
   im = initInterMine(mine = listMines()["FlyMine"]),
   genelist = "PL FlyTF_site_specific_TFs",
   widget = "go_enrichment_for_gene"
   )
+  
+enrichResults.MouseMine = doEnrichment(
+  im = initInterMine(mine = listMines()["MouseMine"]),
+  genelist = "Mouse DNA repair genes 2013-01-06",
+  widget = "pathway_enrichment_for_gene"
+)
 }
