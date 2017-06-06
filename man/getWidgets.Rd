@@ -29,8 +29,6 @@ The names of the widgets of the enrichment type can be passed as arguments to do
 }
 
 \examples{
-
-# run after installation
   
-# FlyMine.widgets <- getWidgets(im = initInterMine(mine = listMines()["FlyMine"]))
+FlyMine.widgets <- getWidgets(im = initInterMine(mine = listMines()["FlyMine"]))
 }
