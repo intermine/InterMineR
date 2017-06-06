@@ -7,11 +7,8 @@ getWidgets = function(im){
   # format with content
   mine.script = content(r, "text")
   # RJSONIO::fromJSON instead of jsonlite::fromJSON (interferes with getModel)
-  res = RJSONIO::fromJSON(mine.script)
-  
-  
-  # get widget results and convert rirectly to R objects with 
   # res = jsonlite::fromJSON(txt = paste0(mine.url, "query/service/widgets?format=json"))
+  res = RJSONIO::fromJSON(mine.script)
   
   # format to data.frame:
   t = res$widgets
