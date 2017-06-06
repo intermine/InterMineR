@@ -71,7 +71,7 @@ functions_results = data.frame(Mines = listMines(),
                                Returned_Random_Gene_Template_Query = ind.template.query,
                                Ran_Successfully_Random_Gene_Template_Query = ind.run.random.query)
 
-functions_results
+try(functions_results)
 
 # SessionInfo
 sessionInfo()
