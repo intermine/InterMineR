@@ -28,7 +28,6 @@ listMines <- function(){
     'TargetMine',
     'MitoMiner',
     'HumanMine',
-    'indigoMine',
     'thalemine',
     'medicmine',
     'PhytoMine')
