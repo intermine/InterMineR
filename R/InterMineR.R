@@ -14,7 +14,7 @@ listMines <- function(){
     'http://zebrafishmine.org',
     'http://targetmine.mizuguchilab.org/targetmine',
     'http://mitominer.mrc-mbu.cam.ac.uk/release-4.0',
-    'http://www.humanmine.org/humanmine',
+    'http://www.humanmine.org/humanmine',    
     'https://apps.araport.org/thalemine',
     'http://medicmine.jcvi.org/medicmine',
     'http://phytozome.jgi.doe.gov/phytomine')
