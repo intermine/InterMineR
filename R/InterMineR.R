@@ -15,7 +15,6 @@ listMines <- function(){
     'http://targetmine.mizuguchilab.org/targetmine',
     'http://mitominer.mrc-mbu.cam.ac.uk/release-4.0',
     'http://www.humanmine.org/humanmine',
-    'http://www.cbrc.kaust.edu.sa/indigo',
     'https://apps.araport.org/thalemine',
     'http://medicmine.jcvi.org/medicmine',
     'http://phytozome.jgi.doe.gov/phytomine')
@@ -29,7 +28,6 @@ listMines <- function(){
     'TargetMine',
     'MitoMiner',
     'HumanMine',
-    'indigoMine',
     'thalemine',
     'medicmine',
     'PhytoMine')
