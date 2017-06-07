@@ -4,10 +4,10 @@
 Run a query
 }
 \description{
-Returns results from a query against data held inside the mine. These queries are similar to SQL queries, in that they request certain defined output columns of output, filtering the results through a series of "constraints". 
+Returns results from a query against data held inside the mine. These queries are similar to SQL queries, in that they request certain defined output columns of output, filtering the results through a series of "constraints".
 }
 \usage{
-runQuery(im, qry, format="data.frame", timeout = 60)
+runQuery(im, qry, timeout = 60)
 }
 \arguments{
   \item{im}{
@@ -15,10 +15,7 @@ a list, containing the base URL and API token.
 }
 
   \item{qry}{
-a list or XML string, representing the query to the database. 
-}
-  \item{format}{
-a string, representing the output format of the query result.  It could be one of these values: "data.frame", "sequence". 
+a list or XML string, representing the query to the database.
 }
 
   \item{timeout}{

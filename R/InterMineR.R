@@ -9,11 +9,11 @@ listMines <- function(){
     mines <- c('http://www.flymine.org/flymine',
     'http://www.mousemine.org/mousemine',
     'http://ratmine.mcw.edu/ratmine',
-    'http://www.wormbase.org/tools/wormmine',
+    'http://intermine.wormbase.org/tools/wormmine',
     'http://yeastmine.yeastgenome.org/yeastmine',
     'http://zebrafishmine.org',
     'http://targetmine.mizuguchilab.org/targetmine',
-    'http://mitominer.mrc-mbu.cam.ac.uk/release-3.1',
+    'http://mitominer.mrc-mbu.cam.ac.uk/release-4.0',
     'http://www.humanmine.org/humanmine',
     'http://www.cbrc.kaust.edu.sa/indigo',
     'https://apps.araport.org/thalemine',
@@ -114,6 +114,16 @@ listModelSummary <- function(model){
     att.ext <- do.call(rbind, att.ext)
     att.ext$child_type <- ""
     rownames(att.ext) <- NULL
+                  
+    # Error occuring when using HumanMine:
+    # The fourth column of the att.ext variable is redundant and will prevent the
+    # rbind(att.ext, ref.ext, col.ext) below!!!
+  
+    # columns 2 and 4 contain identical information for HumanMine!
+    # all(tolower(att.ext[,2]) %in% gsub(" ", "", tolower(att.ext[,4])))
+  
+    # Therefore, we keep only the first 3 columns from the att.ext variable:
+    att.ext = att.ext[,1:3]
 
     ref <- lapply(class.name, function(x) {
         y <- model[[x]][["references"]]
