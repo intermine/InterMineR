@@ -1,53 +1,83 @@
 \name{doEnrichment}
 \alias{doEnrichment}
+
 \title{
-Do enrichment analysis for a list of genes
+Perform enrichment analysis
 }
 \description{
-Do enrichment analysis for a list of genes.
+Retrieve enrichment analysis results from InterMine platform. Enrichment widgets provide a statistical summary of what makes a list distinct from the background population over a certain domain. They return a list of members of the domain ranked by p-value (low to high).
 }
 \usage{
-doEnrichment(im, genelist, ontology, subcategory = "", maxp = 0.05, 
-correction = c("Holm-Bonferroni", "Benjamini and Hochberg", "Bonferroni", "None"), 
-timeout = 60)
-}
-\arguments{
-  \item{im}{
-a list, containing the base URL and API token.
-}
-  \item{genelist}{
-a character vector, represetning the genes for enrichment analysis
-}
-  \item{ontology}{
-a string, representing the name of the ontology.  It could be of one of the following values:
-"go_enrichment_for_gene" (for GO enrichment), "pathway_enrichment" (for pathway enrichment), 
-"prot_dom_enrichment_for_gene" (for Protein domain enrichment), "publication_enrichment" (for Publication enrichment).
-}
-  \item{subcategory}{
-a string, representing the sub-category of the ontology.  It could be of the following values:
-"biological_process", "cellular_component", "molecular_function" (for GO enrichment) or "All", "KEGG pathways data set", "Reactome data set" (for pathway enrichment)
-}
-  \item{maxp}{
-a numeric, representing the threshold p-value.
-}
-  \item{correction}{
-a string, representing the correction method for multiple comparison.  It could be of one of the following values: "Holm-Bonferroni", "Benjamini and Hochberg", "Bonferroni", "None".
+doEnrichment = function(
+  im, 
+  genelist = NULL,
+  ids = NULL,
+  widget = NULL,
+  population = NULL, 
+  maxp = 0.05,
+  correction = "Holm-Bonferroni", 
+  filter = NULL,
+  output = "xml"
+)
 }
 
-  \item{timeout}{
-an integer, representing the number of seconds to wait for the webservice to respond.
+\arguments{
+  \item{im}{
+a list containing the base URL and API token.
 }
+  \item{genelist}{
+The name of the list to investigate, optional unless ids (identifiers) is NULL.
+}
+  \item{ids}{
+Comma-separated list of InterMine object IDs, optional unless list is NULL.
+}
+  \item{widget}{
+The name of the enrichment widget to display. Use getWidgets() function to retrieve available enrichment type widgets for the respective Mine.
+}
+  \item{population}{
+The name of the list to use as the background population.
+}
+  \item{maxp}{
+The maximum p-value of results to display. The range is 0.0 - 1.0
+}
+  \item{correction}{
+The error correction algorithm to use. Alternatively use "Benjamini Hochberg", "Bonferroni" or "None".
+}
+  \item{filter}{
+An optional filter that some widgets accept. Use getWidgets() function to retrieve available filters of the respective enrichment widget.
+}
+  \item{output}{
+output format which will be be processed to data.frame (Use "json" option only after installing InterMineR and jsonlite independently!).
+}
+}
+\details{
+The public gene lists for each Mine are available at the websites obtained by the following command:
+paste0(listMines()$URL, "/bag.do?subtab=view")
+  
+Each type of enrichment widget can be applied to a gene list with specific annotation. To apply the enrichment analysis to the appropriate list of genes, use the targets column of the respective enrichment widgets as they are retrieved by getWidgets() function.
 }
 \value{
-a matrix, representing the enrichment result.
+
+A data.frame containing the results of the enrichment analysis performed in InterMine platform.
+
+The statistically significant results are ordered by increasing p-values.
+
 }
+
 \author{
 InterMine Team
 }
-\examples{
-# im <- initInterMine("humanmine.org/humanmine", "TOKEN") #replace TOKEN with your token
 
-\dontrun{
-  # doEnrichment(im, c("ABO", "ALB"), 'go_enrichment_for_gene', 'cellular_component', correction="NONE")
-}
+\examples{
+enrichResults.FlyMine <- doEnrichment(
+  im = initInterMine(mine = listMines()["FlyMine"]),
+  genelist = "PL FlyTF_site_specific_TFs",
+  widget = "go_enrichment_for_gene"
+  )
+  
+enrichResults.MouseMine <- doEnrichment(
+  im = initInterMine(mine = listMines()["MouseMine"]),
+  genelist = "Mouse DNA repair genes 2013-01-06",
+  widget = "pathway_enrichment_for_gene"
+)
 }

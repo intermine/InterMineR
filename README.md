@@ -1,5 +1,5 @@
-Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status: dev][travis-badge-dev]][ci]
 
+Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status: dev][travis-badge-dev]][ci]
 
 # InterMine-R
 
@@ -7,14 +7,15 @@ R package for accessing InterMine instances
 
 ## Installation
 
-Working on adding to CRAN and bioconductor. For now, install manually.
+Working on adding to Bioconductor. For now, install with devtools: 
+
+devtools::install_github('intermine/intermineR')
 
 ## Usage
 
-See PDFs for detailed API and tutorial:
+See HTML vignette for detailed API and tutorial:
 
- InterMineR-manual.pdf
- InterMineR.pdf
+ vignettes/InterMineR.Rmd
 
 ## Contributing
 
@@ -26,7 +27,9 @@ See PDFs for detailed API and tutorial:
 
 ## Credits
 
-All credit goes to Bing Wang.
+Package created by Bing Wang. 
+
+Enrichment analysis functions and visualizations added by Konstantinos Kyritsis.
 
 ## License
 
