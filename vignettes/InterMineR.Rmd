@@ -476,7 +476,7 @@ annTrack = AnnotationTrack(
 gtr <- GenomeAxisTrack()
 itr <- IdeogramTrack(genome="hg38", chromosome="chr17")
 
-plotTracks(list(gtr, itr, annTrack), shape="box", showFeatureId=T, fontcolor="black")
+plotTracks(list(gtr, itr, annTrack), shape="box", showFeatureId=TRUE, fontcolor="black")
 
 ```
 
