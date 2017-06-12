@@ -35,6 +35,6 @@ Enrichment analysis functions and visualizations added by Konstantinos Kyritsis.
 
 LGPL. See LICENSE for details.
 
-[travis-badge-master]: https://travis-ci.org/intermine/intermineR.svg?branch=master
-[ci]: https://travis-ci.org/intermine/intermineR
-[travis-badge-dev]: https://travis-ci.org/intermine/intermineR.svg?branch=dev
+[travis-badge-master]: https://travis-ci.org/intermine/InterMineR.svg?branch=master
+[ci]: https://travis-ci.org/intermine/InterMineR
+[travis-badge-dev]: https://travis-ci.org/intermine/InterMineR.svg?branch=dev
