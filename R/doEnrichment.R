@@ -82,6 +82,7 @@ doEnrichment = function(
     # perform request and convert json results in data.frame with
     # jsonlite::fromJSON function
     # Set xml as default because jsonlite interferes with RJSONIO!
+    # r = jsonlite::fromJSON(txt = paste0(mine.url,"/service/list/enrichment?",enq.string))
     r = fromJSON(txt = paste0(mine.url,"/service/list/enrichment?",enq.string))
     
     if(length(r$results) > 0){
