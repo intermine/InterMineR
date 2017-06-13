@@ -1,3 +1,3 @@
-export(listMines, initInterMine, getVersion, getRelease, getModel, getTemplates, runQuery, getTemplateQuery, newQuery, getWidgets, doEnrichment)
+export(listMines, initInterMine, getVersion, getRelease, getModel, getTemplates, runQuery, getTemplateQuery, newQuery, getWidgets, doEnrichment, getGeneIds)
 import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr)
 importFrom(igraph,graph.data.frame,shortest.paths)
