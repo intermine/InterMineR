@@ -29,7 +29,7 @@ a list containing the base URL and API token.
 The name of the list to investigate, optional unless ids (identifiers) is NULL.
 }
   \item{ids}{
-Comma-separated list of InterMine object IDs, optional unless list is NULL.
+Comma-separated character string of InterMine object IDs, optional unless list is NULL. Use getGeneIds() function to retrieve unique Gene.id values for a list of gene identifiers.
 }
   \item{widget}{
 The name of the enrichment widget to display. Use getWidgets() function to retrieve available enrichment type widgets for the respective Mine.
