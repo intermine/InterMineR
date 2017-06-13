@@ -8,7 +8,7 @@ Perform enrichment analysis
 Retrieve enrichment analysis results from InterMine platform. Enrichment widgets provide a statistical summary of what makes a list distinct from the background population over a certain domain. They return a list of members of the domain ranked by p-value (low to high).
 }
 \usage{
-doEnrichment = function(
+doEnrichment(
   im, 
   genelist = NULL,
   ids = NULL,
