@@ -27,7 +27,7 @@ InterMine Team
 
 \examples{
 
-  im <- initInterMine("humanmine.org/humanmine")
+  im <- initInterMine(listMines()["HumanMine"])
 
   getVersion(im)
   
