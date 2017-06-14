@@ -8,7 +8,7 @@ Perform enrichment analysis
 Retrieve enrichment analysis results from InterMine platform. Enrichment widgets provide a statistical summary of what makes a list distinct from the background population over a certain domain. They return a list of members of the domain ranked by p-value (low to high).
 }
 \usage{
-doEnrichment = function(
+doEnrichment(
   im, 
   genelist = NULL,
   ids = NULL,
@@ -29,7 +29,7 @@ a list containing the base URL and API token.
 The name of the list to investigate, optional unless ids (identifiers) is NULL.
 }
   \item{ids}{
-Comma-separated list of InterMine object IDs, optional unless list is NULL.
+Comma-separated character string of InterMine object IDs, optional unless list is NULL. Use getGeneIds() function to retrieve unique Gene.id values for a list of gene identifiers.
 }
   \item{widget}{
 The name of the enrichment widget to display. Use getWidgets() function to retrieve available enrichment type widgets for the respective Mine.
