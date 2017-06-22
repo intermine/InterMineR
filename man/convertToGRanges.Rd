@@ -50,7 +50,7 @@ a logical value indicating whether the values passed as seqnames are InterMineR 
 }
 }
 \details{
-The InterMineR package provides a flexible interface to the \code{\link[http://intermine.org/]{InterMine}} web services, which allow for rapid retrieval of various genomic information. 
+The InterMineR package provides a flexible interface to the InterMine web services, which allow for rapid retrieval of various genomic information. 
 
 convertToGRanges function is designed to facilitate the conversion of genomic locations and their respective annotations, in the format by which they are retrieved using InterMineR, to an object of the \code{\link[GenomicRanges]{GRanges}} class.
 }

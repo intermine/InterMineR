@@ -5,7 +5,7 @@
 Convert experimental results retrieved by InterMineR queries to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class
 }
 \description{
-convertToRangedSummarizedExperiment constitutes a wrapper function for converting genomic information and experimental from \code{\link[http://intermine.org/]{InterMine}} to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class. 
+convertToRangedSummarizedExperiment constitutes a wrapper function for converting genomic information and experimental from InterMine to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class. 
 }
 \usage{
 convertToRangedSummarizedExperiment(
@@ -38,7 +38,7 @@ an integer vector indicating the columns of the dataset which will be assigned a
 }
 }
 \details{
-The InterMineR package provides a flexible interface to the \code{\link[http://intermine.org/]{InterMine}} web services, which allow for rapid retrieval of various genomic information.
+The InterMineR package provides a flexible interface to the InterMine web services, which allow for rapid retrieval of various genomic information.
 
 convertToRangedSummarizedExperiment function facilitates the conversion of genomic information and experimental data from high-throughput assays, which are retrieved by using InterMineR queries, to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class.
 
