@@ -48,10 +48,6 @@ It is noteworthy that the \code{\link[stats]{reshape}} function is used to conve
 \value{
 an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class containing genomic information and experimental data of high-throughput assays, which are retrieved with the InterMineR queries system.
 }
-\references{
-\code{\link[https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html]{SummarizedExperiment for Coordinating Experimental Assays, Samples, and Regions of Interest}
-}
-}
 
 \author{
 InterMine Team
