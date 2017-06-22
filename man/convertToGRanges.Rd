@@ -57,9 +57,6 @@ convertToGRanges function is designed to facilitate the conversion of genomic lo
 \value{
 An object of the \code{\link[GenomicRanges]{GRanges}} class containing genomic locations and annotations retrieved by InterMineR queries.
 }
-\references{
-\code{\link[https://bioconductor.org/packages/release/bioc/vignettes/GenomicRanges/inst/doc/GenomicRangesIntroduction.pdf]{An Introduction to the GenomicRanges Package}}
-}
 \author{
 InterMine Team
 }
