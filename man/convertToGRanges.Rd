@@ -86,9 +86,12 @@ test = convertToGRanges(
   start = rTF_Binding$TFBindingSite.chromosomeLocation.start,
   end = rTF_Binding$TFBindingSite.chromosomeLocation.end,
   strand = "gene.strand",
-  columnsAsMetadata = c("TFBindingSite.gene.regulatoryRegions.dataSets.dataSource.name",
-                        "TFBindingSite.factor.primaryIdentifier"),
-  listAsMetadata = list(c(factor.primaryIdentifier = rTF_Binding$TFBindingSite.factor.primaryIdentifier))
+  columnsAsMetadata = c(
+    "TFBindingSite.gene.regulatoryRegions.dataSets.dataSource.name",
+    "TFBindingSite.factor.primaryIdentifier"),
+  listAsMetadata = list(
+    c(factor.primaryIdentifier = rTF_Binding$TFBindingSite.factor.primaryIdentifier)
+  )
 )
 
 # check results
