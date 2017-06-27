@@ -38,6 +38,9 @@ InterMine Team
 }
 \examples{
 
+# get HumanMine
+im.human = initInterMine(listMines()["HumanMine"])
+  
 # get template query for retrieving GOTerms for specific genes
 qGene_GO = getTemplateQuery(im.human, "Gene_GO")
 
