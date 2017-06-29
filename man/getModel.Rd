@@ -31,7 +31,10 @@ InterMine Team
 
 
 \examples{
-im <- initInterMine("humanmine.org/humanmine")
 
-model <- getModel(im)
+  # retrieve data model for FlyMine
+  im.fly = initInterMine(listMines()["FlyMine"])
+
+  model = getModel(im.fly)
+
 }
