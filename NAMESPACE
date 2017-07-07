@@ -1,3 +1,24 @@
-export(listMines, initInterMine, getVersion, getRelease, getModel, getTemplates, runQuery, getTemplateQuery, newQuery, getWidgets, doEnrichment, getGeneIds, convertToGRanges, convertToRangedSummarizedExperiment, getDatasets, listDatasets, simplifyResult)
-import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment)
+export(listMines, 
+initInterMine, 
+getVersion, 
+getRelease, 
+getModel, 
+getTemplates, 
+runQuery, 
+getTemplateQuery, 
+newQuery, 
+getWidgets, 
+doEnrichment, 
+getGeneIds, 
+convertToGRanges, 
+convertToRangedSummarizedExperiment, 
+getDatasets, 
+listDatasets, 
+simplifyResult)
+exportClasses(InterMineR_query)
+exportClasses(InterMineR_result)
+import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, plyr, methods)
 importFrom(igraph,graph.data.frame,shortest.paths)
+importFrom(plyr,rbind.fill)
+importFrom(methods,new)
+
