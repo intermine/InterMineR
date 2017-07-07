@@ -14,7 +14,7 @@ Objects can be created using the function \code{\link{runQuery2}}.
 
 \section{Slots}{
   \describe{
-  \item{results}{
+  \item{result}{
 a data.frame containing the data which were retrieved from the InterMine instance.
 }
 \item{constraints}{
