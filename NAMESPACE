@@ -14,7 +14,10 @@ convertToGRanges,
 convertToRangedSummarizedExperiment, 
 getDatasets, 
 listDatasets, 
-simplifyResult)
+simplifyResult,
+setConstraints,
+setQuery,
+runQuery2)
 exportClasses(InterMineR_query)
 exportClasses(InterMineR_result)
 import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, plyr, methods)
