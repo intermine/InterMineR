@@ -9,6 +9,7 @@ convertToRangedSummarizedExperiment constitutes a wrapper function for convertin
 }
 \usage{
 convertToRangedSummarizedExperiment(
+  im,
   dataset,
   SampleColumn,
   GeneColumn,
@@ -125,3 +126,4 @@ test2 = convertToRangedSummarizedExperiment(
 )
 
 test2
+
