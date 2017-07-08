@@ -2,12 +2,14 @@
 # Dataset argument takes data.frame object as input
 
 convertToRangedSummarizedExperiment = function(
+  im,
   dataset,
   SampleColumn,
   GeneColumn,
   ValueColumn,
   OrganismValue,
-  colsForSampleMetadata
+  colsForSampleMetadata,
+  exonsForRowRanges = FALSE
 ){
   
   # get index for SampleColumn and GeneColumn
@@ -38,7 +40,7 @@ convertToRangedSummarizedExperiment = function(
     
     # assign suffixes to make sample names unique
     unique.sample.names = c(unique.sample.names,
-           make.unique(dataset[ind.gene,sc])
+                            make.unique(dataset[ind.gene,sc])
     )
   }
   
@@ -70,6 +72,9 @@ convertToRangedSummarizedExperiment = function(
   count.table = t(count.table)
   
   # create GRanges object for the rowRanges of RangedSummarizedExperiment object
+  # exonsForRowRanges is used to define whether exon chromosome locations 
+  # will be used for rowRanges argument instead of gene chromosome locations (default)
+  # if exonsForRowRanges = TRUE then:
   # create new InterMineR query to retrieve the exons of each gene
   # the results will be converted to GRanges and subsequently to GRangesList object
   # for rowRanges
@@ -77,65 +82,170 @@ convertToRangedSummarizedExperiment = function(
   # define new query
   geneExonQuery = newQuery()
   
-  # set columns for the query
-  geneExonQuery$select = c(
-    "Gene.exons.chromosomeLocation.start",
-    "Gene.exons.chromosomeLocation.end",
-    "Gene.exons.chromosomeLocation.strand",
-    "Gene.exons.chromosome.primaryIdentifier",
-    "Gene.symbol",
-    "Gene.secondaryIdentifier" 
-  )
+  # check for correct child names in mine data model
+  model = getModel(im)
+  
+  if(any(model$child_name == "strand")){
+    strand = "strand"
+  } else if(any(model$child_name == "Strand")){
+    strand = "Strand"
+  }
+  
+  if(any(model$child_name == "start")){
+    start = "start"
+  } else if(any(model$child_name == "Start")){
+    start = "Start"
+  }
+  
+  if(any(model$child_name == "end")){
+    end = "end"
+  } else if(any(model$child_name == "End")){
+    end = "End"
+  }
+  
+  if(any(model$child_name == "name")){
+    name = "name"
+  } else if(any(model$child_name == "Name")){
+    name = "Name"
+  }
+  
+  if(any(model$child_name == "symbol")){
+    symbol = "symbol"
+  } else if(any(model$child_name == "Symbol")){
+    symbol = "Symbol"
+  }
+  
+  if(any(model$child_name == "secondaryIdentifier")){
+    secondaryIdentifier = "secondaryIdentifier"
+  } else if(any(model$child_name == "Secondary Identifier")){
+    secondaryIdentifier = "Secondary Identifier"
+  }
+  
+  if(any(model$child_name == "primaryIdentifier")){
+    primaryIdentifier = "primaryIdentifier"
+  } else if(any(model$child_name == "Primary Identifier")){
+    primaryIdentifier = "Primary Identifier"
+  }
   
   # set sort order
+  order.vector = "ASC"
+  names(order.vector) = paste("Gene",secondaryIdentifier, sep = ".")
+  
   geneExonQuery$orderBy = list(
-    c(Gene.secondaryIdentifier = "ASC")
+    order.vector
   )
   
   # set organism constraint
   organismConstraint = list(
-    path = "Gene.organism.name",
+    path = paste("Gene.organism", name, sep = "."),
     op = "=",
     value = OrganismValue,
     code = "B"
   )
   
-  l.exons = list(NULL)
-  ind.names = c()
-  for(j in seq(length(unique(dataset[,gc])))){
-    
-    g = unique(dataset[,gc])[j]
-    
-    # set gene constraint
-    geneConstraint = list(
-      path = 'Gene',
-      op = "LOOKUP",
-      value = g,
-      code = "A"
+  if(!exonsForRowRanges){
+    geneExonQuery$select = c(
+      paste(sep = ".", "Gene", symbol),
+      paste(sep = ".", "Gene", secondaryIdentifier),
+      paste(sep = ".", "Gene.chromosomeLocation", start),
+      paste(sep = ".", "Gene.chromosomeLocation", end),
+      paste(sep = ".", "Gene.chromosome", primaryIdentifier),
+      paste(sep = ".", "Gene.locations", strand)
     )
     
-    # set constraints
-    geneExonQuery$where = list(
-      geneConstraint,
-      organismConstraint
+    l.exons = list(NULL)
+    ind.names = c()
+    for(j in seq(length(unique(dataset[,gc])))){
+      
+      g = unique(dataset[,gc])[j]
+      
+      # set gene constraint
+      geneConstraint = list(
+        path = 'Gene',
+        op = "LOOKUP",
+        value = g,
+        code = "A"
+      )
+      
+      # set constraints
+      geneExonQuery$where = list(
+        geneConstraint,
+        organismConstraint
+      )
+      
+      # run query
+      d = runQuery(im, geneExonQuery)
+      
+      # convert exon results to GRanges object
+      d2 = convertToGRanges(
+        dataset = d,
+        seqnames = paste(sep = ".", "Gene.chromosome", primaryIdentifier),
+        start = paste(sep = ".","Gene.chromosomeLocation",start),
+        end = paste(sep = ".","Gene.chromosomeLocation",end),
+        strand = paste(sep = ".", "Gene.locations", strand),
+        names = paste(sep = ".", "Gene.chromosome", primaryIdentifier),
+        columnsAsMetadata = c(
+          paste(sep = ".", "Gene", symbol),
+          paste(sep = ".", "Gene", secondaryIdentifier)
+          )
+      )
+      
+      l.exons[[j]] = d2
+      ind.names = c(ind.names, g)
+    }
+    
+  } else {
+    # set columns for the query
+    geneExonQuery$select = c(
+      paste(sep=".","Gene.exons.chromosomeLocation",start),
+      paste(sep=".","Gene.exons.chromosomeLocation",end),
+      paste(sep=".","Gene.exons.chromosomeLocation",strand),
+      paste(sep=".","Gene.exons.chromosome",primaryIdentifier),
+      paste(sep=".","Gene",symbol),
+      paste(sep=".","Gene",secondaryIdentifier)
     )
     
-    # run query
-    d = runQuery(im.fly, geneExonQuery)
+    l.exons = list(NULL)
+    ind.names = c()
+    for(j in seq(length(unique(dataset[,gc])))){
+      
+      g = unique(dataset[,gc])[j]
+      
+      # set gene constraint
+      geneConstraint = list(
+        path = 'Gene',
+        op = "LOOKUP",
+        value = g,
+        code = "A"
+      )
+      
+      # set constraints
+      geneExonQuery$where = list(
+        geneConstraint,
+        organismConstraint
+      )
+      
+      # run query
+      d = runQuery(im, geneExonQuery)
+      
+      # convert exon results to GRanges object
+      d2 = convertToGRanges(
+        dataset = d,
+        seqnames = paste(sep=".","Gene.exons.chromosome",primaryIdentifier),
+        start = paste(sep=".","Gene.exons.chromosomeLocation",start),
+        end = paste(sep=".","Gene.exons.chromosomeLocation",end),
+        strand = paste(sep=".","Gene.exons.chromosomeLocation",strand),
+        names = paste(sep=".","Gene.exons.chromosome",primaryIdentifier),
+        columnsAsMetadata = c(
+          paste(sep = ".", "Gene", symbol),
+          paste(sep = ".", "Gene", secondaryIdentifier)
+        )
+      )
+      
+      l.exons[[j]] = d2
+      ind.names = c(ind.names, g)
+    }
     
-    # convert exon results to GRanges object
-    d2 = convertToGRanges(
-      dataset = d,
-      seqnames = "Gene.exons.chromosome.primaryIdentifier",
-      start = "Gene.exons.chromosomeLocation.start",
-      end = "Gene.exons.chromosomeLocation.end",
-      strand = "Gene.exons.chromosomeLocation.strand",
-      names = "Gene.exons.chromosome.primaryIdentifier",
-      columnsAsMetadata = c("Gene.symbol","Gene.secondaryIdentifier")
-    )
-    
-    l.exons[[j]] = d2
-    ind.names = c(ind.names, g)
   }
   
   # convert to GRangesList
@@ -178,7 +288,7 @@ convertToRangedSummarizedExperiment = function(
     
     ind.colMetaData = c(ind.colMetaData, 
                         which(rownames(colMetaData) == colnames(count.table)[i])
-                        )
+    )
     
   }
   
@@ -197,3 +307,4 @@ convertToRangedSummarizedExperiment = function(
   return(result)
   
 }
+
