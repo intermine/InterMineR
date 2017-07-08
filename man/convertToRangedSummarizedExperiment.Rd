@@ -109,7 +109,7 @@ test1 = convertToRangedSummarizedExperiment(
 test1
 
 # using directly column names in arguments
-test2 = convertToRangedSummarizedExperiment2(
+test2 = convertToRangedSummarizedExperiment(
   im = im.fly,
   dataset = test.data,
   SampleColumn = "Gene.microArrayResults.assays.sample2",
