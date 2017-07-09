@@ -5,7 +5,7 @@
 Convert experimental results retrieved by InterMineR queries to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class
 }
 \description{
-convertToRangedSummarizedExperiment constitutes a wrapper function for converting genomic information and experimental from \code{\link[http://intermine.org/]{InterMine}} to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class. 
+convertToRangedSummarizedExperiment constitutes a wrapper function for converting genomic information and experimental data from InterMine to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class. 
 }
 \usage{
 convertToRangedSummarizedExperiment(
@@ -46,7 +46,7 @@ a logical value indicating whether the rowRanges argument of the \code{\link[Sum
 }
 }
 \details{
-The InterMineR package provides a flexible interface to the \code{\link[http://intermine.org/]{InterMine}} web services, which allow for rapid retrieval of various genomic information.
+The InterMineR package provides a flexible interface to InterMine web services, which allow for rapid retrieval of various genomic information.
 
 convertToRangedSummarizedExperiment function facilitates the conversion of genomic information and experimental data from high-throughput assays, which are retrieved by using InterMineR queries, to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class.
 
@@ -57,8 +57,7 @@ It is noteworthy that the \code{\link[stats]{reshape}} function is used to conve
 an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class containing genomic information and experimental data of high-throughput assays, which are retrieved with the InterMineR queries system.
 }
 \references{
-\code{\link[https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html]{SummarizedExperiment for Coordinating Experimental Assays, Samples, and Regions of Interest}
-}
+\code{\link[SummarizedExperiment]{SummarizedExperiment}} for Coordinating Experimental Assays, Samples, and Regions of Interest
 }
 
 \author{
