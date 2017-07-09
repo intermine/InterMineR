@@ -95,7 +95,7 @@ runQuery2 = function(
       answer.final = new(
         "InterMineR_result",
         result = answer.df,
-        constraints = plyr::rbind.fill(l)
+        constraints = do.call(rbind,l)
       )
       
       return(answer.final)
