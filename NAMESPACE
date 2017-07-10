@@ -20,7 +20,5 @@ setQuery,
 runQuery2)
 exportClasses(InterMineR_query)
 exportClasses(InterMineR_result)
-import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment)
+import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, methods)
 importFrom(igraph,graph.data.frame,shortest.paths)
-importFrom(methods,new)
-
