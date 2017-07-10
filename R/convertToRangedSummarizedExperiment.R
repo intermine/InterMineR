@@ -82,50 +82,58 @@ convertToRangedSummarizedExperiment = function(
   # define new query
   geneExonQuery = newQuery()
   
-  # check for correct child names in mine data model
-  model = getModel(im)
+  # # check for correct child names in mine data model
+  #model = getModel(im)
   
-  if(any(model$child_name == "strand")){
-    strand = "strand"
-  } else if(any(model$child_name == "Strand")){
-    strand = "Strand"
-  }
+  strand = "strand"
+  start = "start"
+  end = "end"
+  name = "name"
+  symbol = "symbol"
+  secondaryIdentifier = "secondaryIdentifier"
+  primaryIdentifier = "primaryIdentifier"
   
-  if(any(model$child_name == "start")){
-    start = "start"
-  } else if(any(model$child_name == "Start")){
-    start = "Start"
-  }
-  
-  if(any(model$child_name == "end")){
-    end = "end"
-  } else if(any(model$child_name == "End")){
-    end = "End"
-  }
-  
-  if(any(model$child_name == "name")){
-    name = "name"
-  } else if(any(model$child_name == "Name")){
-    name = "Name"
-  }
-  
-  if(any(model$child_name == "symbol")){
-    symbol = "symbol"
-  } else if(any(model$child_name == "Symbol")){
-    symbol = "Symbol"
-  }
-  
-  if(any(model$child_name == "secondaryIdentifier")){
-    secondaryIdentifier = "secondaryIdentifier"
-  } else if(any(model$child_name == "Secondary Identifier")){
-    secondaryIdentifier = "Secondary Identifier"
-  }
-  
-  if(any(model$child_name == "primaryIdentifier")){
-    primaryIdentifier = "primaryIdentifier"
-  } else if(any(model$child_name == "Primary Identifier")){
-    primaryIdentifier = "Primary Identifier"
-  }
+  #if(any(model$child_name == "strand")){
+  #  strand = "strand"
+  #} else if(any(model$child_name == "Strand")){
+  #  strand = "Strand"
+  #}
+  #
+  #if(any(model$child_name == "start")){
+  #  start = "start"
+  #} else if(any(model$child_name == "Start")){
+  #  start = "Start"
+  #}
+  #
+  #if(any(model$child_name == "end")){
+  #  end = "end"
+  #} else if(any(model$child_name == "End")){
+  #  end = "End"
+  #}
+  #
+  #if(any(model$child_name == "name")){
+  #  name = "name"
+  #} else if(any(model$child_name == "Name")){
+  #  name = "Name"
+  #}
+  #
+  #if(any(model$child_name == "symbol")){
+  #  symbol = "symbol"
+  #} else if(any(model$child_name == "Symbol")){
+  #  symbol = "Symbol"
+  #}
+  #
+  #if(any(model$child_name == "secondaryIdentifier")){
+  #  secondaryIdentifier = "secondaryIdentifier"
+  #} else if(any(model$child_name == "Secondary Identifier")){
+  #  secondaryIdentifier = "Secondary Identifier"
+  #}
+  #
+  #if(any(model$child_name == "primaryIdentifier")){
+  #  primaryIdentifier = "primaryIdentifier"
+  #} else if(any(model$child_name == "Primary Identifier")){
+  #  primaryIdentifier = "Primary Identifier"
+  #}
   
   # set sort order
   order.vector = "ASC"
