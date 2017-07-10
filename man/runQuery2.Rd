@@ -81,8 +81,8 @@ go.results = runQuery2(
   qry = go.query
 )
 
-head(go.results@result)
-go.results@constraints
+summary(go.results)
+str(go.results)
 
 # 2. Create similar query manually for Homo sapiens, using HumanMine
 
@@ -120,8 +120,8 @@ hsa.go.results = runQuery2(
   qry = hsa.go.query
 )
 
-head(hsa.go.results@result)
-hsa.go.results@constraints
+summary(hsa.go.results)
+str(hsa.go.results)
 
 }
 
