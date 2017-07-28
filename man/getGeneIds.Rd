@@ -27,8 +27,9 @@ a character string for the name of the Organism.
 This function was designed to work in conjuction with the doEnrichment function. 
 }
 \value{
-getGeneIds returns a data.frame of unique gene identifiers as well as the Gene.id values as a comma-separated string, ready to be used as input for the ids argument of the doEnrichment function.
-Furthermore, genes that return multiple or no identifiers are reported separately in a data.frame and a character vector.
+getGeneIds returns a list containing a data.frame of unique gene identifiers as well as the Gene.id values as a comma-separated string, ready to be used as input for the ids argument of the doEnrichment function.
+
+Furthermore, in case of genes that return multiple identifiers or no identifiers, these are also reported separately in a data.frame and a character vector respectively.
 
   \item{unique.results }{data.frame with unique gene identifiers}
   \item{doEnrichment.string }{comma-separated character string of Gene.id values}
