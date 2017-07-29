@@ -5,33 +5,21 @@
 # require(igraph)
 # require(Biostrings)
 
-listMines <- function(){
-    mines <- c('http://www.flymine.org/flymine',
-    'http://www.mousemine.org/mousemine',
-    'http://ratmine.mcw.edu/ratmine',
-    'http://intermine.wormbase.org/tools/wormmine',
-    'http://yeastmine.yeastgenome.org/yeastmine',
-    'http://zebrafishmine.org',
-    'http://targetmine.mizuguchilab.org/targetmine',
-    'http://mitominer.mrc-mbu.cam.ac.uk/release-4.0',
-    'http://www.humanmine.org/humanmine',    
-    'https://apps.araport.org/thalemine',
-    'http://medicmine.jcvi.org/medicmine',
-    'http://phytozome.jgi.doe.gov/phytomine')
-
-    names(mines) <- c('FlyMine',
-    'MouseMine',
-    'RatMine',
-    'WormMine',
-    'YeastMine',
-    'ZebraFishMine',
-    'TargetMine',
-    'MitoMiner',
-    'HumanMine',
-    'thalemine',
-    'medicmine',
-    'PhytoMine')
-    mines
+listMines = function(){
+  
+  # retrieve information from InterMine registry
+  r = GET("http://registry.intermine.org/service/instances")
+  stop_for_status(r)
+  
+  # get the url for every Mine
+  res = httr::content(r)
+  
+  urls = sapply(res$instances, function(x){x$url})
+  
+  # assign Mine names to urls
+  names(urls) = sapply(res$instances, function(x){x$name})
+  
+  return(urls)
 }
 
 
