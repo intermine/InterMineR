@@ -10,17 +10,14 @@ InterMine-powered databases such as FlyMine, modENCODE, RatMine, YeastMine, Huma
 listMines()
 }
 \value{
-A data frame object containing two columns:
-\item{URL}{the base URL of the webservice of the database}
-\item{name}{the name of the database}
+A character vector containing the name and the base URL of the web service of the database.
 }
 \references{
-http://intermine.org
+\url{http://registry.intermine.org/} 
 }
 \author{
 InterMine Team
 }
-
 
 \examples{
 listMines()

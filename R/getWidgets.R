@@ -37,45 +37,21 @@ getWidgets = function(im){
       
       l.append = c()
       
-      # if widget has all ind.names
-      if(all(ind.names %in% names(t[[j]]))){
+      for(y in seq(length(ind.names))){
         
-        for(y in seq(length(ind.names))){
-          
-          n = ind.names[y]
-          item = unlist(t[[j]][n])
-          
-          if(is.null(item)){
-            l.append = c(l.append, NA)
-            names(l.append)[y] = n
-          } else if(length(item) >= 2) {
-            l.append = c(l.append, paste(item, collapse = " & "))
-            names(l.append)[y] = n
-          } else {
-            l.append = c(l.append,item)
-            names(l.append)[y] = n
-          }
+        n = ind.names[y]
+        item = unlist(t[[j]][n])
+        
+        if(is.null(item)){
+          l.append = c(l.append, NA)
+          names(l.append)[y] = n
+        } else if(length(item) >= 2) {
+          l.append = c(l.append, paste(item, collapse = " & "))
+          names(l.append)[y] = n
+        } else {
+          l.append = c(l.append,item)
+          names(l.append)[y] = n
         }
-        
-      } else {
-        
-        for(y in seq(length(ind.names))){
-          
-          n = ind.names[y]
-          item = unlist(t[[j]][n])
-          
-          if(is.null(item)){
-            l.append = c(l.append, NA)
-            names(l.append)[y] = n
-          } else if(length(item) >= 2) {
-            l.append = c(l.append, paste(item, sep = " "))
-            names(l.append)[y] = n
-          } else {
-            l.append = c(l.append,item)
-            names(l.append)[y] = n
-          }
-        }
-        
       }
       
       l[[j]] = l.append
