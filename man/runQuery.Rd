@@ -1,0 +1,126 @@
+\name{runQuery}
+\docType{methods}
+
+\alias{runQuery}
+\alias{runQuery,ANY,InterMineR-method}
+\alias{runQuery,ANY,list-method}
+
+\title{
+Run InterMineR queries
+}
+\description{
+Returns results from a query against data held inside the mine. These queries are similar to SQL queries, in that they request certain defined output columns of output, filtering the results through a series of "constraints".
+}
+\usage{
+runQuery(im, qry, timeout = 60)
+}
+
+\arguments{
+   \item{im}{
+a list, containing the base URL and API token.
+}
+
+  \item{qry}{
+an 'InterMineR' or a list object, representing the query to the database.
+}
+
+  \item{timeout}{
+an integer, representing the number of seconds to wait for the webservice to respond.
+}
+}
+\details{
+Use \code{\link{setQuery}} function to create an 'InterMineR' object. For setting a single constraint with multiple values, the function \code{\link{setConstraints}} can be used.
+
+Alternatively, the user can define manually the constraints, the selection of data to be returned and the value by which they are ordered, as a list object.
+
+For more information checkout the vignette of the package.
+}
+
+\value{
+a data.frame containing the data which were retrieved from the InterMine instance.
+}
+
+\author{
+InterMine Team
+}
+
+\seealso{
+\code{\link{setQuery}}, \code{\link{setConstraints}}
+}
+
+\examples{
+# 1. Adapt 'GO_Gene' template query from FlyMine to 'InterMineR'
+
+# get FlyMine instance
+im.fly = initInterMine(listMines()["FlyMine"])
+
+# get GO_Gene template query
+qGO_Gene = getTemplateQuery(im.fly, "GO_Gene")
+
+# constraint with GO value
+qGO_Gene$where[[3]]
+
+# modify GO_Gene template query to have more than one GO values
+go.constraints = setConstraints(
+  values = list(c("DNA repair", "cellular response to DNA damage stimulus")),
+  modifyQueryConstraints = qGO_Gene,
+  m.index = 3
+)
+
+go.constraints[[3]]
+
+# create 'InterMineR' object
+go.query = setQuery(
+  inheritQuery = qGO_Gene,
+  where = go.constraints
+)
+
+go.query
+
+# run InterMineR query
+go.results = runQuery(
+  im = im.fly,
+  qry = go.query
+)
+
+head(go.results)
+
+# 2. Create similar query manually for Homo sapiens, using HumanMine
+
+# get HumanMine instance
+im.human = initInterMine(listMines()["HumanMine"])
+
+# create constraints using GO terms and organism as values
+hsa.go.constraints = setConstraints(
+  paths = c("Gene.goAnnotation.ontologyTerm.parents.name",
+            "Gene.organism.name"),
+  operators = rep("=", 2),
+  values = list(c("DNA repair", "cellular response to DNA damage stimulus"),
+                  "Homo sapiens")
+)
+
+hsa.go.constraints
+
+# create 'InterMineR' object
+hsa.go.query = setQuery(
+  select = c("Gene.secondaryIdentifier",
+             "Gene.symbol",
+             "Gene.goAnnotation.ontologyTerm.parents.name",
+             "Gene.goAnnotation.ontologyTerm.parents.identifier",
+             "Gene.goAnnotation.ontologyTerm.name",
+             "Gene.goAnnotation.ontologyTerm.identifier"),
+  orderBy = list(c(Gene.secondaryIdentifier = "ASC")),
+  where = hsa.go.constraints
+)
+
+hsa.go.query
+
+# run InterMineR query
+hsa.go.results = runQuery(
+  im = im.human,
+  qry = hsa.go.query
+)
+
+head(hsa.go.results)
+
+}
