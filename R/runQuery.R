@@ -7,7 +7,7 @@
 # methods for InterMineR class
 # runQuery
 
-setGeneric("runQuery", function(im, qry, timeout) standardGeneric("runQuery"))
+setGeneric("runQuery", function(im, qry, timeout=60) standardGeneric("runQuery"))
 
 # set runQuery method for class InterMineR
 setMethod(
