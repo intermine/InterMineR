@@ -39,7 +39,7 @@ Assign with a pre-defined query list, the input values of which can be modified 
 }
 }
 \details{
-setQuery function can be used to create queries with a single constraint containing multiple values. The constraints can be first defined with the \code{\link{setConstraints}} function. The resulting 'InterMineR' object is passed to the \code{\link{runQuery2}} function to perform the query.
+setQuery function can be used to create queries with a single constraint containing multiple values. The constraints can be first defined with the \code{\link{setConstraints}} function. The resulting 'InterMineR' object is passed to the \code{\link{runQuery}} function to perform the query.
 }
 \value{
 An InterMineR object
