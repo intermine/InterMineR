@@ -3,8 +3,7 @@ initInterMine,
 getVersion, 
 getRelease, 
 getModel, 
-getTemplates, 
-runQuery, 
+getTemplates,
 getTemplateQuery, 
 newQuery, 
 getWidgets, 
@@ -16,9 +15,10 @@ getDatasets,
 listDatasets, 
 simplifyResult,
 setConstraints,
-setQuery,
-runQuery2)
+setQuery)
+
 exportClasses(InterMineR)
 exportMethods(runQuery)
+
 import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, methods)
 importFrom(igraph,graph.data.frame,shortest.paths)
