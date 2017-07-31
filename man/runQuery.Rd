@@ -13,6 +13,13 @@ Returns results from a query against data held inside the mine. These queries ar
 }
 \usage{
 runQuery(im, qry, timeout = 60)
+   
+# S4 method for class 'InterMineR'
+runQuery(im, qry = 'InterMineR', timeout = 60)
+   
+# S4 method for class 'list'
+runQuery(im, qry = 'list', timeout = 60)
+   
 }
 
 \arguments{
