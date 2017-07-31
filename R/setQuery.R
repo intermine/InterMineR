@@ -1,4 +1,4 @@
-# Define function for creating 'InterMineR_query' object
+# Define function for creating 'InterMineR' object
 setQuery = function(
   select,
   orderBy,
@@ -56,9 +56,9 @@ setQuery = function(
       }
     }
     
-    # set query object of formal class 'InterMineR_query'
+    # set query object of formal class 'InterMineR'
     query.object = new(
-      "InterMineR_query",
+      "InterMineR",
       name = name,
       description = description,
       select = select,
@@ -108,9 +108,9 @@ setQuery = function(
         inheritQuery$where = where
       }
     }
-    # set query object of formal class 'InterMineR_query'
+    # set query object of formal class 'InterMineR'
     query.object = new(
-      "InterMineR_query",
+      "InterMineR",
       name = inheritQuery$name,
       description = inheritQuery$description,
       select = inheritQuery$select,
