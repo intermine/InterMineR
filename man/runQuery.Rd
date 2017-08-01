@@ -13,13 +13,6 @@ Returns results from a query against data held inside the mine. These queries ar
 }
 \usage{
 runQuery(im, qry, timeout = 60)
-   
-# S4 method for class 'InterMineR'
-runQuery(im, qry = 'InterMineR', timeout = 60)
-   
-# S4 method for class 'list'
-runQuery(im, qry = 'list', timeout = 60)
-   
 }
 
 \arguments{
@@ -46,6 +39,24 @@ For more information checkout the vignette of the package.
 \value{
 a data.frame containing the data which were retrieved from the InterMine instance.
 }
+
+\section{Methods}{
+\describe{
+
+# S4 method for class 'InterMineR'
+\item{\code{runQuery(im, qry = "InterMineR")}}{
+The method accepts an object of the class InterMineR and uses its information to perform the query on the defined InterMine instance.
+
+\code{\link{InterMineR-class}} objects can contain a single constraint with multiple values.
+}
+
+# S4 method for class 'list'
+\item{\code{runQuery(im, qry = "list")}}{
+The method accepts an object of the class list and uses its information to perform the query on the defined InterMine instance.
+
+Queries defined as lists can possess only constraints with one value.
+}
+}}
 
 \author{
 InterMine Team
