@@ -24,7 +24,7 @@ a character string for the name of the Organism.
 }
 
 \details{
-This function was designed to work in conjuction with the doEnrichment function. 
+This function is designed to work in conjuction with the \code{\link{doEnrichment}} function. 
 }
 \value{
 getGeneIds returns a list containing a data.frame of unique gene identifiers as well as the Gene.id values as a comma-separated string, ready to be used as input for the ids argument of the doEnrichment function.
@@ -40,13 +40,15 @@ Furthermore, in case of genes that return multiple identifiers or no identifiers
 InterMine Team
 }
 \note{
-doEnrichment.string can be passed as input in the doEnrichment() function.
+doEnrichment.string can be passed as input in the \code{\link{doEnrichment}} function.
+}
+
+\seealso{
+\code{\link{doEnrichment}}
 }
 
 \examples{
-
 # HumanMine and Homo sapiens genes 
-
 hsa.genes <- c("ABCC8", "ACE", "AKT2", "APPL1", "AQP2", "AVP", "AVPR2", "BLK", "CAPN10", "CCR5")
 
 list.hsa <- getGeneIds(
