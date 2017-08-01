@@ -2,7 +2,7 @@
 \name{newQuery}
 \alias{newQuery}
 \title{
-Initialize a new query
+Initialize a new list query
 }
 \description{
 A query needs to have at least view, constraints and constraintLogic.  The view is a vector containing the columns of the query output.  The constraint is a matrix containing the following columns: path (the path of the constraint), op (the constraint operator, one of '=', '!=', 'LOOKUP', 'ONE OF', 'NONE OF', '>', '<', '>=', '<=', 'LIKE'), value (the constraint value),  code (the name of the constraint), extraValue (optional, required for LOOKUP constraints).  The constraintLogic by default is "AND" operation, e.g., "A and B", where A and B are the codes in the constraints.
@@ -29,12 +29,16 @@ a string, representing the logical relationship between the constraints, e.g., "
 }
 }
 \value{
-a list, representing the query.
+a list representing the query.
 }
+
+\seealso{
+\code{\link{runQuery}}
+}
+
 \author{
 InterMine Team
 }
-
 
 \examples{
 nq <-  newQuery()
