@@ -24,13 +24,18 @@ A data.frame containing information about the widgets that are available for eac
 \author{
 InterMine Team
 }
+
 \note{
-The names of the widgets of the enrichment type can be passed as arguments to doEnrichment() function.
+The names of the widgets of the enrichment type can be passed as arguments to \code{\link{doEnrichment}} function.
+}
+
+\seealso{
+\code{\link{getGeneIds}}, \code{\link{doEnrichment}}
 }
 
 \examples{
-  
+# Get available FlyMine widgets
 FlyMine.widgets <- getWidgets(im = initInterMine(mine = listMines()["FlyMine"]))
-  
+# Get available MouseMine widgets
 MouseMine.widgets <- getWidgets(im = initInterMine(mine = listMines()["MouseMine"]))
 }
