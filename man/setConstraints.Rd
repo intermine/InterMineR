@@ -64,8 +64,11 @@ a list containing the constraints for an InterMineR query. It can be passed to \
 InterMine Team
 }
 
-\examples{
+\seealso{
+\code{\link{setQuery}}, \code{\link{runQuery}}, \code{\link{InterMineR-class}}
+}
 
+\examples{
 # get mine instance
 im.fly = initInterMine(listMines()["FlyMine"])
 
