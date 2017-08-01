@@ -50,7 +50,7 @@ An optional filter that some widgets accept. Use getWidgets() function to retrie
 The public gene lists for each Mine are available at the websites obtained by the following command:
 paste0(listMines()$URL, "/bag.do?subtab=view")
 
-Each type of enrichment widget can be applied to a gene list with specific annotation. To apply the enrichment analysis to the appropriate list of genes, use the targets column of the respective enrichment widgets as they are retrieved by getWidgets() function.
+Each type of enrichment widget can be applied to a gene list with specific annotation. To apply the enrichment analysis to the appropriate list of genes, use the targets column of the respective enrichment widgets as they are retrieved by \code{\link{getWidgets}} function.
 }
 \value{
 
@@ -76,8 +76,11 @@ doEnrichment function returns a list containing the following values:
 InterMine Team
 }
 
-\examples{
+\seealso{
+\code{\link{getWidgets}}
+}
 
+\examples{
 # FlyMine
 enrichResults.FlyMine <- doEnrichment(
   im = initInterMine(mine = listMines()["FlyMine"]),
