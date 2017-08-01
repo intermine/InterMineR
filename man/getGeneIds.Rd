@@ -58,12 +58,11 @@ list.hsa <- getGeneIds(
 )
 
 # FlyMine and Drosophila melanogaster genes
-
 fly.genes <- c("fkh", "vvl", "BEAF-32", "Antp", "Scr", "abd-A", "bcd", "Ubx", "zen", "ara")
 
 list.fly <- getGeneIds(
-  im = initInterMine(listMines()["HumanMine"]),
-  organism = "Homo sapiens",
+  im = initInterMine(listMines()["FlyMine"]),
+  organism = "Drosophila melanogaster",
   genes = fly.genes # must be a character vector!!!
 )
 
