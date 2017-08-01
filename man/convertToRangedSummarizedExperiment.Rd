@@ -16,7 +16,8 @@ convertToRangedSummarizedExperiment(
   ValueColumn,
   OrganismValue,
   colsForSampleMetadata,
-  exonsForRowRanges = FALSE)
+  exonsForRowRanges = FALSE
+)
 }
 
 \arguments{
