@@ -2,10 +2,12 @@
 \alias{setQuery}
 
 \title{
-setQuery function is used to create or modify an existing query
+Initialize a new InterMineR query or modify an existing list query
 }
 \description{
 setQuery function is used to create a query for an InterMine instance. It can also accept and modify pre-defined queries of class list, like the template queries which can be retrieved with the function \code{\link{getTemplateQuery}}. It returns a defined query stored as an object of class 'InterMineR'.
+  
+A query needs to have at least view, constraints and constraintLogic. The view is a vector containing the columns of the query output. The constraint is a matrix containing the following columns: path (the path of the constraint), op (the constraint operator, one of '=', '!=', 'LOOKUP', 'ONE OF', 'NONE OF', '>', '<', '>=', '<=', 'LIKE'), value (the constraint value), code (the name of the constraint), extraValue (optional, required for LOOKUP constraints). The constraintLogic by default is "AND" operation, e.g., "A and B", where A and B are the codes in the constraints.
 }
 \usage{
 setQuery(
@@ -47,6 +49,10 @@ An InterMineR object
 
 \author{
 InterMine Team
+}
+
+\seealso{
+\code{\link{setConstraints}}, \code{\link{runQuery}}, \code{\link{InterMineR-class}}
 }
 
 \examples{
