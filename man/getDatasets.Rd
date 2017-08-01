@@ -13,7 +13,8 @@ getDatasets(
   type,                      
   child_name,    
   value,
-  op)
+  op
+)
 }
 
 \arguments{
@@ -21,13 +22,13 @@ getDatasets(
 a list containing the base URL and API token.
 }
 \item{type}{
-a character string defining the type of feature for which the information about the available datasets will be retrieved. Use the listDatasets() function to retrieve types with available datasets on each mine.
+a character string defining the type of feature for which the information about the available datasets will be retrieved. Use the \code{\link{listDatasets}} function to retrieve types with available datasets on each mine.
 }
 \item{child_name}{
 a character string defining the child_name values of type, which will be used to retrieve the information about the available datasets.
 }
 \item{value}{
-a character string defining the value of the child_name. Use getModel() function to retrieve the available child_name values for each type.
+a character string defining the value of the child_name. Use \code{\link{getModel}} function to retrieve the available child_name values for each type.
 }
 \item{op}{
 a character string defining the op argument.
@@ -56,8 +57,11 @@ a data.frame containing information about about the available datasets for a spe
 InterMine Team
 }
 
-\examples{
+\seealso{
+\code{\link{listDatasets}}, \code{\link{getModel}}
+}
 
+\examples{
 # Define mines
 im.fly = initInterMine(listMines()["FlyMine"])
 im.human = initInterMine(listMines()["HumanMine"])
