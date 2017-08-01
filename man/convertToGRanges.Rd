@@ -17,7 +17,8 @@ convertToGRanges(
   strand,
   columnsAsMetadata = NULL,
   listAsMetadata = NULL,
-  seqnamesInterMineChromosome = TRUE)
+  seqnamesInterMineChromosome = TRUE
+)
 }
 
 \arguments{
