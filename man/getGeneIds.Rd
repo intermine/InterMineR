@@ -44,7 +44,7 @@ doEnrichment.string can be passed as input in the \code{\link{doEnrichment}} fun
 }
 
 \seealso{
-\code{\link{doEnrichment}}
+\code{\link{getWidgets}}, \code{\link{doEnrichment}}
 }
 
 \examples{
