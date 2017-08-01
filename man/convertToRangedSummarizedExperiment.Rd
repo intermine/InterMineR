@@ -64,8 +64,11 @@ an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} 
 InterMine Team
 }
 
-\examples{
+\seealso{
+\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}, \code{link{convertToGRanges}}
+}
 
+\examples{
 # 10 Drosophila melanogaster genes of interest
 Drosophila.genes = c("BEAF-32", "Antp", "bcd", "caup", "tup", "E2f2", "dsx", "so", "toy", "Lim1")
 
