@@ -5,7 +5,7 @@
 setQuery function is used to create or modify an existing query
 }
 \description{
-setQuery function is used to create a query for an InterMine instance. It can also accept and modify pre-defined queries of class list, like the template queries which can be retrieved with the function \code{\link{getTemplateQuery}}. It returns a defined query stored as an object of class 'InterMineR_query'.
+setQuery function is used to create a query for an InterMine instance. It can also accept and modify pre-defined queries of class list, like the template queries which can be retrieved with the function \code{\link{getTemplateQuery}}. It returns a defined query stored as an object of class 'InterMineR'.
 }
 \usage{
 setQuery(
@@ -35,14 +35,14 @@ Assign with a character string giving a name to the query. Pre-fixed with "".
 Assign with a character string describing the purpose and the type of data retrieved by the query. Pre-fixed with "".
 }
 \item{inheritQuery}{
-Assign with a pre-defined query list, the input values of which can be modified and inherited in the new query object of class 'InterMineR_query'.
+Assign with a pre-defined query list, the input values of which can be modified and inherited in the new query object of class 'InterMineR'.
 }
 }
 \details{
-setQuery function can be used to create queries with a single constraint containing multiple values. The constraints can be first defined with the \code{\link{setConstraints}} function. The resulting 'InterMineR_query' object is passed to the \code{\link{runQuery2}} function to perform the query.
+setQuery function can be used to create queries with a single constraint containing multiple values. The constraints can be first defined with the \code{\link{setConstraints}} function. The resulting 'InterMineR' object is passed to the \code{\link{runQuery}} function to perform the query.
 }
 \value{
-An InterMineR_query object
+An InterMineR object
 }
 
 \author{
@@ -67,7 +67,7 @@ go.constraints = setConstraints(
 )
 go.constraints[[3]]
 
-# create 'InterMineR_query' object
+# create 'InterMineR' object
 go.query = setQuery(
   inheritQuery = qGO_Gene,
   where = go.constraints
@@ -92,7 +92,7 @@ hsa.go.constraints = setConstraints(
 
 hsa.go.constraints
 
-# create 'InterMineR_query' object
+# create 'InterMineR' object
 hsa.go.query = setQuery(
   select = c("Gene.secondaryIdentifier",
              "Gene.symbol",

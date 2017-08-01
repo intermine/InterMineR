@@ -1,7 +1,7 @@
-#' @rdname InterMineR_query
+#' @rdname InterMineR-class
 #' @export
 setClass(
-  "InterMineR_query",
+  "InterMineR",
   representation(
     name = "character",
     description = "character",

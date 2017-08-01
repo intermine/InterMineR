@@ -39,37 +39,7 @@ getTemplateQuery <- function(im, name, timeout=3){
 ##4 - Query
 #<servlet-name>ws-query-results</servlet-name>
 #<url-pattern>/service/query/results</url-pattern>
-runQuery <- function(im, qry, timeout=60){
-
-    if (is.list(qry)) {
-      # convert to XML to run in intermine
-        query <- queryList2XML(qry)
-    } else if(isXMLString(qry)) {
-        query <- xmlParseString(qry)
-    }
-
-    answer <- NULL
-
-    query.str <- URLencode(toString.XMLNode(query))
-    query.str <- gsub("&", '%26', query.str)
-    query.str <- gsub(";", '%3B', query.str)
-
-    r <- GET(paste(im$mine, "/service/query/results?query=",
-            query.str,"&format=xml",sep=""))
-    stop_for_status(r)
-    res <- content(r)
-    res.xml <- xmlRoot(xmlParse(res))
-
-    if (length(getNodeSet(res.xml, "//Result")) > 0) {
-        answer = xmlToDataFrame(res.xml, stringsAsFactors=FALSE)
-        colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],
-            "\\s+", perl=TRUE)[[1]]
-    } else {
-        # no results
-        answer=NULL
-    }
-    answer
-}
+#runQuery
 
 queryList2XML <- function(ql){
       nq <- newXMLNode("query")
