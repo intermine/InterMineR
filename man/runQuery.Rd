@@ -21,15 +21,15 @@ a list, containing the base URL and API token.
 }
 
   \item{qry}{
-an 'InterMineR' or a list object, representing the query to the database.
+an InterMineR or a list object, representing the query to the database.
 }
 
   \item{timeout}{
-an integer, representing the number of seconds to wait for the webservice to respond.
+an integer, representing the number of seconds to wait for the web service to respond.
 }
 }
 \details{
-Use \code{\link{setQuery}} function to create an 'InterMineR' object. For setting a single constraint with multiple values, the function \code{\link{setConstraints}} can be used.
+Use \code{\link{setQuery}} function to create an InterMineR object. For setting a single constraint with multiple values, the function \code{\link{setConstraints}} can be used.
 
 Alternatively, the user can define manually the constraints, the selection of data to be returned and the value by which they are ordered, as a list object.
 
@@ -63,7 +63,7 @@ InterMine Team
 }
 
 \seealso{
-\code{\link{setQuery}}, \code{\link{setConstraints}}
+\code{\link{setConstraints}}, \code{\link{setQuery}}, \code{\link{InterMineR-class}}, \code{\link{newQuery}}
 }
 
 \examples{

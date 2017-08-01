@@ -20,15 +20,14 @@ a string, representing the API token in order to use private functions such as l
 }
 }
 \value{
-A list, containing the base URL and API token.
+A list containing the base URL and API token.
 }
 \references{
-http://intermine.org/wiki/WebService#APIKeyTokens
+/url{http://intermine.readthedocs.io/en/latest/web-services/}
 }
 \author{
 InterMine Team
 }
-
 
 \examples{
 im <- initInterMine(mine = listMines()["HumanMine"], "TOKEN") #replace TOKEN with your token

@@ -24,8 +24,11 @@ a character vector containing the all types of features from the data model of t
 InterMine Team
 }
 
-\examples{
+\seealso{
+\code{\link{getDatasets}}
+}
 
+\examples{
 # HumanMine
 listDatasets(im = initInterMine(listMines()["HumanMine"]))
 

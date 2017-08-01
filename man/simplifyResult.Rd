@@ -12,9 +12,10 @@ simplifyResult(
   dataset,
   index_column,
   values_column,
-  returnInDataframe = FALSE)
+  returnInDataframe = FALSE
+)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{dataset}{
 a data.frame containing the data
@@ -31,13 +32,13 @@ a logical value indicating whether to return only the converted columns or to ap
 }
 \value{
 If returnInDataframe argument is set to FALSE then a data.frame is returned with the unique values of the index column and the character strings of the values_column that correspond to each.
+
 If returnInDataframe argument is set to TRUE then the original dataset is returned containing an extra column in which the character strings of the values_column have been appended.
 }
 \author{
 InterMine Team
 }
 \examples{
-
 # get HumanMine
 im.human = initInterMine(listMines()["HumanMine"])
   

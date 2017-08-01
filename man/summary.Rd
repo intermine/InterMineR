@@ -9,7 +9,7 @@ Summarize InterMineR query constraints
 }
 
 \description{
-Summarize the information about the constraints contained by an object of the class 'InterMineR'.
+Summarize the information about the constraints contained by an object of the class InterMineR.
 }
 
 \usage{
@@ -18,7 +18,7 @@ summary(object,...)
 
 \arguments{
   \item{object}{
-  an object of the class 'InterMineR'.
+  an object of the class InterMineR.
 }
   \item{...}{
   additional arguments affecting the summary produced.

@@ -17,7 +17,8 @@ convertToGRanges(
   strand,
   columnsAsMetadata = NULL,
   listAsMetadata = NULL,
-  seqnamesInterMineChromosome = TRUE)
+  seqnamesInterMineChromosome = TRUE
+)
 }
 
 \arguments{
@@ -60,6 +61,11 @@ An object of the \code{\link[GenomicRanges]{GRanges}} class containing genomic l
 \author{
 InterMine Team
 }
+
+\seealso{
+\code{\link[GenomicRanges]{GRanges}}, \code{\link{convertToRangedSummarizedExperiment}}
+}
+
 \examples{
 # get FlyMine
 im.fly = initInterMine(listMines()["FlyMine"])
