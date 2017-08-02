@@ -79,6 +79,11 @@ hsa_enrichResult = doEnrichment(
 )
 
 # convert InterMineR enrichment analysis results to a GeneAnswers object
+# Do not run unless you have installed and loaded GeneAnswers package!
+
+# load GeneAnswers
+library(GeneAnswers)
+  
 hsa_geneanswers = convertToGeneAnswers(
   enrichmentResult = hsa_enrichResult,
   geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
