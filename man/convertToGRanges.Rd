@@ -5,7 +5,7 @@
 Convert InterMineR retrieved genomic information to objects of class \code{\link[GenomicRanges]{GRanges}}
 }
 \description{
-convertToGRanges constitutes a wrapper function for converting genomic locations and their respective annotations to objects of the \code{\link[GenomicRanges]{GRanges}} class.
+\code{convertToGRanges} constitutes a wrapper function for converting genomic locations and their respective annotations to objects of the \code{\link[GenomicRanges]{GRanges}} class.
 }
 \usage{
 convertToGRanges(
@@ -53,7 +53,7 @@ a logical value indicating whether the values passed as seqnames are InterMineR 
 \details{
 The InterMineR package provides a flexible interface to the InterMine web services, which allow for rapid retrieval of various genomic information. 
 
-convertToGRanges function is designed to facilitate the conversion of genomic locations and their respective annotations, in the format by which they are retrieved using InterMineR, to an object of the \code{\link[GenomicRanges]{GRanges}} class.
+\code{convertToGRanges} function is designed to facilitate the conversion of genomic locations and their respective annotations, in the format by which they are retrieved using InterMineR, to an object of the \code{\link[GenomicRanges]{GRanges}} class.
 }
 \value{
 An object of the \code{\link[GenomicRanges]{GRanges}} class containing genomic locations and annotations retrieved by InterMineR queries.
