@@ -79,14 +79,16 @@ hsa_enrichResult = doEnrichment(
 )
 
 # convert InterMineR enrichment analysis results to a GeneAnswers object
-hsa_geneanswers = convertToGeneAnswers(
-  enrichmentResult = hsa_enrichResult,
-  geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
-                         stringsAsFactors = FALSE),
-  geneInputType = "Gene.primaryIdentifier",
-  annLib = 'org.Hs.eg.db',
-  categoryType = "GO",
-  enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
-)
+# Do not run unless you have installed and loaded GeneAnswers package!
+  
+# hsa_geneanswers = convertToGeneAnswers(
+#   enrichmentResult = hsa_enrichResult,
+#   geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
+#                          stringsAsFactors = FALSE),
+#   geneInputType = "Gene.primaryIdentifier",
+#   annLib = 'org.Hs.eg.db',
+#   categoryType = "GO",
+#   enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
+# )
 
 }
