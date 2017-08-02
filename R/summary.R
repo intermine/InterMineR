@@ -7,7 +7,7 @@
 # methods for InterMineR class
 # summary
 
-if (is.null(getGeneric("summary"))) setGeneric("summary", function(object,...){standardGeneric("summary")}))
+if (is.null(getGeneric("summary"))) setGeneric("summary", function(object,...){standardGeneric("summary")})
 
 # set summary method for class InterMineR
 setMethod(
