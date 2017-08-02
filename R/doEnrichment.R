@@ -1,3 +1,4 @@
+# Example function to retrieve Intermine Enrichment Analysis 
 doEnrichment = function(
   im,
   genelist = NULL,
@@ -82,22 +83,29 @@ doEnrichment = function(
     answer = NULL
   }
   
+  # store parameters
+  parameters = c(
+    genelist = genelist,
+    ids = ids,
+    widget = widget,
+    population = population,
+    maxp = maxp,
+    correction = correction,
+    filter = filter
+  )
+  
   if(length(ind.populationCount) == 0 & length(ind.notAnalysed) == 0){
     answer = list(
       data = answer,
-      maxp = maxp,
-      correction = correction,
       im = im,
-      widget = widget)
+      parameters = parameters)
   } else {
     answer = list(
       data = answer,
       populationCount = as.numeric(xmlAttrs(res.xml)[ind.populationCount]),
       notAnalysed = as.numeric(xmlAttrs(res.xml)[ind.notAnalysed]),
-      maxp = maxp,
-      correction = correction,
       im = im,
-      widget = widget)
+      parameters = parameters)
   }
   
   # } else if (output == "json"){
