@@ -2,10 +2,12 @@
 \alias{setQuery}
 
 \title{
-setQuery function is used to create or modify an existing query
+Initialize a new InterMineR query or modify an existing list query
 }
 \description{
-setQuery function is used to create a query for an InterMine instance. It can also accept and modify pre-defined queries of class list, like the template queries which can be retrieved with the function \code{\link{getTemplateQuery}}. It returns a defined query stored as an object of class 'InterMineR_query'.
+setQuery function is used to create a query for an InterMine instance. It can also accept and modify pre-defined queries of class list, like the template queries which can be retrieved with the function \code{\link{getTemplateQuery}}. It returns a defined query stored as an object of class 'InterMineR'.
+  
+A query needs to have at least view, constraints and constraintLogic. The view is a vector containing the columns of the query output. The constraint is a matrix containing the following columns: path (the path of the constraint), op (the constraint operator, one of '=', '!=', 'LOOKUP', 'ONE OF', 'NONE OF', '>', '<', '>=', '<=', 'LIKE'), value (the constraint value), code (the name of the constraint), extraValue (optional, required for LOOKUP constraints). The constraintLogic by default is "AND" operation, e.g., "A and B", where A and B are the codes in the constraints.
 }
 \usage{
 setQuery(
@@ -35,18 +37,22 @@ Assign with a character string giving a name to the query. Pre-fixed with "".
 Assign with a character string describing the purpose and the type of data retrieved by the query. Pre-fixed with "".
 }
 \item{inheritQuery}{
-Assign with a pre-defined query list, the input values of which can be modified and inherited in the new query object of class 'InterMineR_query'.
+Assign with a pre-defined query list, the input values of which can be modified and inherited in the new query object of class 'InterMineR'.
 }
 }
 \details{
-setQuery function can be used to create queries with a single constraint containing multiple values. The constraints can be first defined with the \code{\link{setConstraints}} function. The resulting 'InterMineR_query' object is passed to the \code{\link{runQuery2}} function to perform the query.
+setQuery function can be used to create queries with a single constraint containing multiple values. The constraints can be first defined with the \code{\link{setConstraints}} function. The resulting 'InterMineR' object is passed to the \code{\link{runQuery}} function to perform the query.
 }
 \value{
-An InterMineR_query object
+An InterMineR object
 }
 
 \author{
 InterMine Team
+}
+
+\seealso{
+\code{\link{setConstraints}}, \code{\link{runQuery}}, \code{\link{InterMineR-class}}
 }
 
 \examples{
@@ -67,7 +73,7 @@ go.constraints = setConstraints(
 )
 go.constraints[[3]]
 
-# create 'InterMineR_query' object
+# create 'InterMineR' object
 go.query = setQuery(
   inheritQuery = qGO_Gene,
   where = go.constraints
@@ -92,7 +98,7 @@ hsa.go.constraints = setConstraints(
 
 hsa.go.constraints
 
-# create 'InterMineR_query' object
+# create 'InterMineR' object
 hsa.go.query = setQuery(
   select = c("Gene.secondaryIdentifier",
              "Gene.symbol",

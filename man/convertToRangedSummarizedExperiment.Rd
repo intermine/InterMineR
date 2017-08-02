@@ -5,7 +5,7 @@
 Convert experimental results retrieved by InterMineR queries to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class
 }
 \description{
-convertToRangedSummarizedExperiment constitutes a wrapper function for converting genomic information and experimental data from InterMine to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class. 
+\code{convertToRangedSummarizedExperiment} constitutes a wrapper function for converting genomic information and experimental data from InterMine to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class. 
 }
 \usage{
 convertToRangedSummarizedExperiment(
@@ -16,7 +16,8 @@ convertToRangedSummarizedExperiment(
   ValueColumn,
   OrganismValue,
   colsForSampleMetadata,
-  exonsForRowRanges = FALSE)
+  exonsForRowRanges = FALSE
+)
 }
 
 \arguments{
@@ -48,7 +49,7 @@ a logical value indicating whether the rowRanges argument of the \code{\link[Sum
 \details{
 The InterMineR package provides a flexible interface to InterMine web services, which allow for rapid retrieval of various genomic information.
 
-convertToRangedSummarizedExperiment function facilitates the conversion of genomic information and experimental data from high-throughput assays, which are retrieved by using InterMineR queries, to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class.
+\code{convertToRangedSummarizedExperiment} function facilitates the conversion of genomic information and experimental data from high-throughput assays, which are retrieved by using InterMineR queries, to an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} class.
 
 It is noteworthy that the \code{\link[stats]{reshape}} function is used to convert the experimental data from the InterMineR format (long format) to the matrix (wide format) assigned to the assays argument of the \code{\link[SummarizedExperiment]{SummarizedExperiment}}.
 
@@ -64,8 +65,11 @@ an object of the \code{\link[SummarizedExperiment]{RangedSummarizedExperiment}} 
 InterMine Team
 }
 
-\examples{
+\seealso{
+\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}, \code{link{convertToGRanges}}
+}
 
+\examples{
 # 10 Drosophila melanogaster genes of interest
 Drosophila.genes = c("BEAF-32", "Antp", "bcd", "caup", "tup", "E2f2", "dsx", "so", "toy", "Lim1")
 

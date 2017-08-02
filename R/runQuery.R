@@ -1,19 +1,26 @@
-# Define function for running queries using 'InterMineR_query' objects
-# The results are objects of 'InterMineR_result' class
+#' @name runQuery
+#' @rdname runQuery
+#' @docType methods
+#' @aliases runQuery runQuery,ANY,InterMineR-method runQuery,ANY,list-method
+#' @export
 
-runQuery2 = function(
-  im,
-  qry,
-  timeout=60
-){
-  
-  if(class(qry) == "InterMineR_query"){
+# methods for InterMineR class
+# runQuery
+
+setGeneric("runQuery", function(im, qry, timeout=60) standardGeneric("runQuery"))
+
+# set runQuery method for class InterMineR
+setMethod(
+  "runQuery",
+  signature(qry = "InterMineR"),
+  function(im, qry, timeout=60){
     
     # retrieve the length of value for each constraint
     value.length = c()
     constraints.with.values = c()
     
     for(i in seq(length(qry@where))){
+      
       # check if inherited constraints have value
       if("value" %in% names(qry@where[[i]])){
         
@@ -27,7 +34,7 @@ runQuery2 = function(
     
     # check if more than one constraints have multiple values
     if(sum(value.length > 1) > 1){
-      stop("only one of the query contraints can possess multiple values")
+      stop("Only one of the query contraints can possess multiple values!")
       
       # check if one constraint has multiple values
     } else if(any(value.length > 1)){
@@ -70,35 +77,10 @@ runQuery2 = function(
         
       }
       
-      # rbind all results to data.frame
+      # rbind all results to data.frame and return
       answer.df = do.call(rbind, answer.list)
       
-      # create query.log data.frame
-      l = list(NULL)
-      count = 0
-      for(j in seq(length(qry@where))){
-        
-        x = qry@where[[j]]
-        
-        if("value" %in% names(x)){
-          if(length(x$value) > 1){
-            x$value = paste(x$value, collapse = ",")
-          }
-          count = count + 1
-          l[[count]] = data.frame(x[which(names(x) %in% c("path","op", "value", "code"))])
-          
-        }
-      }
-      
-      
-      # set and return object of the formal class InterMineR_result
-      answer.final = new(
-        "InterMineR_result",
-        result = answer.df,
-        constraints = do.call(rbind,l)
-      )
-      
-      return(answer.final)
+      return(answer.df)
       
     } else {
       
@@ -125,35 +107,48 @@ runQuery2 = function(
         answer=NULL
       }
       
-      # create query.log data.frame
-      l = list(NULL)
-      count = 0
-      for(j in seq(length(qry@where))){
-        
-        x = qry@where[[j]]
-        
-        if("value" %in% names(x)){
-          if(length(x$value) > 1){
-            x$value = paste(x$value, collapse = ",")
-          }
-          count = count + 1
-          l[[count]] = data.frame(x[which(names(x) %in% c("path","op", "value", "code"))])
-          
-        }
-      }
-      
-      # set and return object of the formal class InterMineR_result
-      answer.final = new(
-        "InterMineR_result",
-        result = answer,
-        constraints = do.call(rbind,l)
-      )
-      
-      return(answer.final)
+      # return answer
+      return(answer)
       
     }
-    
-  } else {
-    stop("qry argument must be assigned with an object of class 'InterMineR_query'")
   }
-}
+)
+
+# set runQuery method for class list
+setMethod(
+  "runQuery",
+  signature(qry = "list"),
+  function(im, qry, timeout=60){
+    
+    if (is.list(qry)) {
+      # convert to XML to run in intermine
+      query <- queryList2XML(qry)
+    } else if(isXMLString(qry)) {
+      query <- xmlParseString(qry)
+    }
+    
+    answer <- NULL
+    
+    query.str <- URLencode(toString.XMLNode(query))
+    query.str <- gsub("&", '%26', query.str)
+    query.str <- gsub(";", '%3B', query.str)
+    
+    r <- GET(paste(im$mine, "/service/query/results?query=",
+                   query.str,"&format=xml",sep=""))
+    stop_for_status(r)
+    res <- content(r)
+    res.xml <- xmlRoot(xmlParse(res))
+    
+    if (length(getNodeSet(res.xml, "//Result")) > 0) {
+      answer = xmlToDataFrame(res.xml, stringsAsFactors=FALSE)
+      colnames(answer) <- strsplit(xmlAttrs(query)[["view"]],
+                                   "\\s+", perl=TRUE)[[1]]
+    } else {
+      # no results
+      answer=NULL
+    }
+    
+    return(answer)
+    
+  }
+)

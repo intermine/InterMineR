@@ -28,9 +28,9 @@ a data.frame or list object, representing the information (name and title) for t
 InterMine Team
 }
 
-
 \examples{
-im <- initInterMine("humanmine.org/humanmine")
+# Get HumanMine template queries
+im <- initInterMine(listMines()["HumanMine"])
 
-template <- getTemplates(im)
+templates <- getTemplates(im)
 }

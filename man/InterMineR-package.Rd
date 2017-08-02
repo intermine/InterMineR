@@ -25,7 +25,7 @@ InterMine Team
 Maintainer: InterMine Team <info@intermine.org>
 }
 \references{
-http://intermine.readthedocs.org/en/latest/web-services/
+\url{http://intermine.readthedocs.org/en/latest/web-services/}
 }
 
 
