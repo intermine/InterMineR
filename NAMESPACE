@@ -21,5 +21,5 @@ convertToGeneAnswers)
 exportClasses(InterMineR)
 exportMethods(runQuery,summary)
 
-import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, methods, GeneAnswers)
+import(Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, methods)
 importFrom(igraph,graph.data.frame,shortest.paths)
