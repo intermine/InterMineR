@@ -47,9 +47,7 @@ a character string specifying the InterMIneR annotation category identifier. Thi
 InterMineR identifiers for each Mine can be retrieved with \code{\link{getModel}} function.
 }
 }
-\details{
 
-}
 \value{
 a \code{\link[GeneAnswers]{GeneAnswers-class}} object.
 }
