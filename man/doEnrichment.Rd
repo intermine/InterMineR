@@ -62,13 +62,9 @@ doEnrichment function returns a list containing the following values:
 
 \item{notAnalyzed}{a numeric value indicatng the number of input features that were not included in the enrichment analysis}
 
-\item{maxp}{the numeric value of maximum p-value of results to display}
-
-\item{correction}{the error correction algorithm used for the enrichment analysis}
-
 \item{im}{the list containing the base URL and API token}
 
-\item{widget}{the name of the enrichment widget indicating the type of the analysis which was performed}
+\item{parameters}{a character vector containing all the parameters used for the enrichment analysis, except im}
 
 }
 
@@ -77,7 +73,7 @@ InterMine Team
 }
 
 \seealso{
-\code{\link{getWidgets}}
+\code{\link{getWidgets}}, \code{\link{getGeneIds}}
 }
 
 \examples{
