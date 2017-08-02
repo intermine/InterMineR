@@ -1,0 +1,65 @@
+---
+title: "test_geneanswers"
+author: "InterMine Team"
+date: "`r Sys.setlocale('LC_TIME', 'C');doc_date()`"
+output: 
+  BiocStyle::html_document:
+    toc: true
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Intro
+
+```{r code}
+library(InterMineR)
+library(GeneAnswers)
+
+# load human genes which are associated with Diabetes (retrieved from HumanMine)
+data("PL_DiabetesGenes")
+
+# get Gene.primaryIdentifiers (ENTREZ Gene identifier)
+hsa_gene_entrez = as.character(PL_DiabetesGenes$Gene.primaryIdentifier)
+
+# perform enrichment analysis with InterMineR
+hsa_enrichResult = doEnrichment(
+  im = initInterMine(listMines()["HumanMine"]),
+  genelist = "PL_DiabetesGenes",
+  widget = "go_enrichment_for_gene",
+  correction = "Benjamini Hochberg"
+)
+
+# convert InterMineR enrichment analysis results to a GeneAnswers object
+hsa_geneanswers = convertToGeneAnswers(
+  enrichmentResult = hsa_enrichResult,
+  geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
+                         stringsAsFactors = FALSE),
+  geneInputType = "Gene.primaryIdentifier",
+  annLib = 'org.Hs.eg.db',
+  categoryType = "GO",
+  enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
+)
+
+class(hsa_geneanswers)
+summary(hsa_geneanswers)
+```
+
+```{r plots}
+geneAnswersChartPlots(hsa_geneanswers, 
+                      chartType='all',
+                      sortBy = 'correctedPvalue'
+                      )
+
+
+# plot interactive go structure network
+geneAnswersConceptNet(hsa_geneanswers, 
+                      colorValueColumn='foldChange', 
+                      centroidSize='pvalue', 
+                      output='interactive',
+                      showCats = 2:3, 
+                      catTerm = TRUE)
+```
+
