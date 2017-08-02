@@ -28,9 +28,9 @@ a list, reprenting the query contained in the pre-defined template.  The list sh
 InterMine Team
 }
 
-
 \examples{
-im <- initInterMine("humanmine.org/humanmine")
+# Get template queries from HumanMine
+im <- initInterMine(listMines()["HumanMine"])
 
 queryGeneIden <- getTemplateQuery(im, "Gene_Identifiers")
 }

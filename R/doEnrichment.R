@@ -1,3 +1,4 @@
+# Example function to retrieve Intermine Enrichment Analysis 
 doEnrichment = function(
   im,
   genelist = NULL,
@@ -5,9 +6,8 @@ doEnrichment = function(
   widget = NULL,
   population = NULL,
   maxp = 0.05,
-  correction = "Holm-Bonferroni",
-  filter = NULL,
-  output = "xml"
+  correction = "Benjamini Hochberg",
+  filter = NULL
 ) {
   
   # Assign the parameters of the enrichment query in a list
@@ -19,7 +19,7 @@ doEnrichment = function(
     maxp = maxp,
     correction = correction,
     filter = filter,
-    output = output
+    output = "xml"
   ) 
   
   # Create enrichment query character string
@@ -61,38 +61,68 @@ doEnrichment = function(
   
   mine.url = im$mine
   
-  if(output == "xml") {
-    # perform GET request
-    r = GET(paste0(mine.url,"/service/list/enrichment?",enq.string))
-    stop_for_status(r)
-    
-    # extract content from request
-    res = content(r)
-    res.xml <- xmlRoot(xmlParse(res))
-    
-    # convert xml results to data.frame
-    if(length(getNodeSet(res.xml, "//result")) > 0){
-      answer = xmlToDataFrame(res.xml, stringsAsFactors=FALSE)
-    } else {
-      # no results
-      answer = NULL
-    }
-    
-  } else if (output == "json"){
-    # perform request and convert json results in data.frame with
-    # jsonlite::fromJSON function
-    # Set xml as default because jsonlite interferes with RJSONIO!
-    # r = jsonlite::fromJSON(txt = paste0(mine.url,"/service/list/enrichment?",enq.string))
-    r = fromJSON(txt = paste0(mine.url,"/service/list/enrichment?",enq.string))
-    
-    if(length(r$results) > 0){
-      # edit to be the same data.frame output as xml
-      answer = r$results[,c(4,3,1,2)]
-      colnames(answer) = c("identifier", "description", "pValue", "count")
-    } else {
-      # no results
-      answer = NULL
-    }
+  # if(output == "xml") {
+  
+  # perform GET request
+  r = GET(paste0(mine.url,"/service/list/enrichment?",enq.string))
+  stop_for_status(r)
+  
+  # extract content from request
+  res = httr::content(r)
+  res.xml <- xmlRoot(xmlParse(res))
+  
+  # get populationCount and notAnalysed values from xml attributes
+  ind.populationCount = which(names(xmlAttrs(res.xml)) == "populationCount")
+  ind.notAnalysed = which(names(xmlAttrs(res.xml)) == "notAnalysed")
+  
+  # convert xml results to data.frame
+  if(length(getNodeSet(res.xml, "//result")) > 0){
+    answer = xmlToDataFrame(res.xml, stringsAsFactors=FALSE)
+  } else {
+    # no results
+    answer = NULL
   }
+  
+  # store parameters
+  parameters = c(
+    genelist = genelist,
+    ids = ids,
+    widget = widget,
+    population = population,
+    maxp = maxp,
+    correction = correction,
+    filter = filter
+  )
+  
+  if(length(ind.populationCount) == 0 & length(ind.notAnalysed) == 0){
+    answer = list(
+      data = answer,
+      im = im,
+      parameters = parameters)
+  } else {
+    answer = list(
+      data = answer,
+      populationCount = as.numeric(xmlAttrs(res.xml)[ind.populationCount]),
+      notAnalysed = as.numeric(xmlAttrs(res.xml)[ind.notAnalysed]),
+      im = im,
+      parameters = parameters)
+  }
+  
+  # } else if (output == "json"){
+  #  # perform request and convert json results in data.frame with
+  #  # jsonlite::fromJSON function
+  #  # Set xml as default because jsonlite interferes with RJSONIO!
+  #  r = jsonlite::fromJSON(txt = paste0(mine.url,"/service/list/enrichment?",enq.string))
+  #  
+  #  if(length(r$results) > 0){
+  #    # edit to be the same data.frame output as xml
+  #    answer = r$results[,c(4,3,1,2)]
+  #    colnames(answer) = c("identifier", "description", "pValue", "count")
+  #  } else {
+  #    # no results
+  #    answer = NULL
+  #  }
+  # }
+  
   return(answer)
 }
