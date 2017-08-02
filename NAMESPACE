@@ -15,7 +15,8 @@ getDatasets,
 listDatasets, 
 simplifyResult,
 setConstraints,
-setQuery)
+setQuery,
+convertToGeneAnswers)
 
 exportClasses(InterMineR)
 exportMethods(runQuery)
