@@ -88,8 +88,8 @@ hsa_geneanswers = convertToGeneAnswers(
                          stringsAsFactors = FALSE),
   geneInputType = "Gene.primaryIdentifier",
   annLib = 'org.Hs.eg.db',
-  categoryType = "GO",
-  enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
+  categoryType = "GO"
+  # enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
 )
 
 }
