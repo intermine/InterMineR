@@ -16,7 +16,8 @@ doEnrichment(
   population = NULL, 
   maxp = 0.05,
   correction = "Benjamini Hochberg", 
-  filter = NULL
+  filter = NULL,
+  organism = NULL
 )
 }
 
@@ -28,10 +29,14 @@ a list containing the base URL and API token.
 The name of the list to investigate, optional unless ids (identifiers) is NULL.
 }
   \item{ids}{
-Comma-separated character string of InterMine object IDs, optional unless list is NULL. Use getGeneIds() function to retrieve unique Gene.id values for a list of gene identifiers.
+  
+  a character vector containing the identifiers (list of genes, proteins, SNPs, etc.) for the enrichment analysis, optional unless genelist is NULL.
+  
+  Alternatively, a comma-separated character string of InterMine object IDs can be assigned directly to this argument. Use \code{\link{getGeneIds}} function to retrieve unique Gene.id values for a list of gene identifiers.
+
 }
   \item{widget}{
-The name of the enrichment widget to display. Use getWidgets() function to retrieve available enrichment type widgets for the respective Mine.
+The name of the enrichment widget to display. Use \code{\link{getWidgets}} function to retrieve available enrichment type widgets for the respective Mine.
 }
   \item{population}{
 The name of the list to use as the background population.
@@ -43,17 +48,21 @@ The maximum p-value of results to display. The range is 0.0 - 1.0
 The error correction algorithm to use. Possible options are "Benjamini Hochberg" (default), "Holm-Bonferroni", "Bonferroni" or "None".
 }
   \item{filter}{
-An optional filter that some widgets accept. Use getWidgets() function to retrieve available filters of the respective enrichment widget.
+An optional filter that some widgets accept. Use \code{\link{getWidgets}} function to retrieve available filters of the respective enrichment widget.
+}
+  \item{organism}{
+a character string defining the name of the organism (e.g. "Homo sapiens"). 
+
+This argument is optional and can be used to limit the analysis to the list of identifiers for a specific organism. Can be useful for InterMine instances that contain data from multiple organisms.
 }
 }
 \details{
 The public gene lists for each Mine are available at the websites obtained by the following command:
-paste0(listMines()$URL, "/bag.do?subtab=view")
+paste0(listMines()["Mine_Name"], "/bag.do?subtab=view")
 
 Each type of enrichment widget can be applied to a gene list with specific annotation. To apply the enrichment analysis to the appropriate list of genes, use the targets column of the respective enrichment widgets as they are retrieved by \code{\link{getWidgets}} function.
 }
 \value{
-
 doEnrichment function returns a list containing the following values:
 
 \item{data}{A data.frame containing the results of the enrichment analysis performed in InterMine platform. The statistically significant results are ordered by increasing p-values}
@@ -84,6 +93,16 @@ enrichResults.FlyMine <- doEnrichment(
   widget = "go_enrichment_for_gene"
 )
 
+# use ids instead of genelist
+data("PL_FlyTF_site_specific_TFs")
+
+enrichResults.FlyMine <- doEnrichment(
+  im = initInterMine(mine = listMines()["FlyMine"]),
+  #genelist = 'PL FlyTF_site_specific_TFs',
+  ids = PL_FlyTF_site_specific_TFs$Gene.primaryIdentifier,
+  widget = "go_enrichment_for_gene"
+)
+
 # HumanMine
 enrichResults.HumanMine <- doEnrichment(
   im = initInterMine(mine = listMines()["HumanMine"]),
@@ -91,4 +110,13 @@ enrichResults.HumanMine <- doEnrichment(
   widget = "go_enrichment_for_gene"
 )
 
+# use ids instead of genelist
+data("PL_DiabetesGenes")
+
+enrichResults.HumanMine <- doEnrichment(
+  im = initInterMine(mine = listMines()["HumanMine"]),
+  #genelist = "PL_DiabetesGenes",
+  ids = PL_DiabetesGenes$Gene.primaryIdentifier,
+  widget = "go_enrichment_for_gene"
+)
 }
