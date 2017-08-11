@@ -31,14 +31,24 @@ convertToGeneAnswers = function(
       ind.widget = which(g$name == enrichmentResult$parameters['widget'])
       
       if(missing(enrichCategoryChildName) & is.na(g[ind.widget,"enrichIdentifier"])){
+        
         stop("Default enrichIdentifier from getWidgets function is NA. 
              Assign manually enrichCategoryChildName with the appropriate enrichment category identifier.")
+        
       } else if(missing(enrichCategoryChildName)){
-        enrichCategoryChildName = as.character(g[ind.widget,"enrichIdentifier"])
+        
+        enrichCategoryChildName = paste(
+          as.character(g[ind.widget, "targets"]),
+          as.character(g[ind.widget,"enrichIdentifier"]),
+          sep = "."
+          )
+        
       }
     } else if(!"enrichIdentifier" %in% colnames(g) & missing(enrichCategoryChildName)){
+      
       stop("Default enrichIdentifier from getWidgets function is missing. 
            Assign manually enrichCategoryChildName with the appropriate enrichment category identifier.")
+      
     }
     
     # set query for geneInput using type and categoryType (the latter defined by the user)
