@@ -8,8 +8,8 @@ output:
     highlight: pygments
 bibliography: references_Enrichment.bib
 vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Enrichment Analysis and Visualization}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
