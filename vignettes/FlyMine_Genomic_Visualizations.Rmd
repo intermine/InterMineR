@@ -9,8 +9,8 @@ output:
     fig_caption: false
 bibliography: references_FlyViz.bib
 vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{FlyMine Genomic Visualizations}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
