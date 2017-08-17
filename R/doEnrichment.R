@@ -1,4 +1,3 @@
-# Example function to retrieve Intermine Enrichment Analysis 
 doEnrichment = function(
   im,
   genelist = NULL,
@@ -7,13 +6,37 @@ doEnrichment = function(
   population = NULL,
   maxp = 0.05,
   correction = "Benjamini Hochberg",
-  filter = NULL
+  filter = NULL,
+  organism = NULL
 ) {
+  
+  if(!is.null(ids) & length(ids)>1){
+    
+    # get defined Mine's widgets
+    g = as.data.frame(getWidgets(im))
+    # index with the defined widget
+    ind.widget = which(g$name == widget)
+    # get feature (e.g. "Gene", "Protein", "SNP")
+    feature = as.character(g$targets[ind.widget])
+    
+    # run getIds function in the background to get the InterMine object ids
+    # as comma-separated character string
+    string = getIds(im = im,
+                    feature = feature,
+                    values = ids,
+                    organism = organism)
+    
+  } else if(!is.null(ids) & length(ids)==1){
+    # assign directly the comma-separated string of ids if user has defined so
+    string = ids
+  } else {
+    string = NULL
+  }
   
   # Assign the parameters of the enrichment query in a list
   queryEnrich = list(
     genelist = genelist,
-    ids = ids,
+    ids = string, #ids,
     widget = widget,
     population = population,
     maxp = maxp,
@@ -86,7 +109,7 @@ doEnrichment = function(
   # store parameters
   parameters = c(
     genelist = genelist,
-    ids = ids,
+    ids = string, #ids,
     widget = widget,
     population = population,
     maxp = maxp,

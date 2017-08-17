@@ -28,7 +28,7 @@ a character vector describing the operators for each constraint.
 a list containing the values assigned to each constraints. The path of each argument defines the type of value by which the results of the query will be filtered.
 }
 \item{modifyQueryConstraints}{
-a list of existing contraints to be modified.
+an existing list query (e.g. template query) whose constraints will be modified.
 }
 \item{m.index}{
 a vector of integer values indicating which constraints of the list assigned to modifyQueryConstraints will be modified.
@@ -52,6 +52,7 @@ values = list(first_element, c("a", "b"), ...)
 or when modifying an existing list of constraints:
 
 values = list(c("a", "b"))
+
 m.index = 2
 
 }

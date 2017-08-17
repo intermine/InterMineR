@@ -58,7 +58,7 @@ setConstraints = function(
     }
     
     # check if m.index is less than the legth of modifyQueryConstraints query constraints
-    if(length(modifyQueryConstraints$where)<m.index){
+    if(length(modifyQueryConstraints$where)<max(m.index)){
       stop("m.index value can not be greater than the length of the constraints, which are to be modified")
     }
     

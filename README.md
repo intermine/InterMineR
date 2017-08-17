@@ -27,9 +27,19 @@ See HTML vignette for detailed API and tutorial:
 
 ## Credits
 
-Package created by Bing Wang. 
+Bing Wang:
 
-Enrichment analysis functions and visualizations added by Konstantinos Kyritsis.
+* InterMineR package creation (first edition)
+* Established the first query system (queries as list objects)
+* Vignette creation (first edition)
+
+Konstantinos Kyritsis:
+
+* InterMineR package update to fit with the standards of Bioconductor submission.
+* Established the second query system (queries as InterMineR-class objects)
+* Addition of enrichment analysis functionality and convertion of the results to GeneAnswer-class objects
+* Addition of functionality for converting InterMineR-retrieved data to GRanges-class and RangedSummarizedExperiment-class objects
+* Vignette update (second edition) and tutorials addition
 
 ## License
 
