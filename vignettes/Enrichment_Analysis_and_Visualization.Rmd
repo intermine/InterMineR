@@ -5,6 +5,7 @@ date: "`r Sys.setlocale('LC_TIME', 'C');doc_date()`"
 output: 
   BiocStyle::html_document:
     toc: true
+    fig_caption: false
     highlight: pygments
 bibliography: references_Enrichment.bib
 vignette: >
@@ -27,13 +28,11 @@ InterMine provides Gene Ontology enrichment statistics as well as enrichment sta
 
 # Perform enrichment analysis with InterMineR
 
-Performing enrichment analysis with InterMineR is preceded by three steps:
+Performing enrichment analysis with InterMineR is preceded by two steps:
 
 1. Retrieve the list of bioentities of interest (Genes, Proteins, SNPs, etc.) for which the analysis will be performed.
 
-2. Retrieve the comma-separated InterMine object ids (unless the list of bioentites exists in the Mine of interest)
-
-3. Get the enrichment widget name which indicates the annotation types that you want to investigate for enrichment (e.g. Gene Ontology Terms, protein domains, KEGG and Reactome Pathways, human diseases, mammalian phenotypes and publications).
+2. Get the enrichment widget name which indicates the annotation types that you want to investigate for enrichment (e.g. Gene Ontology Terms, protein domains, KEGG and Reactome Pathways, human diseases, mammalian phenotypes and publications).
 
 ## Retrieve list containing the genes of interest from InterMineR
 
@@ -48,6 +47,15 @@ library(InterMineR)
 Retrieve PL_DiabetesGenes data and get gene identifiers as HumanrMine Gene.symbol and Gene.primaryIdentifier values (ENTREZ IDs).
 
 ```{r source_function_load_data, message=FALSE, warning=FALSE}
+# get HumanMine instance
+im.human = initInterMine(listMines()["HumanMine"])
+
+# retrieve data model for HumanMine
+hsa_model = getModel(im.human)
+
+# all targets of HumanMine enrichment widgets possess InterMine ids
+subset(hsa_model, type %in% c("Gene", "Protein", "SNP") & child_name == "id")
+
 # load human genes which are associated with Diabetes (retrieved from HumanMine)
 data("PL_DiabetesGenes")
 
@@ -62,65 +70,6 @@ head(hsa_gene_names, 3)
 hsa_gene_entrez = as.character(PL_DiabetesGenes$Gene.primaryIdentifier)
 
 head(hsa_gene_entrez, 3)
-```
-
-## Get InterMine object ids values
-
-The next step is to obtain the InterMine object ids and convert them into a comma-separated character string. This step is required for our list to be accepted as input by the `doEnrichment` function.
-
-Since ours is a list of genes we can use the `getGeneIds` function which facilitates the direct retrieval of Gene.id values.
-
-```{r getGeneIds, message=FALSE, warning=FALSE}
-# get HumanMine instance
-im.human = initInterMine(listMines()["HumanMine"])
-
-# get Gene.id values
-hsa_gene_ids = getGeneIds(im.human, hsa_gene_entrez, "Homo sapiens")
-
-names(hsa_gene_ids)
-
-head(hsa_gene_ids$unique.results)
-
-# comma-separated character string of Gene.id values
-hsa_gene_ids$doEnrichment.string
-```
-
-Alternatively, we can retrieve the Gene.id values by creating an InterMineR query for them in HumanMine. This is something that we would do anyway if we were analyzing a list of proteins or SNPs instead of genes.
-
-```{r Gene_ids_by_query, message=FALSE, warning=FALSE}
-# get Gene.id values by defining an InterMineR query
-
-# retrieve data model for HumanMine
-hsa_model = getModel(im.human)
-
-# all targets of HumanMine enrichment widgets possess InterMine ids
-subset(hsa_model, type %in% c("Gene", "Protein", "SNP") & child_name == "id")
-
-# set constraints for retrieving Gene.id values for Homo sapiens genes from HumanMine
-constraints = setConstraints(
-  paths = c("Gene", "Gene.organism.name"),
-  operators = c("LOOKUP", "="),
-  values = list(hsa_gene_entrez, "Homo sapiens")
-)
-
-# set query as an object of the formal class InterMineR
-query = setQuery(
-  select = "Gene.id",
-  where = constraints
-)
-
-class(query)
-
-summary(query)
-
-# run InterMineR query
-results = runQuery(
-  im.human,
-  query
-)
-
-# getGeneIds and InterMineR query results are the same
-hsa_gene_ids$doEnrichment.string == paste(results$Gene.id, collapse = ",")
 ```
 
 ## Get enrichment widgets
@@ -155,9 +104,10 @@ We will perform Gene Ontology Enrichment analysis for the genes in our list usin
 # Perform enrichment analysis
 GO_enrichResult = doEnrichment(
   im = im.human,
-  ids = hsa_gene_ids$doEnrichment.string,
-  widget = "go_enrichment_for_gene")
-
+  ids = hsa_gene_entrez,
+  widget = "go_enrichment_for_gene"
+  # organism = "Homo sapiens" # optional if results from more than one organism are retrieved
+)
 ```
 
 As mentioned above 'PL_DiabetesGenes' constitutes a genelist which already exists in HumanMine. Therefore, the enrichment analysis could also be performed by passing the name of the list to the genelist argument, with the same results:
@@ -167,7 +117,7 @@ As mentioned above 'PL_DiabetesGenes' constitutes a genelist which already exist
 GO_enrichResult = doEnrichment(
   im = im.human,
   genelist = "PL_DiabetesGenes",
-  # ids = hsa_gene_ids$doEnrichment.string,
+  # ids = hsa_gene_entrez,
   widget = "go_enrichment_for_gene"
 )
 ```
@@ -220,7 +170,7 @@ as.character(subset(human.widgets, name == "go_enrichment_for_gene")$filters)
 # Perform enrichment analysis for GO molecular function terms
 GO_MF_enrichResult = doEnrichment(
   im = im.human,
-  ids = hsa_gene_ids$doEnrichment.string,
+  ids = hsa_gene_entrez,
   widget = "go_enrichment_for_gene",
   filter = "molecular_function")
 
@@ -243,7 +193,7 @@ The application of one of these algorithms changes the p-values and determines t
 # Perform enrichment analysis for Protein Domains in list of genes
 PD_FDR_enrichResult = doEnrichment(
   im = im.human,
-  ids = hsa_gene_ids$doEnrichment.string,
+  ids = hsa_gene_entrez,
   widget = "prot_dom_enrichment_for_gene",
   correction = "Benjamini Hochberg"
 ) 
@@ -254,7 +204,7 @@ head(PD_FDR_enrichResult$data)
 # but without a correction algoritm this time
 PD_None_enrichResult = doEnrichment(
   im = im.human,
-  ids = hsa_gene_ids$doEnrichment.string,
+  ids = hsa_gene_entrez,
   widget = "prot_dom_enrichment_for_gene",
   correction = "None"
 )
@@ -276,13 +226,27 @@ library(GeneAnswers)
 
 # convert InterMineR Gene Ontology Enrichment analysis results to GeneAnswers object
 geneanswer_object = convertToGeneAnswers(
+  
+  # assign with doEnrichment result:
   enrichmentResult = GO_enrichResult,
+  
+  # assign with list of genes:
   geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
                          stringsAsFactors = FALSE),
+  
+  # assign with the type of gene identifier
+  # in our example we use Gene.primaryIdentifier values (ENTREZ IDs):
   geneInputType = "Gene.primaryIdentifier",
+  
+  # assign with Bioconductor annotation package:
   annLib = 'org.Hs.eg.db',
-  categoryType = "GO",
-  enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
+  
+  # assign with annotation category type
+  # in our example we use Gene Ontology (GO) terms:
+  categoryType = "GO"
+  
+  #optional define manually if 'enrichIdentifier' is missing from getWidgets:
+  #enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
 )
 
 class(geneanswer_object)
@@ -301,7 +265,13 @@ subset(human.widgets,
 
 match the following available values:
 
-"GO", "GO.BP", "GO.CC", "GO.MF", "KEGG" and "REACTOME.PATH"
+InterMineR widget name | InterMineR filter | `convertToGeneAnswers` categoryType |
+-----------------------|-------------------|-------------------------------------|
+go_enrichment_for_gene | biological_process | GO.BP |
+go_enrichment_for_gene | cellular_component | GO.CC |
+go_enrichment_for_gene | molecular_function | GO.MF |
+pathway_enrichment | KEGG pathways data set | KEGG |
+pathway_enrichment | Reactome data set | REACTOME.PATH |
 
 for the categoryType argument of the `geneAnswerBuilder` function, and can be assigned accordingly in the categoryType argument of the `convertToGeneAnswers`, therby facilitating the conversion of InterMineR Gene Ontology and Pathway Enrichment analysis results to `GeneAnswers-class` objects.
 
@@ -313,8 +283,8 @@ geneanswer_MF_object = convertToGeneAnswers(
                          stringsAsFactors = FALSE),
   geneInputType = "Gene.primaryIdentifier",
   annLib = 'org.Hs.eg.db',
-  categoryType = "GO.MF",
-  enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
+  categoryType = "GO.MF"
+  #enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
 )
 
 class(geneanswer_MF_object)
@@ -450,7 +420,7 @@ Specifically in the current example we will show how to perform visualizations o
 # publication enrichment analysis
 publication_enrichResult = doEnrichment(
   im = im.human,
-  ids = hsa_gene_ids$doEnrichment.string,
+  ids = hsa_gene_entrez,
   widget = "publication_enrichment")
 ```
 
