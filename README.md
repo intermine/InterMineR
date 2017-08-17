@@ -37,7 +37,7 @@ Konstantinos Kyritsis:
 
 * InterMineR package update to:
   1. Operate with the [InterMine web services](http://intermine.readthedocs.io/en/latest/web-services/).
-  2. Fit with the standards of [Bioconductor submission](https://www.bioconductor.org/developers/package-submission/).
+  2. Comply with the standards of [Bioconductor submission](https://www.bioconductor.org/developers/package-submission/).
   3. Retrieve the available Mines from the [InterMine registry](http://registry.intermine.org/).
 * Established the second query system (queries as `InterMineR-class` objects)
 * Addition of enrichment analysis functionality and convertion of the results to `GeneAnswer-class` objects
