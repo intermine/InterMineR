@@ -1,4 +1,3 @@
-
 Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status: dev][travis-badge-dev]][ci]
 
 # InterMine-R
@@ -27,9 +26,26 @@ See HTML vignette for detailed API and tutorial:
 
 ## Credits
 
-Package created by Bing Wang. 
+Bing Wang:
+ 
+* InterMineR package creation (first edition)
+* Established the first query system (queries as list objects)
+* Vignette creation (first edition)
 
-Enrichment analysis functions and visualizations added by Konstantinos Kyritsis.
+Konstantinos Kyritsis:
+
+* InterMineR package update to:
+  1. Operate with the [InterMine web services](http://intermine.readthedocs.io/en/latest/web-services/).
+  2. Comply with the standards of [Bioconductor submission](https://www.bioconductor.org/developers/package-submission/).
+  3. Retrieve the available Mines from the [InterMine registry](http://registry.intermine.org/).
+* Established the second query system (queries as `InterMineR-class` objects)
+* Addition of enrichment analysis functionality and convertion of the results to `GeneAnswer-class` objects
+* Addition of functionality for converting InterMineR-retrieved data to `GRanges-class` and `RangedSummarizedExperiment-class` objects
+* Additional functions:
+  1. `simplifyResult` function for flattened results display.
+  2. `listDatasets` and `getDatasets` to retrieve information about the available datasets in each Mine.
+* Vignette update (second edition)
+* Addition of tutorials for *Enrichment Analysis and Visualization* and *FlyMine Genomic Visualizations* with InterMineR
 
 ## License
 
