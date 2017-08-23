@@ -28,7 +28,7 @@ See HTML vignette for detailed API and tutorial:
 ## Credits
 
 Bing Wang:
-
+ 
 * InterMineR package creation (first edition)
 * Established the first query system (queries as list objects)
 * Vignette creation (first edition)
