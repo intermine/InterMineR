@@ -9,7 +9,47 @@ Depends: R (>= 3.4.1)
 License: LGPL
 LazyData: true
 VignetteBuilder: knitr
-Imports: Biostrings, RCurl, XML, xml2, RJSONIO, sqldf, igraph, httr, S4Vectors, IRanges, GenomicRanges, SummarizedExperiment, methods
-Suggests: BiocStyle, Gviz, knitr, rmarkdown, GeneAnswers, GO.db, org.Hs.eg.db
+Imports: 
+	Biostrings, 
+	RCurl, 
+	XML, 
+	xml2, 
+	RJSONIO, 
+	sqldf, 
+	igraph, 
+	httr, 
+	S4Vectors, 
+	IRanges, 
+	GenomicRanges, 
+	SummarizedExperiment, 
+	methods
+Suggests: 
+	BiocStyle, 
+	Gviz, 
+	knitr, 
+	rmarkdown, 
+	GeneAnswers, 
+	GO.db, 
+	org.Hs.eg.db
 BugReports: https://github.com/intermine/intermineR/issues
-biocViews: GeneExpression, SNP, GeneSetEnrichment, DifferentialExpression, GeneRegulation, GenomeAnnotation, GenomeWideAssociation, FunctionalPrediction, AlternativeSplicing, ComparativeGenomics, FunctionalGenomics, Proteomics, SystemsBiology, Microarray, MultipleComparison, Pathways, GO, KEGG, Reactome, Visualization
+biocViews: 
+  GeneExpression, 
+  SNP, 
+  GeneSetEnrichment, 
+  DifferentialExpression, 
+  GeneRegulation, 
+  GenomeAnnotation, 
+  GenomeWideAssociation, 
+  FunctionalPrediction, 
+  AlternativeSplicing, 
+  ComparativeGenomics, 
+  FunctionalGenomics, 
+  Proteomics, 
+  SystemsBiology, 
+  Microarray, 
+  MultipleComparison, 
+  Pathways, 
+  GO, 
+  KEGG, 
+  Reactome, 
+  Visualization
