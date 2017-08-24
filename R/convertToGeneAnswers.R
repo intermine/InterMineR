@@ -8,7 +8,7 @@ convertToGeneAnswers = function(
   enrichCategoryChildName
 ){
   
-  if(isNamespaceLoaded('GeneAnswers')){
+  if(requireNamespace('GeneAnswers')){
     
     # get InterMine instance
     im = enrichmentResult$im
@@ -171,8 +171,8 @@ convertToGeneAnswers = function(
       enrichmentInfo = enrichmentInfo
     )
     
-  } else {
-    stop("Install and load GeneAnswers package before running convertToGeneAnswers function!")
-  }
+  } #else {
+    #stop("Install and load GeneAnswers package before running convertToGeneAnswers function!")
+  #}
   
 }
