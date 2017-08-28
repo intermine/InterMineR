@@ -1,3 +1,4 @@
+#' @export
 # Define function for setting constraints for 'InterMineR_query'
 setConstraints = function(
   paths,
@@ -17,7 +18,7 @@ setConstraints = function(
       length(values))
     
     if(length(unique(length.arguments)) != 1){
-      stop("All arguments in setConstraints() must have the same length")
+      stop("All arguments of setConstraints function must have the same length")
     }
     
     # check paths, operators and values
@@ -32,10 +33,13 @@ setConstraints = function(
     }
     
     #check the length of its object of the argument values (list)
-    length.values = sapply(values, length)
+    #length.values = sapply(values, length)
+    
+    length.values = vapply(values, length, 1)
     
     if(sum(length.values > 1) > 1){
-      stop("Within the values list only one object can be of length greater than one!")
+      stop("Only one object of the values list can be of length greater 
+           than one!")
     }
     
     where.result = list(NULL)
@@ -57,9 +61,11 @@ setConstraints = function(
       stop("assign m.index argument with a numeric or integer vector")
     }
     
-    # check if m.index is less than the legth of modifyQueryConstraints query constraints
+    # check if m.index is less than the legth of modifyQueryConstraints query 
+    # constraints
     if(length(modifyQueryConstraints$where)<max(m.index)){
-      stop("m.index value can not be greater than the length of the constraints, which are to be modified")
+      stop("m.index value can not be greater than the length of the constraints 
+           which are to be modified")
     }
     
     where.result = modifyQueryConstraints

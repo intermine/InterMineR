@@ -1,3 +1,4 @@
+#' @export
 getWidgets = function(im){
   
   mine.url = im$mine
@@ -12,7 +13,8 @@ getWidgets = function(im){
   res = fromJSON(mine.script)
   
   # get widget results and convert rirectly to R objects with 
-  # res = jsonlite::fromJSON(txt = paste0(mine.url, "query/service/widgets?format=json"))
+  # res = jsonlite::fromJSON(txt = paste0(mine.url, 
+  # "query/service/widgets?format=json"))
   
   # format to data.frame:
   t = res$widgets

@@ -1,3 +1,4 @@
+#' @export
 # function for retrieving Gene.id
 getGeneIds = function(im, genes, organism){
   
@@ -5,7 +6,7 @@ getGeneIds = function(im, genes, organism){
   queryGeneId = newQuery()
   
   # set columns
-  queryGeneId$select = c(
+  queryGeneId[["select"]] = c(
     "Gene.primaryIdentifier",
     "Gene.secondaryIdentifier",
     "Gene.symbol",
@@ -13,7 +14,7 @@ getGeneIds = function(im, genes, organism){
   )
   
   # set sort order
-  queryGeneId$orderBy = list(c(Gene.secondaryIdentifier = "ASC"))
+  queryGeneId[["orderBy"]] = list(c(Gene.secondaryIdentifier = "ASC"))
   
   # set organism constraint
   organismConstraint = list(
@@ -46,7 +47,7 @@ getGeneIds = function(im, genes, organism){
     )
     
     # assign constraints
-    queryGeneId$where = list(geneConstraint, organismConstraint)
+    queryGeneId[["where"]] = list(geneConstraint, organismConstraint)
     
     # run query
     res = runQuery(im, queryGeneId)
@@ -92,8 +93,10 @@ getGeneIds = function(im, genes, organism){
     genes.with.no.results = genes[ind.no_results]
   )
   
-  print(paste0(as.character(length(ind.multiple)), " genes have returned multiple results."))
-  print(paste0(as.character(length(ind.no_results)), " genes have returned no results."))
+  print(paste0(as.character(length(ind.multiple)), 
+               " genes have returned multiple results."))
+  print(paste0(as.character(length(ind.no_results)), 
+               " genes have returned no results."))
   
   return(results)
 }

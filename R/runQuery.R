@@ -2,12 +2,16 @@
 #' @rdname runQuery
 #' @docType methods
 #' @aliases runQuery runQuery,ANY,InterMineR-method runQuery,ANY,list-method
+#' @import S4Vectors
+#' @import methods
 #' @export
 
 # methods for InterMineR class
 # runQuery
 
-setGeneric("runQuery", function(im, qry, timeout=60) standardGeneric("runQuery"))
+setGeneric("runQuery",function(im, qry, timeout=60) standardGeneric("runQuery"))
+
+#' @exportMethod runQuery
 
 # set runQuery method for class InterMineR
 setMethod(
@@ -19,15 +23,15 @@ setMethod(
     value.length = c()
     constraints.with.values = c()
     
-    for(i in seq(length(qry@where))){
+    for(i in seq(length(slot(qry,"where")))){
       
       # check if inherited constraints have value
-      if("value" %in% names(qry@where[[i]])){
+      if("value" %in% names(slot(qry,"where")[[i]])){
         
         constraints.with.values = c(constraints.with.values, i)
         
         value.length = c(value.length, 
-                         length(qry@where[[i]]$value)
+                         length(slot(qry,"where")[[i]][["value"]])
         )
       }
     }
@@ -40,14 +44,15 @@ setMethod(
     } else if(any(value.length > 1)){
       
       # identify contraint with multiple values
-      ind = constraints.with.values[which(value.length > 1)]
+      #ind = constraints.with.values[which(value.length > 1)]
+      ind = constraints.with.values[value.length > 1]
       
       answer.list = list(NULL)
       # iterate through multiple values
-      for(y in seq(length(qry@where[[ind]]$value))){
+      for(y in seq(length(slot(qry,"where")[[ind]][["value"]]))){
         
         # get value
-        v = qry@where[[ind]]$value[y]
+        v = slot(qry,"where")[[ind]][["value"]][y]
         
         # get XML query string
         query = InterMineR_Query2XML(qry, index = ind, value2 = v)
