@@ -1,3 +1,4 @@
+#' @export
 # Define function for creating 'InterMineR' object
 setQuery = function(
   select,
@@ -25,7 +26,8 @@ setQuery = function(
       stop(message.error1)
     }
     
-    # if orderBy is missing then the first element of the select argument is assigned to it
+    # if orderBy is missing then the first element of the select argument is 
+    # assigned to it
     if(missing(orderBy)){
       
       if(class(where) != "list"){
@@ -73,7 +75,8 @@ setQuery = function(
       if(class(select) != "character"){
         stop("select argument is not of class 'character'")
       } else {
-        inheritQuery$select = select
+        #inheritQuery$select = select
+        inheritQuery[["select"]] = select
       }
     }
     #
@@ -81,7 +84,8 @@ setQuery = function(
       if(class(name) != "character"){
         stop("name argument is not of class 'character'")
       } else {
-        inheritQuery$name = name
+        #inheritQuery$name = name
+        inheritQuery[["name"]] = name
       }
     }
     #
@@ -89,7 +93,8 @@ setQuery = function(
       if(class(description) != "character"){
         stop("description argument is not of class 'character'")
       } else {
-        inheritQuery$description = description
+        #inheritQuery$description = description
+        inheritQuery[["description"]] = description
       }
     }
     #
@@ -97,7 +102,8 @@ setQuery = function(
       if(class(orderBy) != "list"){
         stop("orderBy argument is not of class 'list'")
       } else {
-        inheritQuery$orderBy = orderBy
+        #inheritQuery$orderBy = orderBy
+        inheritQuery[["orderBy"]] = orderBy
       }
     }
     #
@@ -105,17 +111,18 @@ setQuery = function(
       if(class(where) != "list"){
         stop("where argument is not of class 'list'")
       } else {
-        inheritQuery$where = where
+        #inheritQuery$where = where
+        inheritQuery[["where"]] = where
       }
     }
     # set query object of formal class 'InterMineR'
     query.object = new(
       "InterMineR",
-      name = inheritQuery$name,
-      description = inheritQuery$description,
-      select = inheritQuery$select,
-      orderBy = inheritQuery$orderBy,
-      where = inheritQuery$where
+      name = inheritQuery[["name"]],
+      description = inheritQuery[["description"]],
+      select = inheritQuery[["select"]],
+      orderBy = inheritQuery[["orderBy"]],
+      where = inheritQuery[["where"]]
     )
   }
   return(query.object)

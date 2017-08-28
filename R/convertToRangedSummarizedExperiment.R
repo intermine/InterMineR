@@ -1,4 +1,10 @@
-# Define function for converting InterMine experimental data to RangedSummarizedExperiment
+#' @import IRanges
+#' @import GenomicRanges
+#' @import SummarizedExperiment
+#' @export
+
+# Define function for converting InterMine experimental data 
+# to RangedSummarizedExperiment
 # Dataset argument takes data.frame object as input
 
 convertToRangedSummarizedExperiment = function(
@@ -46,7 +52,8 @@ convertToRangedSummarizedExperiment = function(
   
   dataset[,sc] = unique.sample.names
   
-  # get count.table for RangedSummarizedExperiment object with the reshape function
+  # get count.table for RangedSummarizedExperiment object with 
+  # the reshape function
   count.table = reshape(
     data = dataset[,c(gc, sc, vc)],
     idvar = colnames(dataset)[sc],
@@ -73,16 +80,17 @@ convertToRangedSummarizedExperiment = function(
   
   # create GRanges object for the rowRanges of RangedSummarizedExperiment object
   # exonsForRowRanges is used to define whether exon chromosome locations 
-  # will be used for rowRanges argument instead of gene chromosome locations (default)
+  # will be used for rowRanges argument instead of gene chromosome locations 
+  # (default)
   # if exonsForRowRanges = TRUE then:
   # create new InterMineR query to retrieve the exons of each gene
-  # the results will be converted to GRanges and subsequently to GRangesList object
-  # for rowRanges
+  # the results will be converted to GRanges and subsequently to GRangesList 
+  # object for rowRanges
   
   # define new query
   geneExonQuery = newQuery()
   
-  # # check for correct child names in mine data model
+  # check for correct child names in mine data model
   #model = getModel(im)
   
   strand = "strand"
@@ -195,7 +203,7 @@ convertToRangedSummarizedExperiment = function(
         columnsAsMetadata = c(
           paste(sep = ".", "Gene", symbol),
           paste(sep = ".", "Gene", secondaryIdentifier)
-          )
+        )
       )
       
       l.exons[[j]] = d2
@@ -313,6 +321,4 @@ convertToRangedSummarizedExperiment = function(
   )
   
   return(result)
-  
 }
-

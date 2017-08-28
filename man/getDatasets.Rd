@@ -25,10 +25,10 @@ a list containing the base URL and API token.
 a character string defining the type of feature for which the information about the available datasets will be retrieved. Use the \code{\link{listDatasets}} function to retrieve types with available datasets on each mine.
 }
 \item{child_name}{
-a character string defining the child_name values of type, which will be used to retrieve the information about the available datasets.
+a character string defining the child_name values of type, which will be used to retrieve the information about the available datasets. Use \code{\link{getModel}} function to retrieve the available child_name values for each type.
 }
 \item{value}{
-a character string defining the value of the child_name. Use \code{\link{getModel}} function to retrieve the available child_name values for each type.
+a character string defining the value of the child_name.
 }
 \item{op}{
 a character string defining the op argument.
