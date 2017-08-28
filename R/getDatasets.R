@@ -1,3 +1,4 @@
+#' @export
 getDatasets = function(im, 
                        type, 
                        child_name, 
@@ -7,18 +8,18 @@ getDatasets = function(im,
   queryDatasets = newQuery()
   
   # set columns
-  queryDatasets$select = c(
+  queryDatasets[["select"]] = c(
     paste0(type, c(".dataSets.name",
                    ".dataSets.description",
                    ".dataSets.url")
-           )
+    )
   )
   
   # set sort order
   sortOrder = "ASC"
   names(sortOrder) = paste0(type, ".dataSets.name")
   
-  queryDatasets$orderBy = list(sortOrder)
+  queryDatasets[["orderBy"]] = list(sortOrder)
   
   # set constraints
   if(op == "LOOKUP"){
@@ -37,9 +38,8 @@ getDatasets = function(im,
     )
   }
   
-  queryDatasets$where = list(constraint)
+  queryDatasets[["where"]] = list(constraint)
   
   # run query
   res = runQuery(im, queryDatasets)
-  
 }

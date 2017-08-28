@@ -1,4 +1,6 @@
-# define function to flatter the values of a column into comma-separated strings based
+#' @export
+# define function to flatter the values of a column into comma-separated 
+# strings based
 # on another column, which is used as index
 simplifyResult = function(
   dataset,
@@ -12,14 +14,16 @@ simplifyResult = function(
   if(class(index_column) %in% c("integer", "numeric")){
     index = index_column
   } else {
-    index = which(colnames(dataset) == index_column)
+    #index = which(colnames(dataset) == index_column)
+    index = colnames(dataset) == index_column
   }
   
   # for values 
   if(class(values_column) %in% c("integer", "numeric")){
     values = values_column
   } else {
-    values = which(colnames(dataset) == values_column)
+    #values = which(colnames(dataset) == values_column)
+    values = colnames(dataset) == values_column
   }
   
   # collapse to comma-separated string
@@ -46,5 +50,4 @@ simplifyResult = function(
   } else {
     return(data.frame(simplified_results))
   }
-  
 }

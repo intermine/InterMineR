@@ -1,3 +1,7 @@
+#' @import IRanges
+#' @import GenomicRanges
+#' @export
+
 # Define function for convertion of InterMineR objects to GRanges
 convertToGRanges = function(
   dataset,
@@ -20,7 +24,8 @@ convertToGRanges = function(
     # check if seqnames is assigned with the name of a column
     if(length(seqnames) == 1){
       
-      ind.seqnames = which(colnames(dataset) %in% seqnames)
+      #ind.seqnames = which(colnames(dataset) %in% seqnames)
+      ind.seqnames = colnames(dataset) %in% seqnames
       
       seqnames.vector = dataset[,ind.seqnames]
       
@@ -29,13 +34,14 @@ convertToGRanges = function(
       seqnames.vector = seqnames
       
     } else {
-      stop("seqnames argument must be assigned with the name of column from the dataset or with a character vector with length equal to the rows of the dataset")
+      stop("assign seqnames with a column name or a character vector of length 
+           equal to the number of dataset rows")
     }
   } else {
-    stop("assign seqnames with a value or vector of the character class")
+    stop("assign seqnames with a character value or vector")
   }
   
-  # check if chromosomes are chromosome.primaryIdentifiers returned by InterMineR
+  #check if chromosomes are chromosome.primaryIdentifiers returned by InterMine
   if(seqnamesInterMineChromosome){
     seqnames.vector = paste0("chr", seqnames.vector)
   }
@@ -44,26 +50,32 @@ convertToGRanges = function(
   
   if(length(start) == 1 & class(start) == "character"){
     
-    ind.start = which(colnames(dataset) %in% start)
+    #ind.start = which(colnames(dataset) %in% start)
+    ind.start = colnames(dataset) %in% start
+    
     start.vector = as.numeric(dataset[,ind.start])
     
   } else if(length(start) == nrow(dataset)){
     start.vector = as.numeric(start)
   } else {
-    stop("start argument must be assigned with the name of a column from the dataset or with a vector with length equal to the number of rows of the dataset")
+    stop("assign start with a column name or a vector of length equal to the 
+         number of dataset rows")
   }
   
   ###
   
   if(length(end) == 1 & class(end) == "character"){
     
-    ind.end = which(colnames(dataset) %in% end)
+    #ind.end = which(colnames(dataset) %in% end)
+    ind.end = colnames(dataset) %in% end
+    
     end.vector = as.numeric(dataset[,ind.end])
     
   } else if(length(end) == nrow(dataset)){
     end.vector = as.numeric(end)
   } else {
-    stop("end argument must be assigned with the name of a column from the dataset or with a vector with length equal to the number of rows of the dataset")
+    stop("assign end with a column name or a vector of length equal to the 
+         number of dataset rows")
   }
   
   ###
@@ -75,7 +87,9 @@ convertToGRanges = function(
     # check if names is assigned with the name of a column
     if(length(names) == 1){
       
-      ind.names = which(colnames(dataset) %in% names)
+      #ind.names = which(colnames(dataset) %in% names)
+      ind.names = colnames(dataset) %in% names
+      
       names.vector = dataset[,ind.names]
       
     } else if(length(names) == nrow(dataset)){
@@ -83,10 +97,11 @@ convertToGRanges = function(
       names.vector = names
       
     } else {
-      stop("names argument must be assigned with the name of column from the dataset or with a character vector with length equal to the rows of the dataset")
+      stop("assign names with a column name or a character vector of length 
+           equal to the dataset rows")
     }
   } else {
-    stop("assign names with a value or vector of the class character")
+    stop("assign names with a character value or vector")
   }
   
   ###
@@ -98,7 +113,9 @@ convertToGRanges = function(
     # check if strand is assigned with the name of a column
     if(length(strand) == 1){
       
-      ind.strand = which(colnames(dataset) %in% strand)
+      #ind.strand = which(colnames(dataset) %in% strand)
+      ind.strand = colnames(dataset) %in% strand
+      
       strand.vector = dataset[,ind.strand]
       
     } else if(length(strand) == nrow(dataset)){
@@ -106,20 +123,21 @@ convertToGRanges = function(
       strand.vector = strand
       
     } else {
-      stop("strand argument must be assigned with the name of column from the dataset or with a character vector with length equal to the rows of the dataset")
+      stop("assign strand with a column name or a character vector of length 
+           equal to the dataset rows")
     }
   } else {
-    stop("assign strand with a value or vector of the class character")
+    stop("assign strand with a character value or vector")
   }
   
   # replace strand values 1, -1 and "" with +, - and * respectively
-  if(any(c("1","-1","") %in% strand.vector)){
-    
-    strand.vector = gsub("-1", "-", strand.vector)
-    strand.vector = gsub("1", "+", strand.vector)
-    strand.vector[!strand.vector %in% c("+","-")] = "*"
-    
-  }
+  # if(any(c("1","-1","") %in% strand.vector)){
+  
+  strand.vector = gsub("-1", "-", strand.vector)
+  strand.vector = gsub("1", "+", strand.vector)
+  strand.vector[!strand.vector %in% c("+","-")] = "*"
+  
+  # }
   
   # check if strand values are "+", "-" or "*"
   if(!all(strand.vector %in% c("+", "-", "*"))){
@@ -149,14 +167,15 @@ convertToGRanges = function(
   if(!is.null(columnsAsMetadata)){
     if(all(columnsAsMetadata %in% colnames(dataset))){
       
-      ind.columnsAsMetadata = which(colnames(dataset) %in% columnsAsMetadata)
+      #ind.columnsAsMetadata = which(colnames(dataset) %in% columnsAsMetadata)
+      ind.columnsAsMetadata = colnames(dataset) %in% columnsAsMetadata
       d = dataset[,ind.columnsAsMetadata]
       names(d) = columnsAsMetadata
       
       metadata.vector1 = d
       
     } else {
-      stop("assign columnsAsMetadata with names of columns from the dataset")
+      stop("assign columnsAsMetadata with column names from the dataset")
     }
   }
   
@@ -170,7 +189,8 @@ convertToGRanges = function(
       metadata.vector2 = do.call(cbind, listAsMetadata)
       
     } else {
-      stop("assign listAsMetadata with a list of vectors that have length equal to the number of rows of the dataset")
+      stop("assign listAsMetadata with a list of vectors that have length 
+           equal to the number of dataset rows")
     }
   }
   
@@ -183,5 +203,4 @@ convertToGRanges = function(
   }
   
   return(res)
-  
 }
