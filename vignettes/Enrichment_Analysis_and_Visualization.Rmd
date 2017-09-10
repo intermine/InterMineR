@@ -250,7 +250,8 @@ geneanswer_object = convertToGeneAnswers(
 )
 
 class(geneanswer_object)
-slotNames(geneanswer_object)
+summary(geneanswer_object)
+#slotNames(geneanswer_object)
 ```
 
 GeneAnswers is package designed for the enrichment analysis and visualization of gene lists. It is worth mentioning that the InterMineR filters for the widgets of Gene Ontology and Pathway Enrichment:
@@ -288,7 +289,8 @@ geneanswer_MF_object = convertToGeneAnswers(
 )
 
 class(geneanswer_MF_object)
-slotNames(geneanswer_MF_object)
+summary(geneanswer_MF_object)
+#slotNames(geneanswer_MF_object)
 ```
 
 Briefly, in the following sections we present how to use several functions of the GeneAnswers package to visualize the results of the Gene Ontology Enrichment analysis on the `PL_DiabetesGenes` gene list.
@@ -444,8 +446,8 @@ geneanswer_pubs_object = convertToGeneAnswers(
 )
 
 class(geneanswer_pubs_object)
-slotNames(geneanswer_pubs_object)
-
+summary(geneanswer_pubs_object)
+#slotNames(geneanswer_pubs_object)
 ```
 
 ## PieChart and BarPlot graphs
