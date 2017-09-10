@@ -39,8 +39,8 @@ convertToGeneAnswers = function(
         is.na(g[ind.widget,"enrichIdentifier"])
       ){
         
-        stop("'enrichIdentifier' from getWidgets function is NA. Assign 
-enrichCategoryChildName with the appropriate enrichment category identifier.")
+        stop("'enrichIdentifier' from getWidgets function is missing.",
+             "\n Assign enrichCategoryChildName with the appropriate identifier.")
         
       } else if(missing(enrichCategoryChildName)){
         
@@ -55,8 +55,8 @@ enrichCategoryChildName with the appropriate enrichment category identifier.")
       !"enrichIdentifier" %in% colnames(g) & missing(enrichCategoryChildName)
     ){
       
-      stop("'enrichIdentifier' from getWidgets function is missing. Assign 
-enrichCategoryChildName with the appropriate enrichment category identifier.")
+      stop("'enrichIdentifier' from getWidgets function is missing.",
+           "\n Assign enrichCategoryChildName with the appropriate identifier.")
       
     }
     
@@ -84,8 +84,8 @@ enrichCategoryChildName with the appropriate enrichment category identifier.")
     
     # construct genesInCategory list
     if(!any(enrichmentResult[["data"]]$identifier %in% res[,2])){
-      stop('enrichmentResult identifiers do not match categoryType child_name! 
-           Check again the available identifiers with getModel(im).')
+      stop("enrichmentResult identifiers do not match categoryType child_name!",
+           "\n Check the available identifiers with getModel(im).")
     }
     
     genesInCategory = list(NULL)

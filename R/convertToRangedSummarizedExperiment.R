@@ -19,21 +19,27 @@ convertToRangedSummarizedExperiment = function(
 ){
   
   # get index for SampleColumn and GeneColumn
-  if(class(SampleColumn) %in% c("integer", "numeric")){
+  #if(class(SampleColumn) %in% c("integer", "numeric")){
+  if(is.integer(SampleColumn) | is.numeric(SampleColumn)){
     sc = SampleColumn
-  } else if (class(SampleColumn) == "character"){
+  #} else if (class(SampleColumn) == "character"){
+  } else if (is.character(SampleColumn)){
     sc = which(colnames(dataset) == SampleColumn)
   }
   
-  if(class(GeneColumn) %in% c("integer", "numeric")){
+  #if(class(GeneColumn) %in% c("integer", "numeric")){
+  if(is.integer(GeneColumn) | is.numeric(GeneColumn)){
     gc = GeneColumn
-  } else if (class(GeneColumn) == "character"){
+  #} else if (class(GeneColumn) == "character"){
+  } else if (is.character(GeneColumn)){
     gc = which(colnames(dataset) == GeneColumn)
   }
   
-  if(class(ValueColumn) %in% c("integer", "numeric")){
+  #if(class(ValueColumn) %in% c("integer", "numeric")){
+  if(is.integer(ValueColumn) | is.numeric(ValueColumn)){
     vc = ValueColumn
-  } else if (class(ValueColumn) == "character"){
+  #} else if (class(ValueColumn) == "character"){
+  } else if (is.character(ValueColumn)){
     vc = which(colnames(dataset) == ValueColumn)
   }
   

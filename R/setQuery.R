@@ -16,12 +16,12 @@ setQuery = function(
     
     if(!all(argument.classes1 == "character")){
       
-      ind1 = which(argument.classes1 != "character")
+      #ind1 = which(argument.classes1 != "character")
+      ind1 = argument.classes1 != "character"
       
       message.error1 = paste0(
         "The following arguments are not of class 'character': ",
-        paste(c("select", "name", "description")[ind1],
-              collapse = ", ")
+        paste(c("select", "name", "description")[ind1], collapse = ", ")
       )
       stop(message.error1)
     }
@@ -30,7 +30,8 @@ setQuery = function(
     # assigned to it
     if(missing(orderBy)){
       
-      if(class(where) != "list"){
+      #if(class(where) != "list"){
+      if(!is.list(where)){
         stop("where argument is not of class 'list'")
       }
       
@@ -47,12 +48,12 @@ setQuery = function(
       
       if(!all(argument.classes2 == "list")){
         
-        ind2 = which(argument.classes2 != "list")
+        #ind2 = which(argument.classes2 != "list")
+        ind2 = argument.classes2 != "list"
         
         message.error2 = paste0(
           "The following arguments are not of class 'list': ",
-          paste(c("orderBy", "where")[ind2],
-                collapse = ", ")
+          paste(c("orderBy", "where")[ind2], collapse = ", ")
         )
         stop(message.error2)
       }
@@ -72,7 +73,8 @@ setQuery = function(
     
     # check every argument and replace where missing(argument) is TRUE
     if(!missing(select)){
-      if(class(select) != "character"){
+      #if(class(select) != "character"){
+      if(!is.character(select)){
         stop("select argument is not of class 'character'")
       } else {
         #inheritQuery$select = select
@@ -81,7 +83,8 @@ setQuery = function(
     }
     #
     if(!missing(name)){
-      if(class(name) != "character"){
+      #if(class(name) != "character"){
+      if(!is.character(name)){
         stop("name argument is not of class 'character'")
       } else {
         #inheritQuery$name = name
@@ -90,7 +93,8 @@ setQuery = function(
     }
     #
     if(!missing(description)){
-      if(class(description) != "character"){
+      #if(class(description) != "character"){
+      if(!is.character(description)){
         stop("description argument is not of class 'character'")
       } else {
         #inheritQuery$description = description
@@ -99,7 +103,8 @@ setQuery = function(
     }
     #
     if(!missing(orderBy)){
-      if(class(orderBy) != "list"){
+      #if(class(orderBy) != "list"){
+      if(!is.list(orderBy)){
         stop("orderBy argument is not of class 'list'")
       } else {
         #inheritQuery$orderBy = orderBy
@@ -108,7 +113,8 @@ setQuery = function(
     }
     #
     if(!missing(where)){
-      if(class(where) != "list"){
+      #if(class(where) != "list"){
+      if(!is.list(where)){
         stop("where argument is not of class 'list'")
       } else {
         #inheritQuery$where = where
