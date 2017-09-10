@@ -280,7 +280,7 @@ queryGeneOrth.InterMineR = setQuery(
              "Gene.homologues.dataSets.name")
   )
 
-slot(queryGeneOrth.InterMineR, "select")
+getSelect(queryGeneOrth.InterMineR)
 #queryGeneOrth.InterMineR@select
 
 # or assign new column directly to the existing list query
