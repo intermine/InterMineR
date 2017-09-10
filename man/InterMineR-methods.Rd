@@ -1,14 +1,20 @@
 \name{InterMineR-methods}
+\docType{methods}
 
 \alias{InterMineR-methods}
+\alias{getName}
 \alias{getName-methods}
 \alias{getName,InterMineR-method}
+\alias{getDescription}
 \alias{getDescription-methods}
 \alias{getDescription,InterMineR-method}
+\alias{getSelect}
 \alias{getSelect-methods}
 \alias{getSelect,InterMineR-method}
+\alias{getOrderBy}
 \alias{getOrderBy-methods}
 \alias{getOrderBy,InterMineR-method}
+\alias{getWhere}
 \alias{getWhere-methods}
 \alias{getWhere,InterMineR-method}
 
