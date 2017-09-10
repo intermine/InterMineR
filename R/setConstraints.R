@@ -22,13 +22,16 @@ setConstraints = function(
     }
     
     # check paths, operators and values
-    if(class(paths) != "character"){
+    #if(class(paths) != "character"){
+    if(!is.character(paths)){
       stop("paths argument must be of the class character")
     }
-    if(class(operators) != "character"){
+    #if(class(operators) != "character"){
+    if(!is.character(operators)){
       stop("operators argument must be of the class character")
     }
-    if(class(values) != "list"){
+    #if(class(values) != "list"){
+    if(!is.list(values)){
       stop("values argument must be of the class list")
     }
     
@@ -38,8 +41,8 @@ setConstraints = function(
     length.values = vapply(values, length, 1)
     
     if(sum(length.values > 1) > 1){
-      stop("Only one object of the values list can be of length greater 
-           than one!")
+      stop("Only one object of the values list can be of length greater",
+           "\n than one!")
     }
     
     where.result = list(NULL)
@@ -57,15 +60,16 @@ setConstraints = function(
   } else {
     
     # check if m.index exists and is of the right class
-    if(missing(m.index) | !class(m.index)%in%c("numeric", "integer")){
-      stop("assign m.index argument with a numeric or integer vector")
+    #if(missing(m.index) | !class(m.index)%in%c("numeric", "integer")){
+    if( missing(m.index) | !(is.integer(m.index) | is.numeric(m.index)) ){
+      stop("Assign m.index argument with a numeric or integer vector")
     }
     
     # check if m.index is less than the legth of modifyQueryConstraints query 
     # constraints
     if(length(modifyQueryConstraints$where)<max(m.index)){
-      stop("m.index value can not be greater than the length of the constraints 
-           which are to be modified")
+      stop("m.index value can not be greater than the length of the constraints", 
+           "\n which are to be modified")
     }
     
     where.result = modifyQueryConstraints
@@ -73,7 +77,8 @@ setConstraints = function(
     # check each argument and replace the appropriate constraint if it exists
     if(!missing(paths)){
       
-      if(class(paths) != "character"){
+      #if(class(paths) != "character"){
+      if(!is.character(paths)){
         stop("paths argument must be of the class character")
       }
       
@@ -84,7 +89,8 @@ setConstraints = function(
     
     if(!missing(operators)){
       
-      if(class(operators) != "character"){
+      #if(class(operators) != "character"){
+      if(!is.character(operators)){
         stop("operators argument must be of the class character")
       }
       
@@ -95,7 +101,8 @@ setConstraints = function(
     
     if(!missing(values)){
       
-      if(class(values) != "list"){
+      #if(class(values) != "list"){
+      if(!is.list(values)){
         stop("values argument must be of the class list")
       }
       
