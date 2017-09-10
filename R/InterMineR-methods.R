@@ -23,6 +23,7 @@ setMethod(
 # 2. extract description from InterMineR-class
 
 #' @export
+#' @rdname InterMineR-methods
 #' @aliases getDescription-methods getDescription,InterMineR-method
 
 setGeneric("getDescription", function(object,...){
@@ -41,6 +42,7 @@ setMethod(
 # 3. extract select from InterMineR-class
 
 #' @export
+#' @rdname InterMineR-methods
 #' @aliases getSelect-methods getSelect,InterMineR-method
 
 setGeneric("getSelect", function(object,...){
@@ -59,6 +61,7 @@ setMethod(
 # 4. extract getOrderBy from InterMineR-class
 
 #' @export
+#' @rdname InterMineR-methods
 #' @aliases getOrderBy-methods getOrderBy,InterMineR-method
 
 setGeneric("getOrderBy", function(object,...){
@@ -77,6 +80,7 @@ setMethod(
 # 5. extract getWhere from InterMineR-class
 
 #' @export
+#' @rdname InterMineR-methods
 #' @aliases getWhere-methods getWhere,InterMineR-method
 
 setGeneric("getWhere", function(object,...){
