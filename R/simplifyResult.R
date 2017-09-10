@@ -11,7 +11,8 @@ simplifyResult = function(
   
   # get index for columns
   # for index
-  if(class(index_column) %in% c("integer", "numeric")){
+  #if(class(index_column) %in% c("integer", "numeric")){
+  if(is.integer(index_column) | is.numeric(index_column)){
     index = index_column
   } else {
     #index = which(colnames(dataset) == index_column)
@@ -19,7 +20,8 @@ simplifyResult = function(
   }
   
   # for values 
-  if(class(values_column) %in% c("integer", "numeric")){
+  #if(class(values_column) %in% c("integer", "numeric")){
+  if(is.integer(values_column) | is.numeric(values_column)){
     values = values_column
   } else {
     #values = which(colnames(dataset) == values_column)
