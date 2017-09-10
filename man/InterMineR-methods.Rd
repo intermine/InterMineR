@@ -58,7 +58,7 @@ InterMine Team
 }
 
 \seealso{
-\code{\link{InterMineR-class}}, \code{\link{setQuery}}
+\code{\link{setConstraints}}, \code{\link{setQuery}}, \code{\link{InterMineR-class}}
 }
 
 \examples{
