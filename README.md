@@ -2,11 +2,13 @@ Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status:
 
 # InterMine-R
 
+<img src="https://cdn.rawgit.com/Bioconductor/BiocStickers/e3a0fb08/InterMineR/InterMineR.png" width="200" />
+
 R package for accessing InterMine instances
 
 ## Installation
 
-Working on adding to Bioconductor. For now, install with devtools: 
+Working on adding to Bioconductor. For now, install with devtools:
 
 devtools::install_github('intermine/intermineR')
 
@@ -27,7 +29,7 @@ See HTML vignette for detailed API and tutorial:
 ## Credits
 
 Bing Wang:
- 
+
 * InterMineR package creation (first edition)
 * Established the first query system (queries as list objects)
 * Vignette creation (first edition)
