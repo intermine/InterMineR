@@ -56,3 +56,6 @@ LGPL. See LICENSE for details.
 [travis-badge-master]: https://travis-ci.org/intermine/InterMineR.svg?branch=master
 [ci]: https://travis-ci.org/intermine/InterMineR
 [travis-badge-dev]: https://travis-ci.org/intermine/InterMineR.svg?branch=dev
+
+## Stickers
+Sticker templates are available from [BiocStickers](https://github.com/Bioconductor/BiocStickers/tree/master/InterMineR) - or find us at a conference to pick some up in person. 
