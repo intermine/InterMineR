@@ -10,8 +10,11 @@ InterMineR has been added to [Bioconductor](https://bioconductor.org/packages/re
 
 To install this package, start R and enter:
 
-`source("https://bioconductor.org/biocLite.R") ## try http:// if https:// URLs are not supported
- biocLite("InterMineR")`
+`## try http:// if https:// URLs are not supported`
+
+`source("https://bioconductor.org/biocLite.R")`
+
+`biocLite("InterMineR")`
 
 ## Usage
 
