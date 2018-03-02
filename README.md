@@ -7,9 +7,11 @@ R package for accessing InterMine instances
 ## Installation
 
 InterMineR has been added to [Bioconductor](https://bioconductor.org/packages/release/bioc/html/InterMineR.html).
+
 To install this package, start R and enter:
 
 source("https://bioconductor.org/biocLite.R") ## try http:// if https:// URLs are not supported
+
 biocLite("InterMineR")
 
 ## Usage
