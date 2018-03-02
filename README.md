@@ -6,15 +6,19 @@ R package for accessing InterMine instances
 
 ## Installation
 
-Working on adding to Bioconductor. For now, install with devtools: 
+InterMineR has been added to [Bioconductor](https://bioconductor.org/packages/release/bioc/html/InterMineR.html).
+To install this package, start R and enter:
 
-devtools::install_github('intermine/intermineR')
+source("https://bioconductor.org/biocLite.R") ## try http:// if https:// URLs are not supported
+biocLite("InterMineR")
 
 ## Usage
 
-See HTML vignette for detailed API and tutorial:
+See HTML vignettes for detailed API and tutorials:
 
- vignettes/InterMineR.Rmd
+* vignettes/InterMineR.Rmd
+* vignettes/Enrichment_Analysis_and_Visualization.Rmd
+* vignettes/FlyMine_Genomic_Visualizations.Rmd
 
 ## Contributing
 
