@@ -143,6 +143,7 @@ setMethod(
     r <- GET(paste(im$mine, "/service/query/results?query=",
                    query.str,"&format=xml",sep=""))
 
+    #If there's any HTTP error, print the query as well for easier debugging.
     stop_for_status(r, paste("query", query.unencoded))
 
     res <- content(r)
