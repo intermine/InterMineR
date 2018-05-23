@@ -2,6 +2,8 @@ Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status:
 
 # InterMine-R
 
+<img src="https://cdn.rawgit.com/Bioconductor/BiocStickers/e3a0fb08/InterMineR/InterMineR.png" width="200" />
+
 R package for accessing InterMine instances
 
 ## Installation
@@ -35,7 +37,7 @@ See HTML vignettes for detailed API and tutorials:
 ## Credits
 
 Bing Wang:
- 
+
 * InterMineR package creation (first edition)
 * Established the first query system (queries as list objects)
 * Vignette creation (first edition)
@@ -62,3 +64,6 @@ LGPL. See LICENSE for details.
 [travis-badge-master]: https://travis-ci.org/intermine/InterMineR.svg?branch=master
 [ci]: https://travis-ci.org/intermine/InterMineR
 [travis-badge-dev]: https://travis-ci.org/intermine/InterMineR.svg?branch=dev
+
+## Stickers
+Sticker templates are available from [BiocStickers](https://github.com/Bioconductor/BiocStickers/tree/master/InterMineR) - or find us at a conference to pick some up in person. 
