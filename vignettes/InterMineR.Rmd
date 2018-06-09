@@ -186,7 +186,7 @@ There are two ways to build a query in InterMineR.
 
 1. We can either build a query as a list object with `newQuery` function, and assign all input values (selection of retrieved data type, constraints, etc.) as items of that list,
 
-2. rr we can build the query as an `InterMineR-class` object with the functions `setConstraint`, which allows us to generate a new or modify an existing list of constraints, and `setQuery`, which generates the query as a `InterMineR-class` object.
+2. Or we can build the query as an `InterMineR-class` object with the functions `setConstraint`, which allows us to generate a new or modify an existing list of constraints, and `setQuery`, which generates the query as a `InterMineR-class` object.
 
 `setConstraints` and `setQuery` functions are designed to facilitate the generation of queries for InterMine instances and avoid using multiple iterative loops, especially when it is required to include multiple constraints or constraint values (e.g. genes, organisms) in your query.
 
