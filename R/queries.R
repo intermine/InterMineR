@@ -96,11 +96,21 @@ queryList2XML <- function(ql){
       # query constraints on TYPE don't have these attributes
       # so skip them. Should test for NULL instead.
       if (is.null(ql[["where"]][[i]][["type"]])) {
-        xmlAttrs(cnc)[["value"]] <- ql[["where"]][[i]][["value"]]
+        # value
+        if(!is.null(ql[["where"]][[i]][["value"]])){
+          xmlAttrs(cnc)[["value"]] <- ql[["where"]][[i]][["value"]]
+        }
+        # loopPath
+        if(!is.null(ql[["where"]][[i]][["loopPath"]])){
+          xmlAttrs(cnc)[["loopPath"]] <- ql[["where"]][[i]][["loopPath"]]
+        }
+        # code
         xmlAttrs(cnc)[["code"]] <- paste(ql[["where"]][[i]][["code"]],
                                          collapse=" ")
+        # op
         xmlAttrs(cnc)[["op"]] <- paste(ql[["where"]][[i]][["op"]],
                                        collapse=" ")
+        # extraValue
         xmlAttrs(cnc)[["extraValue"]] = paste(
           ql[["where"]][[i]][["extraValue"]], collapse=" ")
       }

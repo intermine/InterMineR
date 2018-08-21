@@ -89,7 +89,8 @@ InterMine Team
 # FlyMine
 enrichResults.FlyMine <- doEnrichment(
   im = initInterMine(mine = listMines()["FlyMine"]),
-  genelist = 'PL FlyTF_site_specific_TFs',
+  genelist = "PL FlyAtlas_brain_top",
+  #genelist = 'PL FlyTF_site_specific_TFs',
   widget = "go_enrichment_for_gene"
 )
 
