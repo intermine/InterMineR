@@ -4,7 +4,7 @@ Master: [![Build Status: master][travis-badge-master]][ci] Dev: [![Build Status:
 
 <img src="https://cdn.rawgit.com/Bioconductor/BiocStickers/e3a0fb08/InterMineR/InterMineR.png" width="200" />
 
-R package for accessing InterMine instances
+R package for accessing InterMine instances 
 
 ## Installation
 
