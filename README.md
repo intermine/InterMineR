@@ -14,7 +14,8 @@ To install this package, start R and enter:
 
 `## try http:// if https:// URLs are not supported`
 
-`source("https://bioconductor.org/biocLite.R")`
+`if (!requireNamespace("BiocManager", quietly=TRUE))`
+    `install.packages("BiocManager")`
 
 `biocLite("InterMineR")`
 
