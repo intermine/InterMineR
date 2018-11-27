@@ -67,7 +67,7 @@ im
 
 ## Obtain a prebuilt query
 
-Both in InterMine database website and in InterMineR, you are able to build custom queries. However, to facilitate the retrieval of information from InterMine databases, a variety of pre-built queries, called templates, has also been made available. Templates are queries that have already been
+Both in InterMine database website and in InterMineR, you are able to build custom queries. However, to facilitate the retrieval of information from InterMine databases, a variety of pre-built queries, called templates, have also been made available. Templates are queries that have already been
 created with a fixed set of output columns and one or more constraints.
 
 ```{r get_queries, warning=FALSE, message=FALSE}
