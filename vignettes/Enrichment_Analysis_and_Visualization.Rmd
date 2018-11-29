@@ -299,26 +299,31 @@ For more information about the usage of GeneAnswers package, the user should loo
 
 ## PieChart and BarPlot graphs
 
-```{r piechart, message=FALSE, warning=FALSE, eval = FALSE}
-# GeneAnswers pieChart
-geneAnswersChartPlots(geneanswer_object, 
-                      chartType='pieChart',
-                      sortBy = 'correctedPvalue',
-                      top = 5)
+```{r geneanswer_readable, message=FALSE, warning=FALSE, eval = FALSE }
+# Make GeneAnswers Instance readable
+geneanswer_object_readable = geneAnswersReadable(geneanswer_object)
 ```
 
-![ ](geneanswers_piechart.jpeg)
-<p style="text-align: center;">**Figure 1**: Pie chart of the top five GO terms with the smallest FDR-corrected p-values.</p>
+```{r piechart, message=FALSE, warning=FALSE, eval = FALSE}
+# GeneAnswers pieChart
+geneAnswersChartPlots(geneanswer_object_readable, 
+                      chartType='pieChart',
+                      sortBy = 'correctedPvalue',
+                      top = 3)
+```
+
+![ ](geneanswers_piechart.tiff)
+<p style="text-align: center;">**Figure 1**: Pie chart of the top three GO terms with the smallest FDR-corrected p-values.</p>
 
 ```{r barplot, message=FALSE, warning=FALSE, eval = FALSE}
 # GeneAnswers barplot
-geneAnswersChartPlots(geneanswer_object, 
+geneAnswersChartPlots(geneanswer_object_readable, 
                       chartType='barPlot',
                       sortBy = 'correctedPvalue',
                       top = 5)
 ```
 
-![ ](geneanswers_barplot.jpeg)
+![ ](geneanswers_barplot.tiff)
 <p style="text-align: center;">**Figure 2**: Bar plot of the top five GO terms with the smallest FDR-corrected p-values.</p>
 
 ## Concept-gene network
@@ -329,12 +334,13 @@ geneAnswersConceptNet(geneanswer_object,
                       colorValueColumn=NULL,
                       centroidSize='correctedPvalue', 
                       output='interactive',
-                      catTerm = FALSE,
-                      catID = FALSE,
+                      geneSymbol = TRUE,
+                      catTerm = TRUE,
+                      catID = TRUE,
                       showCats = 1:5)
 ```
 
-![ ](geneanswers_concept_gene_network.jpg)
+![ ](geneanswers_concept_gene_network.tiff)
 
 <p style="text-align: center;">**Figure 3**: Screen shot of concept-gene network for the first five GO terms. The size of nodes is proportional to
 the number of genes in each GO term.</p>
@@ -351,12 +357,13 @@ geneAnswersConceptNet(geneanswer_object,
                       colorValueColumn=2,
                       centroidSize='correctedPvalue', 
                       output='interactive',
-                      catTerm = FALSE,
-                      catID = FALSE,
+                      geneSymbol = TRUE,
+                      catTerm = TRUE,
+                      catID = TRUE,
                       showCats = 1:5)
 ```
 
-![ ](geneanswers_concept_gene_network_colors.jpg)
+![ ](geneanswers_concept_gene_network_color.tiff)
 
 <p style="text-align: center;">**Figure 4**: Screen shot of concept-gene network for the first five GO terms. Random numeric values have been assigned as column to geneInput in order to visualize the ability to add color to gene nodes. The size of nodes is proportional to
 the number of genes in each GO term.</p>
@@ -373,7 +380,7 @@ geneAnswersConceptRelation(geneanswer_object,
                            showCats = 1:2)
 ```
 
-![ ](geneanswers_go_structure_network.jpg)
+![ ](geneanswers_go_structure_network.tiff)
 
 <p style="text-align: center;">**Figure 5**: Screen shot of Gene Ontology structure network for the first two GO terms. The size of nodes is proportional to number of genes in these GO terms. The color of nodes stand for how
 relative the given genes are to the GO terms. More red, more relative. The
@@ -395,7 +402,7 @@ buildNet(getGeneInput(geneanswer_object)[1:5,1],
          netMode='connection')
 ```
 
-![ ](geneanswers_gene_interactions_network.jpg)
+![ ](geneanswers_gene_interactions_network.tiff)
 
 <p style="text-align: center;">**Figure 6**: Screen shot of gene interaction network for the first five genes of PL_DiabetesGenes. The large black dots with yellow frame stand for the five given genes. They also connect to other genes by dark-blue-purple edges. Small black dots represent the other genes from `getGeneInput`. Small white dots are genes that are not in the genes from `getGeneInput`, but interact with these genes.</p>
 
