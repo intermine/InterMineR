@@ -363,7 +363,7 @@ geneAnswersConceptNet(geneanswer_object,
                       showCats = 1:5)
 ```
 
-![ ](geneanswers_concept_gene_network_color.jpg)
+![ ](geneanswers_concept_gene_network_colors.jpg)
 
 <p style="text-align: center;">**Figure 4**: Screen shot of concept-gene network for the first five GO terms. Random numeric values have been assigned as column to geneInput in order to visualize the ability to add color to gene nodes. The size of nodes is proportional to
 the number of genes in each GO term.</p>
