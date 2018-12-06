@@ -26,6 +26,8 @@ In this tutorial we will use the functionality of the InterMineR package to retr
 
 Then, we will visualize this information using the [Gviz](https://bioconductor.org/packages/release/bioc/html/Gviz.html) package [@Hahne2016].
 
+All query results and calculations are correct according to FlyMine release 46.1 (November 2018). Genomic coordinates and p-values are likely to change between database releases but the methods will remain the same.
+
 ```{r load_packages_models_templates, warning=FALSE, message=FALSE}
 # load packages
 library(InterMineR)
