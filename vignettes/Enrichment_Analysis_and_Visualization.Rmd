@@ -36,7 +36,7 @@ Performing enrichment analysis with InterMineR is preceded by two steps:
 
 ## Retrieve list containing the genes of interest from InterMineR
 
-In this example, enrichment analysis is performed using a list of genes which are associated with all forms of Diabetes according to OMIM. All query results and calculations are correct according to HumanMine release 5.1 (November 2018).
+In this example, enrichment analysis is performed using a list of genes which are associated with all forms of Diabetes according to OMIM. All query results and calculations are correct according to HumanMine release 5.1 (November 2018). Genomic coordinates and p-values are likely to change between database releases but the methods will remain the same.
 
 The PL_DiabetesGenes dataset is included in the InterMineR package and can also be found online in [HumanMine](http://www.humanmine.org/humanmine/bag.do?subtab=view).
 
