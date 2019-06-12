@@ -97,13 +97,17 @@ setMethod(
       query = InterMineR_Query2XML(qry)
 
       # run query
+      query.unencoded <- toString.XMLNode(query)
+
       query.str <- URLencode(toString.XMLNode(query))
       query.str <- gsub("&", '%26', query.str)
       query.str <- gsub(";", '%3B', query.str)
 
       r <- GET(paste(im$mine, "/service/query/results?query=",
                      query.str,"&format=xml",sep=""))
-      stop_for_status(r)
+
+      #If there's any HTTP error, print the query as well for easier debugging.
+      stop_for_status(r, paste("query", query.unencoded))
       res <- content(r)
       res.xml <- xmlRoot(xmlParse(res))
 
