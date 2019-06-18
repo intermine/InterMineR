@@ -92,7 +92,7 @@ doEnrichment = function(
   
   # perform GET request
   r = GET(paste0(mine.url,"/service/list/enrichment?",enq.string))
-  stop_for_status(r)
+  stop_for_status(r, paste("query", enq))
   
   # extract content from request
   res = httr::content(r)
