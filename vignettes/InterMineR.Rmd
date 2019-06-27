@@ -139,28 +139,28 @@ There are three essential members in a query - SELECT, WHERE and constraintLogic
 
 What does 'Gene.symbol' mean? What is 'Gene.homologues.homologue.symbol'?
 
-Let's take a look at the data model.
+Let's take a look at the data model.  NOTE: Section temporarily removed due to errors
 
-```{r getModel, warning=FALSE, message=FALSE}
+# ```{r getModel, warning=FALSE, message=FALSE}
 
-model <- getModel(im)
-head(model)
+# model <- getModel(im)
+# head(model)
 
 ```
 
 Let's look at the children of the Gene data type.
 
-```{r gene_type_data, warning=FALSE, message=FALSE}
+# ```{r gene_type_data, warning=FALSE, message=FALSE}
 
-model[which(model$type=="Gene"),]
+# model[which(model$type=="Gene"),]
 
 ```
 
 Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also has a child called homologues, which is of the Homologue data type.
 
-```{r homologue_type, warning=FALSE, message=FALSE}
+# ```{r homologue_type, warning=FALSE, message=FALSE}
 
-model[which(model$type=="Homologue"),]
+# model[which(model$type=="Homologue"),]
 
 ```
 
@@ -258,15 +258,15 @@ You can also add additional columns to the output. For instance, where do these 
 
 Let's see what we know about homologues.
 
-```{r add_column, warning=FALSE, message=FALSE}
-model[which(model$type=="Homologue"),]
-```
+# ```{r add_column, warning=FALSE, message=FALSE}
+# model[which(model$type=="Homologue"),]
+# ```
 
 The Homologue data type has an 'dataSets' reference of type 'DataSet'.
 
-```{r add_column2, warning=FALSE, message=FALSE}
-model[which(model$type=="DataSet"),]
-```
+# ```{r add_column2, warning=FALSE, message=FALSE}
+# model[which(model$type=="DataSet"),]
+# ```
 
 DataSet has a child called name. Add Gene.homologues.dataSets.name to the view. We'll add it as the last column, we can see from above there are 5 other columns already so we'll put it as #6:
 
