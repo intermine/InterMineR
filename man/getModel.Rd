@@ -29,10 +29,10 @@ a multi-level list, representating the data model for the mine.  The first-level
 InterMine Team
 }
 
-\examples{
+#\examples{
   # Retrieve data model for FlyMine  # temporarily removed
   # im.fly = initInterMine(listMines()["FlyMine"])
 
   # model = getModel(im.fly)
 
-}
+#}
