@@ -30,9 +30,9 @@ InterMine Team
 }
 
 \examples{
-  # Retrieve data model for FlyMine
-  im.fly = initInterMine(listMines()["FlyMine"])
+  # Retrieve data model for FlyMine  # temporarily removed
+  # im.fly = initInterMine(listMines()["FlyMine"])
 
-  model = getModel(im.fly)
+  # model = getModel(im.fly)
 
 }
