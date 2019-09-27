@@ -51,10 +51,10 @@ Retrieve PL_DiabetesGenes data and get gene identifiers as HumanrMine Gene.symbo
 im.human = initInterMine(listMines()["HumanMine"])
 
 # retrieve data model for HumanMine
-hsa_model = getModel(im.human)
+# hsa_model = getModel(im.human)  # temporarily removed
 
 # all targets of HumanMine enrichment widgets possess InterMine ids
-subset(hsa_model, type %in% c("Gene", "Protein", "SNP") & child_name == "id")
+# subset(hsa_model, type %in% c("Gene", "Protein", "SNP") & child_name == "id") # temporarily removed
 
 # load human genes which are associated with Diabetes (retrieved from HumanMine)
 data("PL_DiabetesGenes")

@@ -30,9 +30,9 @@ InterMine Team
 
 \examples{
 # HumanMine
-listDatasets(im = initInterMine(listMines()["HumanMine"]))
+#listDatasets(im = initInterMine(listMines()["HumanMine"]))
 
 # FlyMine
-listDatasets(im = initInterMine(listMines()["FlyMine"]))
+#listDatasets(im = initInterMine(listMines()["FlyMine"]))
 
 }

@@ -40,7 +40,7 @@ im.fly = initInterMine(listMines()["FlyMine"])
 templates.fly = getTemplates(im.fly)
 
 # load data models
-model.fly = getModel(im.fly)
+# model.fly = getModel(im.fly)  # temporarily removed
 ```
 
 # Retrieve information about zen, eve and r genes with the Template Queries of InterMineR
@@ -53,7 +53,7 @@ There are two ways to build a query in InterMineR. We can either build a query a
 # Build new query to retrieve information for zen, eve, and r Drosophila genes
 
 # Get Gene types from FlyMine model
-head(subset(model.fly, type == "Gene"), 3)
+# head(subset(model.fly, type == "Gene"), 3)  # temporarily removed
 
 gene_info.list = as.list(1:3)
 for(i in 1:3){
