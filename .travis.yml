@@ -8,3 +8,8 @@ bioc_required: true
 bioc_use_devel: true
 r_packages:
   - devtools
+before_install:
+    - Rscript -e 'if(!requireNamespace("BiocManager", quietly = TRUE)){install.packages("BiocManager");BiocManager::install()}'
+    - Rscript -e 'if(!requireNamespace("Gviz", quietly = TRUE)){BiocManager::install("Gviz", version = "3.9"); library("Gviz")}'
+# install Gviz from BioC Release 3.5 if BioC Development 3.6 does not work
+
