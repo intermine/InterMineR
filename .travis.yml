@@ -1,6 +1,6 @@
 
 language: r
-r: bioc-devel
+r: 3.6.0
 sudo: true
 cache: packages
 warnings_are_errors: false
