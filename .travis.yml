@@ -5,7 +5,7 @@ sudo: true
 cache: packages
 warnings_are_errors: false
 bioc_required: true
-bioc_use_devel: true
+bioc_use_devel: false
 r_packages:
   - devtools
 before_install:
