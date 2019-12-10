@@ -1,10 +1,10 @@
-citEntry(entry="article", 
+bibentry(bibtype = "article", 
         title = "InterMineR: an R package for InterMine databases",
-        author = personList(as.person("Kyritsis KA"),
-                as.person("Wang B"),
-                as.person("Sullivan J"),
-                as.person("Lyne R"),
-                as.person("Micklem G")               
+        author = c(person("Kyritsis KA"),
+                person("Wang B"),
+                person("Sullivan J"),
+                person("Lyne R"),
+                person("Micklem G")               
         ),
         year = 2019,
         journal = "Bioinformatics",
