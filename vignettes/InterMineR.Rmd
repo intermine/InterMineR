@@ -44,7 +44,7 @@ InterMine includes an attractive, user-friendly web interface that works 'out of
 
 # Jumpstart: How to build queries using InterMineR
 
-Let's start with a simple task - find the homologues of gene ABO.
+Let's start with a simple task - find the pathways of the gene ABO.
 
 ## Select a database
 
@@ -85,15 +85,15 @@ template[grep("gene", template$name, ignore.case=TRUE),]
 
 ```
 
-The template Gene_Orth seems to be what we want. Let's look at this template in more detail.
+The template Gene_Pathway seems to be what we want. Let's look at this template in more detail.
 
 ```{r gene_orthologs, warning=FALSE, message=FALSE}
-# Query for gene orthologs
-queryGeneOrth = getTemplateQuery(
+# Query for gene pathways
+queryGenePath = getTemplateQuery(
   im = im, 
-  name = "Gene_Orth"
+  name = "Gene_Pathways"
 )
-queryGeneOrth
+queryGenePath
 
 ```
 
@@ -137,7 +137,7 @@ There are three essential members in a query - SELECT, WHERE and constraintLogic
     
 ### Look at the data model
 
-What does 'Gene.symbol' mean? What is 'Gene.homologues.homologue.symbol'?
+What does 'Gene.symbol' mean? What is 'Gene.pathway.identifier'?
 
 Let's take a look at the data model.  NOTE: Section temporarily removed due to errors
 
@@ -156,7 +156,7 @@ Let's look at the children of the Gene data type.
 
 ```
 
-Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also has a child called homologues, which is of the Homologue data type.
+Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also references the Pathways class, which is of the Pathway data type.
 
 # ```{r homologue_type, warning=FALSE, message=FALSE}
 
@@ -164,7 +164,7 @@ Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also has a
 
 ```
 
-Homologue has a child called 'gene' which is of the type 'Gene', which we saw above has a field called 'symbol' (hence the column Gene.homologues.homologue.symbol).
+
 
 ## Run a Query
 Let's now run our template.
@@ -179,7 +179,7 @@ head(resGeneOrth)
 # Modify a Query
 ## Edit a constraint
 
-Let's modify the query to find the orthologues of the gene ABO. We want to change the 'value' attribute from PPARG to ABO.
+Let's modify the query to find the pathways of the gene ABO. We want to change the 'value' attribute from PPARG to ABO.
 
 There are two ways to build a query in InterMineR. 
 
@@ -192,16 +192,16 @@ There are two ways to build a query in InterMineR.
 ```{r modify_query, warning=FALSE, message=FALSE}
 
 # modify directly the value of the first constraint from the list query
-queryGeneOrth$where[[1]][["value"]] <- "ABO"
+queryGenePath$where[[1]][["value"]] <- "ABO"
 
 # or modify the value of the first constraint from the list query with setConstraints
-queryGeneOrth$where = setConstraints(
-  modifyQueryConstraints = queryGeneOrth,
+queryGenePath$where = setConstraints(
+  modifyQueryConstraints = queryGenePath,
   m.index = 1,
   values = list("ABO")
 )
 
-queryGeneOrth$where
+queryGenePath$where
 
 ```
 
@@ -209,8 +209,8 @@ Note the value is now equal to 'ABO'. Let's rerun our query with the new constra
 
 ```{r modify_query2, warning=FALSE, message=FALSE}
 
-resGeneOrth <- runQuery(im, queryGeneOrth)
-head(resGeneOrth)
+resGenePath <- runQuery(im, queryGenePath)
+head(resGenePath)
 
 ```
 
@@ -234,65 +234,65 @@ There are four parts of a constraint to add:
 
 ```{r new_constraint, warning=FALSE, message=FALSE}
 newConstraint <- list(
-  path=c("Gene.homologues.homologue.organism.shortName"),
-  op=c("!="), 
-  value=c("H. sapiens"), 
+  path=c("Gene.pathway.name"),
+  op=c("="), 
+  value=c("Huntington's disease"), 
   code=c("B")
 )
 
-queryGeneOrth$where[[2]] <- newConstraint
-queryGeneOrth$where
+queryGenePath$where[[2]] <- newConstraint
+queryGenePath$where
 
 ```
 
-Our new filter has been added successfully. Rerun the query and you see you only have non-Homo sapiens orthologues.
+Our new filter has been added successfully. Rerun the query and you see you only have one pathway, Huntingdon's disease, returned.
 
 ```{r new_constraint2, warning=FALSE, message=FALSE}
-resGeneOrth <- runQuery(im, queryGeneOrth)
-resGeneOrth
+resGenePath <- runQuery(im, queryGenePath)
+resGenePath
 ```
 
 ## Add a column
 
-You can also add additional columns to the output. For instance, where do these homologues come from? Let's add this information.
+You can also add additional columns to the output. For instance, where do these pathway annotations come from? Let's add this information.
 
-Let's see what we know about homologues.
+Let's see what we know about pathways.
 
 # ```{r add_column, warning=FALSE, message=FALSE}
 # model[which(model$type=="Homologue"),]
 # ```
 
-The Homologue data type has an 'dataSets' reference of type 'DataSet'.
+The Pathway data type has an 'dataSets' reference of type 'DataSet'.
 
 # ```{r add_column2, warning=FALSE, message=FALSE}
 # model[which(model$type=="DataSet"),]
 # ```
 
-DataSet has a child called name. Add Gene.homologues.dataSets.name to the view. We'll add it as the last column, we can see from above there are 5 other columns already so we'll put it as #6:
+DataSet has a child called name. Add Gene.pathways.dataSets.name to the view. We'll add it as the last column, we can see from above there are 5 other columns already so we'll put it as #6:
 
 ```{r add_column3, warning=FALSE, message=FALSE}
 
 # use setQuery function which will create an InterMineR-class query
-queryGeneOrth.InterMineR = setQuery(
-  inheritQuery = queryGeneOrth,
-  select = c(queryGeneOrth$select, 
-             "Gene.homologues.dataSets.name")
+queryGenePath.InterMineR = setQuery(
+  inheritQuery = queryGenePath,
+  select = c(queryGenePath$select, 
+             "Gene.pathways.dataSets.name")
   )
 
-getSelect(queryGeneOrth.InterMineR)
-#queryGeneOrth.InterMineR@select
+getSelect(queryGenePath.InterMineR)
+#queryGenePath.InterMineR@select
 
 # or assign new column directly to the existing list query
-queryGeneOrth$select[[6]] <- "Gene.homologues.dataSets.name"
-queryGeneOrth$select
+queryGenePath$select[[6]] <- "Gene.pathways.dataSets.name"
+queryGenePath$select
 
 # run queries
-resGeneOrth.InterMineR <- runQuery(im, queryGeneOrth.InterMineR)
-resGeneOrth <- runQuery(im, queryGeneOrth)
+resGenePath.InterMineR <- runQuery(im, queryGenePath.InterMineR)
+resGenePath <- runQuery(im, queryGenePath)
 
-all(resGeneOrth == resGeneOrth.InterMineR)
+all(resGenePath == resGenePath.InterMineR)
 
-head(resGeneOrth, 3)
+head(resGenePath, 3)
 
 ```
 
@@ -304,8 +304,8 @@ The constraintLogic, if not given, is 'A and B'. We would now try to explicitly 
 
 ```{r constrant_logic, warning=FALSE, message=FALSE}
 
-queryGeneOrth$constraintLogic <- "A and B"
-queryGeneOrth$constraintLogic
+queryGenePath$constraintLogic <- "A and B"
+queryGenePath$constraintLogic
 
 ```
 
@@ -313,8 +313,8 @@ Run the query again and see no change:
 
 ```{r constrant_logic2, warning=FALSE, message=FALSE}
 
-resGeneOrth <- runQuery(im, queryGeneOrth)
-resGeneOrth
+resGenePath <- runQuery(im, queryGenePath)
+resGenePath
 
 ```
 
