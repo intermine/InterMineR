@@ -87,11 +87,11 @@ template[grep("gene", template$name, ignore.case=TRUE),]
 
 The template Gene_Pathway seems to be what we want. Let's look at this template in more detail.
 
-```{r gene_orthologs, warning=FALSE, message=FALSE}
+```{r gene_pathway, warning=FALSE, message=FALSE}
 # Query for gene pathways
 queryGenePath = getTemplateQuery(
   im = im, 
-  name = "Gene_Pathways"
+  name = "Gene_Pathway"
 )
 queryGenePath
 
