@@ -158,9 +158,9 @@ Let's look at the children of the Gene data type.
 
 Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also references the Pathways class, which is of the Pathway data type.
 
-# ```{r homologue_type, warning=FALSE, message=FALSE}
+# ```{r pathway_type, warning=FALSE, message=FALSE}
 
-# model[which(model$type=="Homologue"),]
+# model[which(model$type=="Pathway"),]
 
 ```
 
@@ -169,10 +169,10 @@ Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also refer
 ## Run a Query
 Let's now run our template.
 
-```{r run_geneorth, warning=FALSE, message=FALSE}
+```{r run_genepath, warning=FALSE, message=FALSE}
 
-resGeneOrth <- runQuery(im, queryGeneOrth)
-head(resGeneOrth)
+resGenePath <- runQuery(im, queryGenePath)
+head(resGenePath)
 
 ```
 
@@ -218,8 +218,7 @@ Now we are seeing orthologues for the ABO gene. Let's add the organism to the vi
 
 ## Add a new constraint
 
-You can also add additional filters. Let's exclude all homologues where organism is *H.
-sapiens*.
+You can also add additional filters. Let's look for a specifc pathway.
 
 There are four parts of a constraint to add:
 
@@ -259,7 +258,7 @@ You can also add additional columns to the output. For instance, where do these 
 Let's see what we know about pathways.
 
 # ```{r add_column, warning=FALSE, message=FALSE}
-# model[which(model$type=="Homologue"),]
+# model[which(model$type=="Pathway"),]
 # ```
 
 The Pathway data type has an 'dataSets' reference of type 'DataSet'.
@@ -268,7 +267,7 @@ The Pathway data type has an 'dataSets' reference of type 'DataSet'.
 # model[which(model$type=="DataSet"),]
 # ```
 
-DataSet has a child called name. Add Gene.pathways.dataSets.name to the view. We'll add it as the last column, we can see from above there are 5 other columns already so we'll put it as #6:
+DataSet has an attribute called "name". Add Gene.pathways.dataSets.name to the view. We'll add it as the last column, we can see from above there are 5 other columns already so we'll put it as #6:
 
 ```{r add_column3, warning=FALSE, message=FALSE}
 
