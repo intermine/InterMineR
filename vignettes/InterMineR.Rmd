@@ -234,7 +234,7 @@ There are four parts of a constraint to add:
 
 ```{r new_constraint, warning=FALSE, message=FALSE}
 newConstraint <- list(
-  path=c("Gene.pathway.name"),
+  path=c("Gene.pathways.name"),
   op=c("="), 
   value=c("ABO blood group biosynthesis"), 
   code=c("B")
