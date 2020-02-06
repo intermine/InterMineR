@@ -283,7 +283,7 @@ getSelect(queryGenePath.InterMineR)
 #queryGenePath.InterMineR@select
 
 # or assign new column directly to the existing list query
-queryGenePath$select[[8]] <- "Gene.disease.name"
+queryGenePath$select[[8]] <- "Gene.diseases.name"
 queryGenePath$select
 
 # run queries
