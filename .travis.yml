@@ -1,15 +1,13 @@
 
 language: r
-r: bioc-devel
+r: 3.6.0
 sudo: true
 cache: packages
 warnings_are_errors: false
 bioc_required: true
-bioc_use_devel: true
+bioc_use_devel: false
 r_packages:
   - devtools
 before_install:
     - Rscript -e 'if(!requireNamespace("BiocManager", quietly = TRUE)){install.packages("BiocManager");BiocManager::install()}'
-    - Rscript -e 'if(!requireNamespace("Gviz", quietly = TRUE)){BiocManager::install("Gviz", version = "3.9"); library("Gviz")}'
-# install Gviz from BioC Release 3.5 if BioC Development 3.6 does not work
-
+    - Rscript -e 'if(!requireNamespace("Gviz", quietly = TRUE)){BiocManager::install("Gviz"); library("Gviz")}'
