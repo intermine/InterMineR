@@ -1,6 +1,6 @@
 Package: InterMineR
 Title: R Interface with InterMine-Powered Databases
-Version: 1.9.0
+Version: 1.9.2
 Date: 2016-01-05
 Author: Bing Wang, Julie Sullivan, Rachel Lyne, Konstantinos Kyritsis
 Maintainer: InterMine Team <r.lyne@gen.cam.ac.uk>
