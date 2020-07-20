@@ -22,7 +22,7 @@ get_list<-function(mine, Token, list_name){
     warning(paste0("List",list_name,"doesn't exist."))
   }
 }
-#further improvements: include an error warning if the list doesn't exist
+
 #example
 resp<-get_list("HumanMine","F16793D0k4BaF5hbe3s0", "UpinPancreas")
 resp
