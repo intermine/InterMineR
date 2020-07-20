@@ -11,11 +11,15 @@ get_list<-function(mine, Token, list_name){
   LIST_PATH = '/lists'
   resp_list<-GET_api_list(url,token = Token, list_path = LIST_PATH)
   content_list_parsed<-content(resp_list, "parsed", encoding = "ISO-8859-1")
-  
+  exist<-FALSE
   for (list in content_list_parsed$lists){
     if(list$name == list_name){
       return(list)
+      exist<-TRUE 
     }
+  }
+  if(exist==FALSE){
+    warning(paste0("List",list_name,"doesn't exist."))
   }
 }
 #further improvements: include an error warning if the list doesn't exist
