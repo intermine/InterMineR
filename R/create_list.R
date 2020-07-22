@@ -7,7 +7,7 @@ create_list<-function(content,mine,list_type,Token,name=NULL,description=NULL,or
   uri<-paste0(im$mine,"/service/lists?")
   
   if(is.null(name)){
-    name<-get_unused_list_name(mine,Token)
+    name<-get_unused_list_name(mine,Token) #this function is created in GET_api_list-get_list-get_unused_list_name.R
   }
   else{
     name<-get_unused_list_name(mine,Token,name)
