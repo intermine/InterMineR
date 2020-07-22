@@ -11,21 +11,25 @@ get_list<-function(mine, Token, list_name){
   LIST_PATH = '/lists'
   resp_list<-GET_api_list(url,token = Token, list_path = LIST_PATH)
   content_list_parsed<-content(resp_list, "parsed", encoding = "ISO-8859-1")
-  
+  exist<-FALSE
   for (list in content_list_parsed$lists){
     if(list$name == list_name){
       return(list)
+      exist<-TRUE 
     }
   }
+  if(exist==FALSE){
+    warning(paste0("List",list_name,"doesn't exist."))
+  }
 }
-#further improvements: include an error warning if the list doesn't exist
+
 #example
 resp<-get_list("HumanMine","F16793D0k4BaF5hbe3s0", "UpinPancreas")
 resp
 
 #get_unused_list_name: Checks if a list exists by name and it it does it, provides a default name
-DEFAULT_LIST_NAME = 'my_list'
 get_unused_list_name<-function(mine,Token,given_name=DEFAULT_LIST_NAME){
+  DEFAULT_LIST_NAME = 'my_list'
   url<-paste0(modify_url(initInterMine(mine=listMines()[mine],token=Token)$mine),"/service")
   LIST_PATH = '/lists'
   resp_list<-GET_api_list(url,token = Token, list_path = LIST_PATH)
