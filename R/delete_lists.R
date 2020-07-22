@@ -7,7 +7,7 @@ delete_lists<-function(lists, mine, Token){
   #all the names 
   url<-paste0(modify_url(initInterMine(mine=listMines()[mine],token=Token)$mine),"/service")
   LIST_PATH = '/lists'
-  resp_list<-GET_api_list(url,token = Token, list_path = LIST_PATH)
+  resp_list<-GET_api_list(url,token = Token, list_path = LIST_PATH) #this function is created in GET_api_list-get_list-get_unused_list_name.R
   content_list_parsed<-content(resp_list, "parsed", encoding = "ISO-8859-1")
   all_names<-list()
   for (list in content_list_parsed$lists){
