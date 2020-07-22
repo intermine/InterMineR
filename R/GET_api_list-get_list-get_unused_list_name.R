@@ -28,8 +28,8 @@ resp<-get_list("HumanMine","F16793D0k4BaF5hbe3s0", "UpinPancreas")
 resp
 
 #get_unused_list_name: Checks if a list exists by name and it it does it, provides a default name
-DEFAULT_LIST_NAME = 'my_list'
 get_unused_list_name<-function(mine,Token,given_name=DEFAULT_LIST_NAME){
+  DEFAULT_LIST_NAME = 'my_list'
   url<-paste0(modify_url(initInterMine(mine=listMines()[mine],token=Token)$mine),"/service")
   LIST_PATH = '/lists'
   resp_list<-GET_api_list(url,token = Token, list_path = LIST_PATH)
