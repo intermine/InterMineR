@@ -37,3 +37,6 @@ create_list<-function(content,mine,list_type,Token,name=NULL,description=NULL,or
                    'Content-Type' = "text/plain"))
   
 }
+
+#example: query1DiabetesResults is defined from the notebook "Workshop_Workflow_PAX6"
+create_list(content = query1DiabetesResults, mine = "HumanMine", list_type = "Gene", Token = "F16793D0k4BaF5hbe3s0", name = "my_list")
