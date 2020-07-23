@@ -29,8 +29,8 @@ listMines = function(){
 ##0 - Initilization
 # initialize the base and token for future reuse
 initInterMine <- function(mine = listMines()["HumanMine"], token=""){
-  im <- list(mine = mine, token = token)
-  im
+  im <- new("Service",mine = mine, token = token)
+  return(im)
 }
 
 #' @export
