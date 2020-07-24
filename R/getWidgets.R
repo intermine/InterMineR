@@ -1,14 +1,14 @@
 #' @export
 getWidgets = function(im){
   
-  try(mine.url = im@mine)
-  try(mine.url = im[[1]])
+  base::try(mine.url <- im@mine, silent=TRUE)
+  base::try(mine.url <- im[[1]], silent=TRUE)
   # make GET request
   r = GET(paste0(mine.url, "/service/widgets?format=json"))
   stop_for_status(r)
   
   # format with content
-  mine.script = content(r, "text")
+  mine.script = httr::content(r, "text")
   
   # RJSONIO::fromJSON instead of jsonlite::fromJSON (interferes with getModel)
   res = fromJSON(mine.script)
