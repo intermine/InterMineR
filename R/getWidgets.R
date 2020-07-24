@@ -1,7 +1,8 @@
 #' @export
 getWidgets = function(im){
   
-  mine.url = im$mine
+  try(mine.url = im$mine)
+  try(mine.url = im[[1]])
   # make GET request
   r = GET(paste0(mine.url, "/service/widgets?format=json"))
   stop_for_status(r)

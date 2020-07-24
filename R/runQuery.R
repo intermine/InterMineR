@@ -62,7 +62,7 @@ setMethod(
         query.str <- gsub("&", '%26', query.str)
         query.str <- gsub(";", '%3B', query.str)
 
-        r <- GET(paste(im$mine, "/service/query/results?query=",
+        r <- GET(paste(im@mine, "/service/query/results?query=",
                        query.str,"&format=xml",sep=""))
         stop_for_status(r)
         res <- content(r)
@@ -97,7 +97,7 @@ setMethod(
       query.str <- gsub("&", '%26', query.str)
       query.str <- gsub(";", '%3B', query.str)
 
-      r <- GET(paste(im$mine, "/service/query/results?query=",
+      r <- GET(paste(im@mine, "/service/query/results?query=",
                      query.str,"&format=xml",sep=""))
       stop_for_status(r)
       res <- content(r)
@@ -140,7 +140,7 @@ setMethod(
     query.str <- gsub("&", '%26', query.str)
     query.str <- gsub(";", '%3B', query.str)
 
-    r <- GET(paste(im$mine, "/service/query/results?query=",
+    r <- GET(paste(im@mine, "/service/query/results?query=",
                    query.str,"&format=xml",sep=""))
 
     #If there's any HTTP error, print the query as well for easier debugging.

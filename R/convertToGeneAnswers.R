@@ -28,7 +28,7 @@ convertToGeneAnswers = function(
     }
     
     # check if enrichCategoryChildName exist in widgets
-    g = as.data.frame(getWidgets(enrichmentResult[["im"]]))
+    g = as.data.frame(getWidgets(enrichmentResult[["im"]])) #error
     
     if("enrichIdentifier" %in% colnames(g)){
       #ind.widget = which(g$name == enrichmentResult$parameters['widget'])
