@@ -42,7 +42,7 @@ listTemplateSummary <- function(template) {
 getTemplateQuery <- function(im, name, timeout=3){
   r <- GET(paste(im@mine, "/service/templates/", name, "?format=json", sep=""))
   stop_for_status(r)
-  ql <- content(r, "text")
+  ql <- httr::content(r, "text")
   jsonTemplate <- fromJSON(ql)$template
   jsonTemplate
 }
