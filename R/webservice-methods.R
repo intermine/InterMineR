@@ -174,3 +174,22 @@ im.human = initInterMine(listMines()["HumanMine"],"F16793D0k4BaF5hbe3s0") #chang
 class(im.human)
 #introduce the name of a genelist that you have created or not
 enrichResults.HumanMine <- doEnrichment(im.human,genelist = "copy_of_intersected",widget = "go_enrichment_for_gene") 
+
+#' @rdname webservice-methods
+#' @exportMethod list_manager
+setMethod(
+  "list_manager",
+  signature(object = "Service"),
+  function(object,...){
+    return(new("ListManager",
+               DEFAULT_LIST_NAME = 'my_list',
+               DEFAULT_DESCRIPTION = 'List created with Python client library',
+               
+               INTERSECTION_PATH = '/lists/intersect/json',
+               UNION_PATH = '/lists/union/json',
+               DIFFERENCE_PATH = '/lists/diff/json',
+               SUBTRACTION_PATH = '/lists/subtract/json',
+               mine = object@mine,
+               token = object@token))
+    
+})
