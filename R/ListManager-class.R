@@ -8,7 +8,8 @@ setClass(
   representation(
     DEFAULT_LIST_NAME = "character",
     DEFAULT_DESCRIPTION = "character",
-    
+
+    LIST_PATH = "character",
     INTERSECTION_PATH = "character",
     UNION_PATH = "character",
     DIFFERENCE_PATH = "character",

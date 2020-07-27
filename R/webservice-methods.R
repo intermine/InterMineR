@@ -177,6 +177,12 @@ enrichResults.HumanMine <- doEnrichment(im.human,genelist = "copy_of_intersected
 
 #' @rdname webservice-methods
 #' @exportMethod list_manager
+setGeneric("list_manager", function(object,...){
+  standardGeneric("list_manager")
+})
+
+#' @rdname webservice-methods
+#' @exportMethod list_manager
 setMethod(
   "list_manager",
   signature(object = "Service"),
@@ -185,6 +191,7 @@ setMethod(
                DEFAULT_LIST_NAME = 'my_list',
                DEFAULT_DESCRIPTION = 'List created with Python client library',
                
+               LIST_PATH = '/lists',
                INTERSECTION_PATH = '/lists/intersect/json',
                UNION_PATH = '/lists/union/json',
                DIFFERENCE_PATH = '/lists/diff/json',
