@@ -98,6 +98,9 @@ listModelSummary <- function(model){
                 })
   
   names(att) <- class.name
+  for(x in names(att)){
+    try(att[[x]][,"term"]<-NULL,TRUE)
+  }
   
   att.ext <- rep(list(NULL), length(class.name))
   att.ext <- lapply(class.name, function(x){
