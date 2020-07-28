@@ -12,7 +12,7 @@ setMethod(
   "GET_api_list",
   signature(object = "ListManager"),
   function(object,...){
-    GET(paste0(object@mine,"/service",object@LIST_PATH), add_headers(Authorization = paste("Token",object@token, sep = " ")))
+    GET(paste0(object@mine, "/service", object@LIST_PATH), add_headers(Authorization = paste("Token", object@token, sep = " ")))
   })
 
 #get_list: Return a list from the service by name, if it exists
@@ -26,29 +26,29 @@ setGeneric("get_list", function(object,...){
 setMethod(
   "get_list",
   signature(object = "ListManager"),
-  function(object,list_name){
-    resp_list<-GET_api_list(object)
-    content_list_parsed<-content(resp_list, "parsed", encoding = "ISO-8859-1")
+  function(object, list_name){
+    resp_list <- GET_api_list(object)
+    content_list_parsed <- content(resp_list, "parsed", encoding = "ISO-8859-1")
     
-    exist<-FALSE
+    exist <- FALSE
     
     for (list in content_list_parsed$lists){
       if(list$name == list_name){
         return(list)
-        exist<-TRUE 
+        exist <- TRUE 
       }
     }
     
-    if(exist==FALSE){
-      warning(paste0("List",list_name,"doesn't exist."))
+    if(exist == FALSE){
+      warning(paste0("List", list_name, "doesn't exist."))
       }
     })
 
 ####example of get_list####
-im.human.list<-list_manager(initInterMine(listMines()["HumanMine"],"F16793D0k4BaF5hbe3s0"))
-class(im.human.list)
-resp<-get_list(im.human.list, "UpinPancreas")
-resp
+#im.human.list <- list_manager(initInterMine(listMines()["HumanMine"],"F16793D0k4BaF5hbe3s0"))
+#class(im.human.list)
+#resp <- get_list(im.human.list, "UpinPancreas")
+#resp
 
 
 #get_unused_list_name: Checks if a list exists by name and it it does it, provides a default name
@@ -62,29 +62,28 @@ setGeneric("get_unused_list_name", function(object,...){
 setMethod(
   "get_unused_list_name",
   signature(object = "ListManager"),
-  function(object,given_name='my_list'){  
-    resp_list<-GET_api_list(object)
-    content_list_parsed<-content(resp_list, "parsed", encoding = "ISO-8859-1")
+  function(object, given_name = 'my_list'){  
+    resp_list <- GET_api_list(object)
+    content_list_parsed <- content(resp_list, "parsed", encoding = "ISO-8859-1")
   
-    list_names<-list()
+    list_names <- list()
     
     for (list in content_list_parsed$lists){
-      list_names<-append(list_names,list$name)
+      list_names <- append(list_names, list$name)
     }
-    counter<-1
+    counter <- 1
     
-    name<-object@DEFAULT_LIST_NAME
+    name <- object@DEFAULT_LIST_NAME
     
-    if(is.element(given_name,list_names)){
+    if(is.element(given_name, list_names)){
       
-      given_name<-object@DEFAULT_LIST_NAME
+      given_name <- object@DEFAULT_LIST_NAME
       
-      while(is.element(name,list_names)){
+      while(is.element(name, list_names)){
     
-        name<-paste0(object@DEFAULT_LIST_NAME, counter)
-        given_name<-name
-        counter<-counter+1
-        
+        name <- paste0(object@DEFAULT_LIST_NAME, counter)
+        given_name <- name
+        counter <- counter+1
       }
     }
     
@@ -92,7 +91,7 @@ setMethod(
     })
 
 ####example of get_unused_list_name####
-get_unused_list_name(im.human.list,"PL_obesityMonogen_ORahilly09")
+#get_unused_list_name(im.human.list,"PL_obesityMonogen_ORahilly09")
 
 #delete_lists: Deletes the lists passed as the first argument.Only deletes lists that belong to the user.  
 #The first argument need to be of the form c("list_name_1","list_name_2","list_name_3")
@@ -106,31 +105,31 @@ setGeneric("delete_lists", function(object,...){
 setMethod(
   "delete_lists",
   signature(object = "ListManager"),
-  function(object,lists){ 
+  function(object, lists){ 
   #all the names 
-  resp_list<-GET_api_list(object)
-  content_list_parsed<-content(resp_list, "parsed", encoding = "ISO-8859-1")
+  resp_list <- GET_api_list(object)
+  content_list_parsed <- content(resp_list, "parsed", encoding = "ISO-8859-1")
   
-  all_names<-list()
+  all_names <- list()
   
   for (list in content_list_parsed$lists){
-      all_names<-append(all_names,list$name)
+      all_names <- append(all_names, list$name)
     }
   
   #all the names of template lists
   
-  url2<-paste0(object@mine,"/service",object@LIST_PATH)
-  resp_list2<-GET(url2)
-  content_list_parsed2<-content(resp_list2, "parsed", encoding = "ISO-8859-1")
+  url2 <- paste0(object@mine, "/service", object@LIST_PATH)
+  resp_list2 <- GET(url2)
+  content_list_parsed2 <- content(resp_list2, "parsed", encoding = "ISO-8859-1")
   
-  all_names_templates<-list()
+  all_names_templates <- list()
   
   for (list in content_list_parsed2$lists){
-    all_names_templates<-append(all_names_templates,list$name)
+    all_names_templates <- append(all_names_templates, list$name)
   }
   
   for (l in lists){
-    name<-l
+    name <- l
     if (!(name %in% all_names)){
       warning(sprintf("%s does not exist - skipping", name))    
       next
@@ -141,9 +140,9 @@ setMethod(
     }
     warning(sprintf("deleting %s", name))
     
-    uri<-paste0(object@mine,"/service", object@LIST_PATH, "?name=", name, "&token=", object@token)
+    uri <- paste0(object@mine,"/service", object@LIST_PATH, "?name=", name, "&token=", object@token)
     
-    DELETE(uri,add_headers(Authorization = paste("Token",object@token, sep = " ")))
+    DELETE(uri, add_headers(Authorization = paste("Token",object@token, sep = " ")))
     
   }
   
@@ -153,17 +152,14 @@ setMethod(
   
   #PUT(uri,add_headers(Authorization = paste("Token",Token, sep = " "))) Gives status code 400
   
-  GET(paste0(object@mine,"/service", '/lists', "?", "&token=", object@token),
-      add_headers(Authorization = paste("Token",object@token, sep = " ")))
+  #GET(paste0(object@mine,"/service", '/lists', "?", "&token=", object@token), add_headers(Authorization = paste("Token", object@token, sep = " ")))
 })
 
-
-
 ####example1: Two lists created by the user####
-delete_lists(im.human.list,c("intersect_1", "intersect_2"))
+#delete_lists(im.human.list,c("intersect_1", "intersect_2"))
 
 ####example2: A list not created by the user####
-delete_lists(im.human.list,c("PL_DiabesityGWAS_pval-4"))
+#delete_lists(im.human.list,c("PL_DiabesityGWAS_pval-4"))
 
 #create_list: create a new list by uploading a set of identifiers
 #content parameter can be the result of a query obtained with runQuery() or a string of identifiers separated by commas
@@ -177,32 +173,32 @@ setGeneric("create_list", function(object,...){
 setMethod(
   "create_list",
   signature(object = "ListManager"),
-  function(object,content, list_type,name=NULL,description=NULL,organism=NULL){ 
+  function(object, content, list_type, name = NULL, description = NULL, organism = NULL){ 
 
-    uri<-paste0(object@mine,"/service/lists?")
+    uri <- paste0(object@mine, "/service/lists?")
     if(is.null(name)){
-      name<-get_unused_list_name(object) #this function is created in GET_api_list-get_list-get_unused_list_name.R
+      name <- get_unused_list_name(object) #this function is created in GET_api_list-get_list-get_unused_list_name.R
     }
     else{
-      name<-get_unused_list_name(object,name)
+      name <- get_unused_list_name(object, name)
     }
     
     if(is.null(description)){
-      description<-"List created with R Studio client library"
+      description <- "List created with R Studio client library"
     }
     
     if(is.list(content)){
-      ids<-list()
+      ids <- list()
       for (row in content) {
-        ids<-append(ids,row)
+        ids <- append(ids, row)
       }
-      content<-NULL 
+      content <- NULL 
       for (id in ids) {
-        content<-paste(content,id,sep = ",")
+        content <- paste(content, id, sep = ",")
       }
-      content<-substr(content, 2, nchar(content))
+      content <- substr(content, 2, nchar(content))
     }
-    POST(url = paste0(uri, "name=",name,"&description=",URLencode(description),"&type=", list_type, "&organism=", organism), 
+    POST(url = paste0(uri, "name=", name, "&description=", URLencode(description),"&type=", list_type, "&organism=", organism), 
          body = content, #these are ids
          add_headers(Authorization = paste("Token",object@token, sep = " "),
                      'Content-Type' = "text/plain"))
@@ -211,20 +207,20 @@ setMethod(
 
 
 ####example: query1DiabetesResults is defined from the notebook "Workshop_Workflow_PAX6"####
-query1Diabetes <- setQuery( 
+#query1Diabetes <- setQuery( 
   # here we're choosing which columns of data we'd like to see
-  select = c("Gene.primaryIdentifier", "Gene.symbol"),
+  #select = c("Gene.primaryIdentifier", "Gene.symbol"),
   # set the logic for constraints. The first constraint is the first path+operator+value, 
   # e.g. Gene.organism.name = Homo sapiens, and the second constraint is the combination 
   # of the second path+operator+value, e.g. Gene.diseases.name CONTAINS diabetes
-  where = setConstraints(
-    paths = c("Gene.organism.name", "Gene.diseases.name"),
-    operators = c("=", "CONTAINS"),
-    values = list("Homo sapiens","diabetes")
-  )
-)
-query1DiabetesResults <- runQuery(list(mine=im.human@mine,token=im.human@token),query1Diabetes)
-create_list(im.human.list,content = query1DiabetesResults, list_type = "Gene", name = "my_list")
+  #where = setConstraints(
+    #paths = c("Gene.organism.name", "Gene.diseases.name"),
+    #operators = c("=", "CONTAINS"),
+    #values = list("Homo sapiens","diabetes")
+  #)
+#)
+#query1DiabetesResults <- runQuery(list(mine=im.human@mine,token=im.human@token),query1Diabetes)
+#create_list(im.human.list,content = query1DiabetesResults, list_type = "Gene", name = "my_list")
 
 #do_operation: creates a new list results of an operation, it shouldn't be called directly
 #' @export
@@ -237,45 +233,44 @@ setGeneric("do_operation", function(object,...){
 setMethod(
   "do_operation",
   signature(object = "ListManager"),
-  function(object,path,operation,lists,name,description,tags){
+  function(object, path, operation, lists, name, description, tags){
 
-    lists_names<-NULL
+    lists_names <- NULL
     
     for (l in lists){
-      lists_names<-paste(lists_names,l,sep = ";")
+      lists_names <- paste(lists_names, l, sep = ";")
     }
     
-    lists_names<-substr(lists_names, 2, nchar(lists_names))
+    lists_names <- substr(lists_names, 2, nchar(lists_names))
 
-    list_names_description<-make_list_names(lists)
+    list_names_description <- make_list_names(lists)
     
     if (is.null(description)){
       description <- sprintf("%s of %s", operation, paste(list_names_description, collapse = " "))
     }
     
     if (is.null(name)){
-      name<-get_unused_list_name(object) 
+      name <- get_unused_list_name(object) 
     }else{
-      name<-get_unused_list_name(object,name)
+      name <- get_unused_list_name(object, name)
     }
     
-    uri<-paste0(object@mine,
+    uri <- paste0(object@mine,
                 "/service", 
                 path,
                 "?")
     
-    return(POST(paste0(uri,"name=",name,"&lists=",lists_names, "&description=", 
-                       URLencode(description),"&tags=",tags),
+    return(POST(paste0(uri, "name=", name, "&lists=", lists_names, "&description=", URLencode(description),"&tags=", tags),
                 add_headers(Authorization = paste("Token",object@token, sep = " "))))
   })
 
 
 
 #make_list_names: turns a list of things into a list of list names
-make_list_names<-function(lists){
-  list_names<-list()
+make_list_names <- function(lists){
+  list_names <- list()
   for (l in lists){
-    try(list_names<-append(list_names, l))
+    try(list_names <- append(list_names, l))
     #maybe more assumptions are needed
   }
   return(list_names)
@@ -294,12 +289,12 @@ setGeneric("intersect", function(object,...){
 setMethod(
   "intersect",
   signature(object = "ListManager"),
-  function(object,lists, name=NULL, description=NULL, tags=list()){
-    return(do_operation(object,object@INTERSECTION_PATH, "Intersection", lists, name, description, tags))
+  function(object, lists, name = NULL, description = NULL, tags = list()){
+    return(do_operation(object, object@INTERSECTION_PATH, "Intersection", lists, name, description, tags))
   })
 
 ####example of intersect####
-intersect(im.human.list,c("diabetesGenes","UpinPancreas"),"intersect_list")
+#intersect(im.human.list, c("diabetesGenes","UpinPancreas"),"intersect_list")
 
 #union: creates new lists which contain all the members contained in the set of input lists
 #' @export
@@ -312,12 +307,12 @@ setGeneric("union", function(object,...){
 setMethod(
   "union",
   signature(object = "ListManager"),
-  function(object,lists, name=NULL, description=NULL, tags=list()){
-    return(do_operation(object,object@UNION_PATH, "Union", lists, name, description, tags))
+  function(object, lists, name = NULL, description = NULL, tags = list()){
+    return(do_operation(object, object@UNION_PATH, "Union", lists, name, description, tags))
   })
 
 ####example of union####
-union(im.human.list,c("diabetesGenes","UpinPancreas"),"union_list")
+#union(im.human.list,c("diabetesGenes","UpinPancreas"),"union_list")
 
 #difference: creates new lists which only contain members which are not shared by an even number of lists
 #' @export
@@ -330,12 +325,12 @@ setGeneric("difference", function(object,...){
 setMethod(
   "difference",
   signature(object = "ListManager"),
-  function(object,lists, name=NULL, description=NULL, tags=list()){
-    return(do_operation(object,object@DIFFERENCE_PATH, "Difference", lists, name, description, tags))
+  function(object, lists, name = NULL, description = NULL, tags = list()){
+    return(do_operation(object, object@DIFFERENCE_PATH, "Difference", lists, name, description, tags))
   })
 
 ####example of difference####
-difference(im.human.list,c("diabetesGenes","UpinPancreas"),"diff_list")
+#difference(im.human.list,c("diabetesGenes","UpinPancreas"),"diff_list")
 
 #subtract: creates new lists which contain only those elements which are present in one set of lists, 
 #and none of those elements which are present in another set of lists. 
@@ -350,28 +345,28 @@ setGeneric("subtract", function(object,...){
 setMethod(
   "subtract",
   signature(object = "ListManager"),
-  function(object,lefts,rights, name=NULL, description=NULL, tags=list()){
+  function(object, lefts, rights, name = NULL, description = NULL, tags = list()){
 
-    SUBTRACTION_PATH = "/lists/subtract/json"
+    SUBTRACTION_PATH <- "/lists/subtract/json"
     
-    left_names_description = make_list_names(lefts)
+    left_names_description <- make_list_names(lefts)
     
-    right_names_description = make_list_names(rights)
+    right_names_description <- make_list_names(rights)
     
     left_names<-NULL
     for (l in lefts){
-      left_names<-paste(left_names,l,sep = ";")
+      left_names <- paste(left_names, l, sep = ";")
       }
     
-    left_names<-substr(left_names, 2, nchar(left_names))
+    left_names <- substr(left_names, 2, nchar(left_names))
     
-    right_names<-NULL
+    right_names <- NULL
     
     for (l in rights){
-      right_names<-paste(right_names,l,sep = ";")
+      right_names <- paste(right_names, l, sep = ";")
       }
     
-    right_names<-substr(right_names, 2, nchar(right_names))
+    right_names <- substr(right_names, 2, nchar(right_names))
     
     if (is.null(description)){
       description <- sprintf("Subtraction of %s from %s", 
@@ -380,19 +375,18 @@ setMethod(
       }
     
     if (is.null(name)){
-      name<-get_unused_list_name(object) 
+      name <- get_unused_list_name(object) 
     }else{
-      name<-get_unused_list_name(object,name)
+      name <- get_unused_list_name(object,name)
       }
     
-    uri<-paste0(object@mine,"/service", object@SUBTRACTION_PATH,"?")
+    uri <- paste0(object@mine, "/service", object@SUBTRACTION_PATH, "?")
     
-    return(POST(paste0(uri,"name=",name,"&description=", 
-                       URLencode(description),"&references=",left_names,"&subtract=",right_names,
-                       "&tags=",tags),
-                add_headers(Authorization = paste("Token",object@token, sep = " "))))
+    return(POST(paste0(uri, "name=", name, "&description=", 
+                       URLencode(description), "&references=", left_names, "&subtract=", right_names, "&tags=", tags),
+                add_headers(Authorization = paste("Token", object@token, sep = " "))))
     
   })
 
 ####example of subtract####
-subtract(im.human.list,lefts = c("diabetesGenes"), rights = c("UpinPancreas"),"subtr_list")
+#subtract(im.human.list,lefts = c("diabetesGenes"), rights = c("UpinPancreas"),"subtr_list")
