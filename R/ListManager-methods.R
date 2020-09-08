@@ -1,6 +1,23 @@
+#' @name ListManager-methods
 #' @import httr
-#' @import InterMineR
+
+#' @aliases get_list-methods
+#' @aliases get_list,ListManager-method
+#' @aliases delete_lists-methods
+#' @aliases delete_lists,ListManager-method
+#' @aliases create_list-methods
+#' @aliases create_list,ListManager-method
+#' @aliases intersect-methods
+#' @aliases intersect,ListManager-method
+#' @aliases union-methods
+#' @aliases union,ListManager-method
+#' @aliases difference-methods
+#' @aliases difference,ListManager-method
+#' @aliases subtract-methods
+#' @aliases subtract,ListManager-method
+
 #GET_api_list: returns the response object of the Request
+#' @rdname ListManager-methods
 #' @export
 setGeneric("GET_api_list", function(object,...){
   standardGeneric("GET_api_list")
@@ -15,7 +32,7 @@ setMethod(
     GET(paste0(object@mine, "/service", object@LIST_PATH), add_headers(Authorization = paste("Token", object@token, sep = " ")))
   })
 
-#get_list: Return a list from the service by name, if it exists
+#' @rdname ListManager-methods
 #' @export
 setGeneric("get_list", function(object,...){
   standardGeneric("get_list")
@@ -44,14 +61,8 @@ setMethod(
       }
     })
 
-####example of get_list####
-#im.human.list <- list_manager(initInterMine(listMines()["HumanMine"],"F16793D0k4BaF5hbe3s0"))
-#class(im.human.list)
-#resp <- get_list(im.human.list, "UpinPancreas")
-#resp
-
-
 #get_unused_list_name: Checks if a list exists by name and it it does it, provides a default name
+#' @rdname ListManager-methods
 #' @export
 setGeneric("get_unused_list_name", function(object,...){
   standardGeneric("get_unused_list_name")
@@ -90,11 +101,7 @@ setMethod(
     return(given_name)
     })
 
-####example of get_unused_list_name####
-#get_unused_list_name(im.human.list,"PL_obesityMonogen_ORahilly09")
-
-#delete_lists: Deletes the lists passed as the first argument.Only deletes lists that belong to the user.  
-#The first argument need to be of the form c("list_name_1","list_name_2","list_name_3")
+#' @rdname ListManager-methods
 #' @export
 setGeneric("delete_lists", function(object,...){
   standardGeneric("delete_lists")
@@ -155,14 +162,7 @@ setMethod(
   #GET(paste0(object@mine,"/service", '/lists', "?", "&token=", object@token), add_headers(Authorization = paste("Token", object@token, sep = " ")))
 })
 
-####example1: Two lists created by the user####
-#delete_lists(im.human.list,c("intersect_1", "intersect_2"))
-
-####example2: A list not created by the user####
-#delete_lists(im.human.list,c("PL_DiabesityGWAS_pval-4"))
-
-#create_list: create a new list by uploading a set of identifiers
-#content parameter can be the result of a query obtained with runQuery() or a string of identifiers separated by commas
+#' @rdname ListManager-methods
 #' @export
 setGeneric("create_list", function(object,...){
   standardGeneric("create_list")
@@ -204,25 +204,8 @@ setMethod(
                      'Content-Type' = "text/plain"))
   })
 
-
-
-####example: query1DiabetesResults is defined from the notebook "Workshop_Workflow_PAX6"####
-#query1Diabetes <- setQuery( 
-  # here we're choosing which columns of data we'd like to see
-  #select = c("Gene.primaryIdentifier", "Gene.symbol"),
-  # set the logic for constraints. The first constraint is the first path+operator+value, 
-  # e.g. Gene.organism.name = Homo sapiens, and the second constraint is the combination 
-  # of the second path+operator+value, e.g. Gene.diseases.name CONTAINS diabetes
-  #where = setConstraints(
-    #paths = c("Gene.organism.name", "Gene.diseases.name"),
-    #operators = c("=", "CONTAINS"),
-    #values = list("Homo sapiens","diabetes")
-  #)
-#)
-#query1DiabetesResults <- runQuery(list(mine=im.human@mine,token=im.human@token),query1Diabetes)
-#create_list(im.human.list,content = query1DiabetesResults, list_type = "Gene", name = "my_list")
-
 #do_operation: creates a new list results of an operation, it shouldn't be called directly
+#' @rdname ListManager-methods
 #' @export
 setGeneric("do_operation", function(object,...){
   standardGeneric("do_operation")
@@ -264,8 +247,6 @@ setMethod(
                 add_headers(Authorization = paste("Token",object@token, sep = " "))))
   })
 
-
-
 #make_list_names: turns a list of things into a list of list names
 make_list_names <- function(lists){
   list_names <- list()
@@ -276,9 +257,7 @@ make_list_names <- function(lists){
   return(list_names)
 }
 
-
-
-#intersect: creates new lists which contain only those items which are members of all the source lists.
+#' @rdname ListManager-methods
 #' @export
 setGeneric("intersect", function(object,...){
   standardGeneric("intersect")
@@ -293,10 +272,7 @@ setMethod(
     return(do_operation(object, object@INTERSECTION_PATH, "Intersection", lists, name, description, tags))
   })
 
-####example of intersect####
-#intersect(im.human.list, c("diabetesGenes","UpinPancreas"),"intersect_list")
-
-#union: creates new lists which contain all the members contained in the set of input lists
+#' @rdname ListManager-methods
 #' @export
 setGeneric("union", function(object,...){
   standardGeneric("union")
@@ -311,10 +287,7 @@ setMethod(
     return(do_operation(object, object@UNION_PATH, "Union", lists, name, description, tags))
   })
 
-####example of union####
-#union(im.human.list,c("diabetesGenes","UpinPancreas"),"union_list")
-
-#difference: creates new lists which only contain members which are not shared by an even number of lists
+#' @rdname ListManager-methods
 #' @export
 setGeneric("difference", function(object,...){
   standardGeneric("difference")
@@ -329,12 +302,7 @@ setMethod(
     return(do_operation(object, object@DIFFERENCE_PATH, "Difference", lists, name, description, tags))
   })
 
-####example of difference####
-#difference(im.human.list,c("diabetesGenes","UpinPancreas"),"diff_list")
-
-#subtract: creates new lists which contain only those elements which are present in one set of lists, 
-#and none of those elements which are present in another set of lists. 
-#This is what is typically thought of as subtraction, or more technically, the asymmetric difference of two sets.
+#' @rdname ListManager-methods
 #' @export
 setGeneric("subtract", function(object,...){
   standardGeneric("subtract")
@@ -388,5 +356,4 @@ setMethod(
     
   })
 
-####example of subtract####
-#subtract(im.human.list,lefts = c("diabetesGenes"), rights = c("UpinPancreas"),"subtr_list")
+

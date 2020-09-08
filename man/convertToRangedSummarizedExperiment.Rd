@@ -22,7 +22,7 @@ convertToRangedSummarizedExperiment(
 
 \arguments{
 \item{im}{
-a list containing the base URL and API token.
+a Service object containing the base URL and API token, created by \code{\link{initInterMine}}. 
 }
 \item{dataset}{
 a data.frame retrieved with InterMineR queries that contains experimental data from high-throughput assays.
@@ -66,7 +66,7 @@ InterMine Team
 }
 
 \seealso{
-\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}, \code{link{convertToGRanges}}
+\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}, \code{link{convertToGRanges}}, \code{link{initInterMine}}
 }
 
 \examples{

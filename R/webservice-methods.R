@@ -1,3 +1,4 @@
+#' @rdname webservice-methods
 #' @export
 setGeneric("doEnrichment", function(object,...){
   standardGeneric("doEnrichment")
@@ -168,13 +169,6 @@ setMethod(
   }
 )
 
-######EXAMPLE#######
-# HumanMine
-im.human = initInterMine(listMines()["HumanMine"],"F16793D0k4BaF5hbe3s0") #change here to your token
-class(im.human)
-#introduce the name of a genelist that you have created or not
-enrichResults.HumanMine <- doEnrichment(im.human,genelist = "copy_of_intersected",widget = "go_enrichment_for_gene") 
-
 #' @rdname webservice-methods
 #' @exportMethod list_manager
 setGeneric("list_manager", function(object,...){
@@ -189,7 +183,7 @@ setMethod(
   function(object,...){
     return(new("ListManager",
                DEFAULT_LIST_NAME = 'my_list',
-               DEFAULT_DESCRIPTION = 'List created with Python client library',
+               DEFAULT_DESCRIPTION = 'List created with R client library',
                
                LIST_PATH = '/lists',
                INTERSECTION_PATH = '/lists/intersect/json',
@@ -200,3 +194,4 @@ setMethod(
                token = object@token))
     
 })
+
