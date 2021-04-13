@@ -19,7 +19,7 @@ getDatasets(
 
 \arguments{
   \item{im}{
-a list containing the base URL and API token.
+a Service object containing the base URL and API token, created by \code{\link{initInterMine}}. 
 }
 \item{type}{
 a character string defining the type of feature for which the information about the available datasets will be retrieved. Use the \code{\link{listDatasets}} function to retrieve types with available datasets on each mine.

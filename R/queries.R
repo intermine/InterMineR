@@ -12,14 +12,14 @@
 getTemplates <- function(im, format="data.frame", timeout=3) {
   # JSON
   if (format == "list") {
-    r <- GET(paste(im$mine, "/service/templates?format=json", sep=""))
+    r <- GET(paste(im@mine, "/service/templates?format=json", sep=""))
     stop_for_status(r)
     template.string <- content(r, "text")
     res <- fromJSON(template.string)$templates
     res
     # XML
   } else {
-    r <- GET(paste(im$mine, "/service/templates?format=xml", sep=""))
+    r <- GET(paste(im@mine, "/service/templates?format=xml", sep=""))
     stop_for_status(r)
     template <- content(r)
     res <- listTemplateSummary(template)
@@ -40,9 +40,9 @@ listTemplateSummary <- function(template) {
 
 #' @export
 getTemplateQuery <- function(im, name, timeout=3){
-  r <- GET(paste(im$mine, "/service/templates/", name, "?format=json", sep=""))
+  r <- GET(paste(im@mine, "/service/templates/", name, "?format=json", sep=""))
   stop_for_status(r)
-  ql <- content(r, "text")
+  ql <- httr::content(r, "text")
   jsonTemplate <- fromJSON(ql)$template
   jsonTemplate
 }

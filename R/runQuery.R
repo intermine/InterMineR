@@ -58,13 +58,20 @@ setMethod(
         query = InterMineR_Query2XML(qry, index = ind, value2 = v)
 
         # run InterMineR query
+        query.unencoded <- toString.XMLNode(query)
+        
         query.str <- URLencode(toString.XMLNode(query))
         query.str <- gsub("&", '%26', query.str)
         query.str <- gsub(";", '%3B', query.str)
 
-        r <- GET(paste(im$mine, "/service/query/results?query=",
+        base::try(mine.url <- im@mine, silent=TRUE)
+        base::try(mine.url <- im[[1]], silent=TRUE)
+
+        r <- GET(paste(mine.url, "/service/query/results?query=",
                        query.str,"&format=xml",sep=""))
-        stop_for_status(r)
+        #If there's any HTTP error, print the query as well for easier debugging.
+        stop_for_status(r, paste("query", query.unencoded))
+        
         res <- content(r)
         res.xml <- xmlRoot(xmlParse(res))
 
@@ -93,13 +100,19 @@ setMethod(
       query = InterMineR_Query2XML(qry)
 
       # run query
+      query.unencoded <- toString.XMLNode(query)
+
       query.str <- URLencode(toString.XMLNode(query))
       query.str <- gsub("&", '%26', query.str)
       query.str <- gsub(";", '%3B', query.str)
 
-      r <- GET(paste(im$mine, "/service/query/results?query=",
+      r <- GET(paste(im@mine, "/service/query/results?query=",
                      query.str,"&format=xml",sep=""))
       stop_for_status(r)
+      res <- httr::content(r)
+
+      #If there's any HTTP error, print the query as well for easier debugging.
+      stop_for_status(r, paste("query", query.unencoded))
       res <- content(r)
       res.xml <- xmlRoot(xmlParse(res))
 
@@ -140,13 +153,16 @@ setMethod(
     query.str <- gsub("&", '%26', query.str)
     query.str <- gsub(";", '%3B', query.str)
 
-    r <- GET(paste(im$mine, "/service/query/results?query=",
+    base::try(mine.url <- im@mine, silent=TRUE)
+    base::try(mine.url <- im[[1]], silent=TRUE)
+
+    r <- GET(paste(mine.url, "/service/query/results?query=",
                    query.str,"&format=xml",sep=""))
 
     #If there's any HTTP error, print the query as well for easier debugging.
     stop_for_status(r, paste("query", query.unencoded))
 
-    res <- content(r)
+    res <- httr::content(r)
     res.xml <- xmlRoot(xmlParse(res))
 
     if (length(getNodeSet(res.xml, "//Result")) > 0) {
@@ -162,3 +178,4 @@ setMethod(
 
   }
 )
+

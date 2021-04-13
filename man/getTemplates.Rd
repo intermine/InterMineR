@@ -11,7 +11,7 @@ getTemplates(im, format = "data.frame", timeout = 3)
 }
 \arguments{
   \item{im}{
-a list, containing the base URL and API token.
+a Service object containing the base URL and API token, created by \code{\link{initInterMine}}. 
 }
   \item{format}{
 a string with values being either "data.frame" or "list", representing the output format of the template information.

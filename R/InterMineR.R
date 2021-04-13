@@ -29,8 +29,8 @@ listMines = function(){
 ##0 - Initilization
 # initialize the base and token for future reuse
 initInterMine <- function(mine = listMines()["HumanMine"], token=""){
-  im <- list(mine = mine, token = token)
-  im
+  im <- new("Service",mine = mine, token = token)
+  return(im)
 }
 
 #' @export
@@ -39,7 +39,7 @@ initInterMine <- function(mine = listMines()["HumanMine"], token=""){
 #<servlet-name>ws-version</servlet-name>
 #<url-pattern>/service/version/*</url-pattern>
 getVersion <- function(im, timeout=3){
-  r <- GET(paste(im$mine, "/service/version", sep = ""))
+  r <- GET(paste(im@mine, "/service/version", sep = ""))
   stop_for_status(r)
   v <- content(r)
   v$version
@@ -47,7 +47,7 @@ getVersion <- function(im, timeout=3){
 
 #' @export
 getRelease <- function(im, timeout=3){
-  r <- GET(paste(im$mine, "/service/version/release", sep = ""))
+  r <- GET(paste(im@mine, "/service/version/release", sep = ""))
   stop_for_status(r)
   v <- content(r)
   v$version
@@ -59,7 +59,7 @@ getRelease <- function(im, timeout=3){
 #<servlet-name>ws-model</servlet-name>
 #<url-pattern>/service/model/*</url-pattern>
 getModel <- function(im, timeout=3){
-  r <- GET(paste(im$mine, "/service/model", sep=""))
+  r <- GET(paste(im@mine, "/service/model", sep=""))
   stop_for_status(r)
   model.string <- content(r, "text")
   model <- fromJSON(model.string)$model$classes
@@ -98,6 +98,9 @@ listModelSummary <- function(model){
                 })
   
   names(att) <- class.name
+  for(x in names(att)){
+    try(att[[x]][,"term"]<-NULL,TRUE)
+  }
   
   att.ext <- rep(list(NULL), length(class.name))
   att.ext <- lapply(class.name, function(x){

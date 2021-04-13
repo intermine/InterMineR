@@ -28,7 +28,7 @@ convertToGeneAnswers = function(
     }
     
     # check if enrichCategoryChildName exist in widgets
-    g = as.data.frame(getWidgets(enrichmentResult[["im"]]))
+    g = as.data.frame(getWidgets(enrichmentResult[["im"]])) 
     
     if("enrichIdentifier" %in% colnames(g)){
       #ind.widget = which(g$name == enrichmentResult$parameters['widget'])
@@ -77,6 +77,7 @@ convertToGeneAnswers = function(
     )
     
     # run query
+    im = enrichmentResult[["im"]]
     res = runQuery(
       im,
       qry = q
@@ -146,7 +147,7 @@ convertToGeneAnswers = function(
     #)
     
     # define list with arguments
-    args_list = list(im = enrichmentResult[["im"]],
+    args_list = list(initInterMine(enrichmentResult[["im"]][[1]],enrichmentResult[["im"]][[2]]),
                      maxp = as.numeric(
                        enrichmentResult[["parameters"]]["maxp"]
                      ),

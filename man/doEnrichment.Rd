@@ -1,5 +1,10 @@
 \name{doEnrichment}
+\docType{methods}
+
+\alias{webservice-methods}
 \alias{doEnrichment}
+\alias{doEnrichment-methods}
+\alias{doEnrichment,webservice-methods}
 
 \title{
 Perform enrichment analysis
@@ -9,7 +14,7 @@ Retrieve enrichment analysis results from InterMine platform. Enrichment widgets
 }
 \usage{
 doEnrichment(
-  im, 
+  Service-class, 
   genelist = NULL,
   ids = NULL,
   widget = NULL,
@@ -22,8 +27,8 @@ doEnrichment(
 }
 
 \arguments{
-  \item{im}{
-a list containing the base URL and API token.
+  \item{Service-class}{
+a \code{Service-class} object containing the base URL and API token.
 }
   \item{genelist}{
 The name of the list to investigate, optional unless ids (identifiers) is NULL.
@@ -87,8 +92,10 @@ InterMine Team
 
 \examples{
 # FlyMine
+im.fly = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
+class(im.fly)
 enrichResults.FlyMine <- doEnrichment(
-  im = initInterMine(mine = listMines()["FlyMine"]),
+  im.fly,
   genelist = "PL FlyAtlas_brain_top",
   #genelist = 'PL FlyTF_site_specific_TFs',
   widget = "go_enrichment_for_gene"
@@ -96,26 +103,27 @@ enrichResults.FlyMine <- doEnrichment(
 
 # use ids instead of genelist
 data("PL_FlyTF_site_specific_TFs")
-
 enrichResults.FlyMine <- doEnrichment(
-  im = initInterMine(mine = listMines()["FlyMine"]),
+  im.fly,
   #genelist = 'PL FlyTF_site_specific_TFs',
   ids = PL_FlyTF_site_specific_TFs$Gene.primaryIdentifier,
   widget = "go_enrichment_for_gene"
 )
 
 # HumanMine
+im.human = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
+class(im.human)
+#introduce the name of a genelist that you have created or not
 enrichResults.HumanMine <- doEnrichment(
-  im = initInterMine(mine = listMines()["HumanMine"]),
-  genelist = "PL_DiabetesGenes",
+  im.human,
+  genelist = "copy_of_intersected",
   widget = "go_enrichment_for_gene"
-)
+  ) 
 
 # use ids instead of genelist
 data("PL_DiabetesGenes")
-
 enrichResults.HumanMine <- doEnrichment(
-  im = initInterMine(mine = listMines()["HumanMine"]),
+  im.human,
   #genelist = "PL_DiabetesGenes",
   ids = PL_DiabetesGenes$Gene.primaryIdentifier,
   widget = "go_enrichment_for_gene"

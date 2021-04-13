@@ -17,7 +17,7 @@ runQuery(im, qry, timeout = 60)
 
 \arguments{
    \item{im}{
-a list, containing the base URL and API token.
+a Service object containing the base URL and API token, created by \code{\link{initInterMine}}. 
 }
 
   \item{qry}{
