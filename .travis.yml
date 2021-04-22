@@ -1,6 +1,6 @@
 
 language: r
-r: 4.0
+r: 4.1.0
 sudo: true
 cache: packages
 warnings_are_errors: false
@@ -8,5 +8,3 @@ bioc_required: true
 bioc_use_devel: true
 r_packages:
   - devtools
-before_install:
-  - Rscript -e 'if(!requireNamespace("BiocManager", quietly = TRUE)){install.packages("BiocManager");BiocManager::install(version = '3.12')}'
