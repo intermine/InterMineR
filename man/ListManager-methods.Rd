@@ -174,7 +174,7 @@ query1Diabetes <- setQuery(
     values = list("Homo sapiens","diabetes")
   )
 )
-query1DiabetesResults <- runQuery(im.human,query1Diabetes)
+query1DiabetesResults <- runQuery(im.human.list, query1Diabetes)
 create_list(im.human.list,content = query1DiabetesResults, list_type = "Gene", name = "diabetesGenes")
 
 query2UpInPancreasConstraint = setConstraints(
