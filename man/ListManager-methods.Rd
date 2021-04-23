@@ -162,7 +162,7 @@ InterMine Team
 
 \examples{
 # get ListManager class
-im <- initInterMine(listMines()["HumanMine"],"j1q44e90S1Q4i6RekaB8")
+im <- initInterMine(listMines()["HumanMine"],"YOUR TOKEN")
 im.human.list <- list_manager(im)
 class(im.human.list)
 
