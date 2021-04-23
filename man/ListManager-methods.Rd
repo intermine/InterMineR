@@ -162,7 +162,8 @@ InterMine Team
 
 \examples{
 # get ListManager class
-im.human.list <- list_manager(initInterMine(listMines()["HumanMine"],"Your token"))
+im <- initInterMine(mine=listMines()["HumanMine"])
+im.human.list <- list_manager(initInterMine(listMines()["HumanMine"],"j1q44e90S1Q4i6RekaB8"))
 class(im.human.list)
 
 # create "diabetesGenes" list, and another one without specifying the name 
@@ -197,7 +198,7 @@ query2UpInPancreas = newQuery(
 query2UpInPancreas$where <- query2UpInPancreasConstraint
 query2UpInPancreasResults <-  runQuery(im = im, qry = query2UpInPancreas)
 ids_query2UpInPancreasResults <- list(query2UpInPancreasResults["Gene.primaryIdentifier"])
-create_list(im_list,ids_query2UpInPancreasResults,list_type="Gene") 
+create_list(im.human.list,ids_query2UpInPancreasResults,list_type="Gene") 
 #this will create a list with the default name "my_list"
 
 # example of intersect
