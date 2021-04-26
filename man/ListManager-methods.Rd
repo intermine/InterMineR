@@ -161,63 +161,64 @@ InterMine Team
 }
 
 \examples{
+#the example code has been hashed out as an API token is required.
 # get ListManager class
-im <- initInterMine(listMines()["HumanMine"],"YOUR TOKEN")
-im.human.list <- list_manager(im)
-class(im.human.list)
+#im <- initInterMine(listMines()["HumanMine"],"YOUR TOKEN")
+#im.human.list <- list_manager(im)
+#class(im.human.list)
 
 # create "diabetesGenes" list, and another one without specifying the name 
-query1Diabetes <- setQuery( 
-  select = c("Gene.primaryIdentifier", "Gene.symbol"),
-  where = setConstraints(
-    paths = c("Gene.organism.name", "Gene.diseases.name"),
-    operators = c("=", "CONTAINS"),
-    values = list("Homo sapiens","diabetes")
-  )
-)
-query1DiabetesResults <- runQuery(im, query1Diabetes)
-create_list(im.human.list,content = query1DiabetesResults, list_type = "Gene", name = "diabetesGenes")
+#query1Diabetes <- setQuery( 
+#  select = c("Gene.primaryIdentifier", "Gene.symbol"),
+#  where = setConstraints(
+#    paths = c("Gene.organism.name", "Gene.diseases.name"),
+#    operators = c("=", "CONTAINS"),
+#    values = list("Homo sapiens","diabetes")
+#  )
+#)
+#query1DiabetesResults <- runQuery(im, query1Diabetes)
+#create_list(im.human.list,content = query1DiabetesResults, list_type = "Gene", name = "diabetesGenes")
 
-query2UpInPancreasConstraint = setConstraints(
-  paths = c("Gene", 
-            "Gene.proteinAtlasExpression.level", 
-            "Gene.proteinAtlasExpression.level", 
-            "Gene.proteinAtlasExpression.tissue.name"),
-  operators = c("IN", rep("=", 3)),
-  values = list("PL_Pax6_Targets", "Medium", "High", "Pancreas")
-)
-query2UpInPancreas = newQuery(
-  view = c("Gene.primaryIdentifier",
-           "Gene.symbol",
-           "Gene.proteinAtlasExpression.cellType",
-           "Gene.proteinAtlasExpression.level",
-           "Gene.proteinAtlasExpression.tissue.name"
-  ),
-  constraintLogic = "A and (B or C) and D"
-)
-query2UpInPancreas$where <- query2UpInPancreasConstraint
-query2UpInPancreasResults <-  runQuery(im = im, qry = query2UpInPancreas)
-ids_query2UpInPancreasResults <- list(query2UpInPancreasResults["Gene.primaryIdentifier"])
-create_list(im.human.list,ids_query2UpInPancreasResults,list_type="Gene") 
+#query2UpInPancreasConstraint = setConstraints(
+#  paths = c("Gene", 
+#            "Gene.proteinAtlasExpression.level", 
+#            "Gene.proteinAtlasExpression.level", 
+#            "Gene.proteinAtlasExpression.tissue.name"),
+#  operators = c("IN", rep("=", 3)),
+#  values = list("PL_Pax6_Targets", "Medium", "High", "Pancreas")
+#)
+#query2UpInPancreas = newQuery(
+#  view = c("Gene.primaryIdentifier",
+#           "Gene.symbol",
+#           "Gene.proteinAtlasExpression.cellType",
+#           "Gene.proteinAtlasExpression.level",
+#           "Gene.proteinAtlasExpression.tissue.name"
+#  ),
+#  constraintLogic = "A and (B or C) and D"
+#)
+#query2UpInPancreas$where <- query2UpInPancreasConstraint
+#query2UpInPancreasResults <-  runQuery(im = im, qry = query2UpInPancreas)
+#ids_query2UpInPancreasResults <- list(query2UpInPancreasResults["Gene.primaryIdentifier"])
+#create_list(im.human.list,ids_query2UpInPancreasResults,list_type="Gene") 
 #this will create a list with the default name "my_list"
 
 # example of intersect
-intersect(im.human.list, c("diabetesGenes","my_list"),"intersect_list")
+#intersect(im.human.list, c("diabetesGenes","my_list"),"intersect_list")
 
 #example of union
-union(im.human.list, c("diabetesGenes","my_list"), "union_list")
+#union(im.human.list, c("diabetesGenes","my_list"), "union_list")
 
 #example of difference
-difference(im.human.list,c("diabetesGenes","my_list"),"diff_list")
+#difference(im.human.list,c("diabetesGenes","my_list"),"diff_list")
 
 #example of subtract
-subtract(im.human.list,lefts = c("diabetesGenes"), rights = c("my_list"),"subtr_list")
+#subtract(im.human.list,lefts = c("diabetesGenes"), rights = c("my_list"),"subtr_list")
 
 # get "my_list" list
-resp <- get_list(im.human.list, "my_list")
+#resp <- get_list(im.human.list, "my_list")
 
 #delete "my_list" and "diabetesGenes" lists
-delete_lists(im.human.list, c("my_list", "diabetesGenes"))
+#delete_lists(im.human.list, c("my_list", "diabetesGenes"))
 #trying to delete a list not created by the user gives an error
-delete_lists(im.human.list, c("PL_DiabesityGWAS_pval-4"))
-}
+#delete_lists(im.human.list, c("PL_DiabesityGWAS_pval-4"))
+#}
