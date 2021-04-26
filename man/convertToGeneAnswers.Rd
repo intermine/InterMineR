@@ -69,7 +69,7 @@ data("PL_DiabetesGenes")
 hsa_gene_entrez = as.character(PL_DiabetesGenes$Gene.primaryIdentifier)
 
 # perform enrichment analysis with InterMineR
-im.human = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
+im.human = initInterMine(listMines()["HumanMine"]) #change here to your token
 class(im.human)
 hsa_enrichResult = doEnrichment(
   im.human,
