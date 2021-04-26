@@ -62,36 +62,37 @@ InterMine Team
 \code{\link{doEnrichment}}, \code{\link[GeneAnswers]{GeneAnswers-class}}, \code{\link{getWidgets}}, \code{\link{getModel}}
 }
 \examples{
+#The example code is hashed out as it requires an API key to run
 # load human genes which are associated with Diabetes (retrieved from HumanMine)
-data("PL_DiabetesGenes")
+#data("PL_DiabetesGenes")
 
 # get Gene.primaryIdentifiers (ENTREZ Gene identifier)
-hsa_gene_entrez = as.character(PL_DiabetesGenes$Gene.primaryIdentifier)
+#hsa_gene_entrez = as.character(PL_DiabetesGenes$Gene.primaryIdentifier)
 
 # perform enrichment analysis with InterMineR
-im.human = initInterMine(listMines()["HumanMine"]) #change here to your token
-class(im.human)
-hsa_enrichResult = doEnrichment(
-  im.human,
-  genelist = "PL_DiabetesGenes",
-  widget = "go_enrichment_for_gene",
-  correction = "Benjamini Hochberg"
-)
+#im.human = initInterMine(listMines()["HumanMine"], 'Your token') #change here to your token
+#class(im.human)
+#hsa_enrichResult = doEnrichment(
+#  im.human,
+#  genelist = "PL_DiabetesGenes",
+#  widget = "go_enrichment_for_gene",
+#  correction = "Benjamini Hochberg"
+#)
 
 # convert InterMineR enrichment analysis results to a GeneAnswers object
 # Do not run unless you have installed and loaded GeneAnswers package!
 
 # load GeneAnswers
-library(GeneAnswers)
+#library(GeneAnswers)
   
-hsa_geneanswers = convertToGeneAnswers(
-  enrichmentResult = hsa_enrichResult,
-  geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
-                         stringsAsFactors = FALSE),
-  geneInputType = "Gene.primaryIdentifier",
-  annLib = 'org.Hs.eg.db',
-  categoryType = "GO"
+#hsa_geneanswers = convertToGeneAnswers(
+#  enrichmentResult = hsa_enrichResult,
+#  geneInput = data.frame(GeneID = as.character(hsa_gene_entrez), 
+#                         stringsAsFactors = FALSE),
+#  geneInputType = "Gene.primaryIdentifier",
+#  annLib = 'org.Hs.eg.db',
+#  categoryType = "GO"
   # enrichCategoryChildName = "Gene.goAnnotation.ontologyTerm.parents.identifier"
-)
+#)
 
 }
