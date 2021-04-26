@@ -66,6 +66,16 @@ Konstantinos Kyritsis:
 * Vignette update (second edition)
 * Addition of tutorials for *Enrichment Analysis and Visualization* and *FlyMine Genomic Visualizations* with InterMineR
 
+Celia Sanchez Laorden
+
+* Created the listManager class for dealing with lists of objects within InterMineR
+* Created methods get_list, delete_listand create_list
+* Created functions  intersect, union, difference and subtract.
+* Created auxiliary methods: GET_api_list which returns the response object of the Request, get_unused_list_name which checks if the name given by the
+user has been already used and, in such a case, provides a new one, and do_operation which creates a new list results of an operation. 
+
+
+
 ## License
 
 LGPL. See LICENSE for details.
