@@ -30,6 +30,7 @@ InterMine Team
 }
 
 \examples{
-im <- initInterMine(mine = listMines()["HumanMine"], "TOKEN") #replace TOKEN with your token
-class(im)
+#hashed out example as requires API key
+#im <- initInterMine(mine = listMines()["HumanMine"], "TOKEN") #replace TOKEN with your token
+#class(im)
 }
