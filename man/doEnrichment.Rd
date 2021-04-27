@@ -92,40 +92,41 @@ InterMine Team
 
 \examples{
 # FlyMine
-im.fly = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
-class(im.fly)
-enrichResults.FlyMine <- doEnrichment(
-  im.fly,
-  genelist = "PL FlyAtlas_brain_top",
-  #genelist = 'PL FlyTF_site_specific_TFs',
-  widget = "go_enrichment_for_gene"
-)
+# The example has been hashed out as it requires an API token to run
+# im.fly = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
+# class(im.fly)
+# enrichResults.FlyMine <- doEnrichment(
+# im.fly,
+# genelist = "PL FlyAtlas_brain_top",
+#  #genelist = 'PL FlyTF_site_specific_TFs',
+#  widget = "go_enrichment_for_gene"
+#)
 
 # use ids instead of genelist
-data("PL_FlyTF_site_specific_TFs")
-enrichResults.FlyMine <- doEnrichment(
-  im.fly,
+#data("PL_FlyTF_site_specific_TFs")
+#enrichResults.FlyMine <- doEnrichment(
+#  im.fly,
   #genelist = 'PL FlyTF_site_specific_TFs',
-  ids = PL_FlyTF_site_specific_TFs$Gene.primaryIdentifier,
-  widget = "go_enrichment_for_gene"
-)
+#  ids = PL_FlyTF_site_specific_TFs$Gene.primaryIdentifier,
+#  widget = "go_enrichment_for_gene"
+#)
 
 # HumanMine
-im.human = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
-class(im.human)
+#im.human = initInterMine(listMines()["HumanMine"],"Your token") #change here to your token
+#class(im.human)
 #introduce the name of a genelist that you have created or not
-enrichResults.HumanMine <- doEnrichment(
-  im.human,
-  genelist = "copy_of_intersected",
-  widget = "go_enrichment_for_gene"
-  ) 
+#enrichResults.HumanMine <- doEnrichment(
+#  im.human,
+#  genelist = "copy_of_intersected",
+#  widget = "go_enrichment_for_gene"
+#  ) 
 
 # use ids instead of genelist
-data("PL_DiabetesGenes")
-enrichResults.HumanMine <- doEnrichment(
-  im.human,
+#data("PL_DiabetesGenes")
+#enrichResults.HumanMine <- doEnrichment(
+#  im.human,
   #genelist = "PL_DiabetesGenes",
-  ids = PL_DiabetesGenes$Gene.primaryIdentifier,
-  widget = "go_enrichment_for_gene"
-)
+#  ids = PL_DiabetesGenes$Gene.primaryIdentifier,
+#  widget = "go_enrichment_for_gene"
+#)
 }
