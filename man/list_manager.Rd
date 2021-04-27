@@ -52,8 +52,9 @@ InterMine Team
 }
 
 \examples{
-im.human.list <- list_manager(initInterMine(listMines()["HumanMine"],"TOKEN")) #Add your API Token key
-class(im.human.list)
-resp <- get_list(im.human.list, " PL_Pax6_Targets")
-resp
+#hashed out example as requires API key
+#im.human.list <- list_manager(initInterMine(listMines()["HumanMine"],"TOKEN")) #Add your API Token key
+#class(im.human.list)
+#resp <- get_list(im.human.list, " PL_Pax6_Targets")
+#resp
 }
