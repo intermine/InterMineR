@@ -6,7 +6,7 @@ bibentry(bibtype = "article",
                 person("Lyne R"),
                 person("Micklem G")               
         ),
-        year = 2019,
+        year = "2019",
         journal = "Bioinformatics",
         volume = "35",
         number = "17",
