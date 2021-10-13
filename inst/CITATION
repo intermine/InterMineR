@@ -1,15 +1,11 @@
-citEntry(entry = "article", 
-        title = "InterMineR: an R package for InterMine databases",
-        author = personList(as.person("Kyritsis KA"),
-                as.person("Wang B"),
-                as.person("Sullivan J"),
-                as.person("Lyne R"),
-                as.person("Micklem G")               
-        ),
-        year = 2019,
-        journal = "Bioinformatics",
-        volume = 35,
-        issue = 17,
-        pages = 3206-3207,
-        textVersion = paste("Konstantinos A Kyritsis, Bing Wang, Julie Sullivan, Rachel Lyne, Gos Micklem", "InterMineR: an R package for InterMine databases", "Bioinformatics, Volume 35, Issue 17, 1 September 2019, Pages 3206–3207"   
-))
+bibentry(bibtype = "Article",
+         title = "InterMineR: an R package for InterMine databases",
+         journal="Bioinformatics",
+         author = c(person("Kyritsis KA"),
+                    person("Wang B"),
+                    person("Sullivan J"),
+                    person("Lyne R"),
+                    person("Micklem G")),
+         year = 2019,
+	 volume = 35,
+	 pages = "3206-3207")
