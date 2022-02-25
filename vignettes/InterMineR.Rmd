@@ -141,26 +141,26 @@ What does 'Gene.symbol' mean? What is 'Gene.pathway.identifier'?
 
 Let's take a look at the data model.  NOTE: Section temporarily removed due to errors
 
-# ```{r getModel, warning=FALSE, message=FALSE}
+```{r getModel, warning=FALSE, message=FALSE}
 
-# model <- getModel(im)
-# head(model)
+model <- getModel(im)
+head(model)
 
 ```
 
 Let's look at the children of the Gene data type.
 
-# ```{r gene_type_data, warning=FALSE, message=FALSE}
+```{r gene_type_data, warning=FALSE, message=FALSE}
 
-# model[which(model$type=="Gene"),]
+model[which(model$type=="Gene"),]
 
 ```
 
 Gene has a field called 'symbol' (hence the column Gene.symbol). Gene also references the Pathways class, which is of the Pathway data type.
 
-# ```{r pathway_type, warning=FALSE, message=FALSE}
+```{r pathway_type, warning=FALSE, message=FALSE}
 
-# model[which(model$type=="Pathway"),]
+model[which(model$type=="Pathway"),]
 
 ```
 
@@ -258,15 +258,15 @@ You can also add additional columns to the output. For instance, is the Gene als
 
 Let's see what we know about diseases.
 
-# ```{r add_column, warning=FALSE, message=FALSE}
-# model[which(model$type=="Gene"),]
-# ```
+```{r add_column, warning=FALSE, message=FALSE}
+model[which(model$type=="Gene"),]
+```
 
 The Gene data type has an 'Diseases' reference of type 'Disease'.
 
-# ```{r add_column2, warning=FALSE, message=FALSE}
-# model[which(model$type=="Disease"),]
-# ```
+```{r add_column2, warning=FALSE, message=FALSE}
+model[which(model$type=="Disease"),]
+```
 
 Disease has an attribute called "name". Add Gene.diseases.name to the view. We'll add it as the last column, we can see from above there are 7 other columns already so we'll put it as #8:
 
